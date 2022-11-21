@@ -1,0 +1,70 @@
+@import './config.scss';
+@import './bootstrap.scss';
+
+:root {
+  --text-primary-clr: #26273b;
+  --text-secondary-clr: #ff7d00;
+
+  --text-tagline-clr: #f0f0f5;
+
+  --text-form-login-clr: #454560;
+  --text-placeholder-form-login-clr: #acadc1;
+
+  --btn-border-radius: 8px;
+
+  --bg-color-primary: #ff7d00;
+  --bg-btn-back: #0ec837;
+  --bg-btn-edit: #2767e1;
+  --bg-btn-delete: #ff1010;
+  --bg-span-approved: #2db986;
+  --bg-span-pending: #efcf5d;
+  --bg-span-rejected: #de5263;
+
+  --text-version-clr: #6f708b;
+
+  --sidebar-width: 92px;
+  --z-fixed: 100;
+
+  --text-user-profile: #18255c;
+
+  --text-change-pass: #647deb;
+
+  --main-bg-clr: #f9f9fc;
+}
+
+.container-login {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  min-height: 100vh;
+
+  .left-side {
+    position: relative;
+
+    .bg-image-login {
+      background-image: url('../images/bg-image.jpg');
+      height: 100%;
+      width: 100%;
+      background-position: center;
+      background-size: cover;
+    }
+
+    .tagline {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      left: 0;
+      transform: translate(0, 150%);
+
+      h6 {
+        margin: 32px 0 0 0;
+        color: var(--text-tagline-clr);
+
+        &::before {
+          content: '━';
+          width: 20px;
+          margin-right: 16px;
+        }
+      }
+    }
+  }
+}
