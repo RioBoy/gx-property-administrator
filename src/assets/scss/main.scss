@@ -1,82 +1,104 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&family=Poppins:wght@200;300;400;500;600;700;800&display=swap');
 
-// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
-@import './functions';
-
-// 2. Include any default variable overrides here
 $font-family-base: 'Poppins', sans-serif;
+$btn-border-radius: 0.5rem;
+$input-border-radius: 0.5rem;
 
-// 3. Include remainder of required Bootstrap stylesheets
-@import './variables';
+@import '../../../node_modules/bootstrap/scss/functions';
+@import '../../../node_modules/bootstrap/scss/variables';
+@import '../../../node_modules/bootstrap/scss/maps';
+@import '../../../node_modules/bootstrap/scss/mixins';
+@import '../../../node_modules/bootstrap/scss/utilities';
 
-// 4. Include any default map overrides here
+// add theme-colors
+$custom-theme-colors: (
+  'primary-orange': #ff7d00,
+);
+$theme-colors: map-merge($custom-theme-colors, $theme-colors);
+
+// marign and padding
+$spacer: 1rem;
 $spacers: (
   0: 0,
   1: $spacer * 0.25,
   2: $spacer * 0.5,
   3: $spacer,
   4: $spacer * 1.5,
-  5: $spacer * 5,
+  5: $spacer * 2.813,
+  6: $spacer * 3,
+  7: $spacer * 5,
 );
 
-$h2-font-size: $font-size-base * 2 !default;
-$h3-font-size: $font-size-base * 1.75 !default;
-$h4-font-size: $font-size-base * 1.5 !default;
-$h5-font-size: $font-size-base * 1.25 !default;
+// font-sizes
+$font-size-base: 1rem;
+$h2-font-size: $font-size-base * 2.5;
+$h3-font-size: $font-size-base * 2.125;
+$h6-font-size: $font-size-base;
+$label-login-size: $font-size-base * 0.875;
 $font-sizes: (
-  1: 2.125rem,
   2: $h2-font-size,
   3: $h3-font-size,
-  4: $h4-font-size,
-  5: $h5-font-size,
-  6: 0.875rem,
+  6: $h6-font-size,
+  7: $label-login-size,
 );
 
-// 5. Include remainder of required parts
-@import './maps';
-@import './mixins';
-@import './root';
-@import './utilities';
-@import './reboot';
-@import './type';
-@import './images';
-@import './containers';
-@import './grid';
-@import './helpers';
-@import './utilities/api';
-@import './mixins/breakpoints';
-@import './bootstrap';
+// add new utilities
+$utilities: map-merge(
+  $utilities,
+  (
+    'color': (
+      property: color,
+      class: text,
+      local-vars: (
+        'text-opacity': 1,
+      ),
+      values:
+        map-merge(
+          $utilities-text-colors,
+          (
+            'muted': $text-muted,
+            'primary-orange': #ff7d00,
+            'primary-black': #26273b,
+            'primary-gray': #f0f0f5,
+            'reset': inherit,
+          )
+        ),
+    ),
+    'font-size': (
+      rfs: true,
+      property: font-size,
+      class: fs,
+      values: $font-sizes,
+    ),
+    'font-weight': (
+      property: font-weight,
+      class: fw,
+      values: (
+        medium: 500,
+      ),
+    ),
+    'padding-x': (
+      responsive: true,
+      property: padding-right padding-left,
+      class: px,
+      values: $spacers,
+    ),
+    'margin-x': (
+      responsive: true,
+      property: margin-right margin-left,
+      class: mx,
+      values:
+        map-merge(
+          $spacers,
+          (
+            auto: auto,
+          )
+        ),
+    ),
+  )
+);
 
-:root {
-  --text-primary-clr: #26273b;
-  --text-secondary-clr: #ff7d00;
-
-  --text-tagline-clr: #f0f0f5;
-
-  --text-form-login-clr: #454560;
-  --text-placeholder-form-login-clr: #acadc1;
-
-  --btn-border-radius: 8px;
-
-  --bg-color-primary: #ff7d00;
-  --bg-btn-back: #0ec837;
-  --bg-btn-edit: #2767e1;
-  --bg-btn-delete: #ff1010;
-  --bg-span-approved: #2db986;
-  --bg-span-pending: #efcf5d;
-  --bg-span-rejected: #de5263;
-
-  --text-version-clr: #6f708b;
-
-  --sidebar-width: 92px;
-  --z-fixed: 100;
-
-  --text-user-profile: #18255c;
-
-  --text-change-pass: #647deb;
-
-  --main-bg-clr: #f9f9fc;
-}
+@import '../../../node_modules/bootstrap/scss/bootstrap';
 
 .container-login {
   display: grid;
@@ -108,7 +130,6 @@ $font-sizes: (
 
       h6 {
         margin: 32px 0 0 0;
-        color: var(--text-tagline-clr);
 
         &::before {
           content: '━';
@@ -128,17 +149,11 @@ $font-sizes: (
     justify-content: center;
 
     h2 {
-      color: var(--text-primary-clr);
       margin: 32px 0 0 0;
       max-width: 500px;
-      font-size: 2.5rem;
 
       span:nth-child(1) {
         display: block;
-      }
-
-      span:nth-child(2) {
-        color: var(--text-secondary-clr);
       }
     }
 
@@ -147,7 +162,7 @@ $font-sizes: (
     }
 
     .form-login {
-      color: var(--text-form-login-clr);
+      color: #454560;
 
       form {
         margin-top: 32px;
@@ -156,7 +171,7 @@ $font-sizes: (
           padding: 8px 12px;
 
           &::placeholder {
-            color: var(--text-placeholder-form-login-clr);
+            color: #acadc1;
             font-size: 16px;
             line-height: 24px;
           }
@@ -165,23 +180,6 @@ $font-sizes: (
 
       .btn-login-container {
         margin-top: 67px;
-
-        .btn-login {
-          background-color: var(--bg-color-primary);
-          color: white;
-          border: none;
-          padding: 8px 45px;
-          font-weight: 500;
-          font-size: 16px;
-          line-height: 24px;
-          border-radius: var(--btn-border-radius);
-
-          &:hover {
-            opacity: 0.8;
-            transition: all 0.3s ease-in-out;
-            color: white;
-          }
-        }
 
         .btn-has-shadow {
           box-shadow: 0px 2px 4px rgba(255, 125, 0, 0.25);
@@ -198,11 +196,17 @@ $font-sizes: (
         right: 0;
         margin-right: 12px;
         transform: translate(0, -50%);
+
+        button {
+          border: none;
+          background-color: transparent;
+          padding: 0;
+        }
       }
     }
 
     .version p {
-      color: var(--text-version-clr);
+      color: #6f708b;
       margin: 80px 0 0 0;
     }
   }

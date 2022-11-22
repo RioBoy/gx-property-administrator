@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { loginUrl } from '../../lib/constant';
-import ButtonPrimary from '../../components/button/ButtonPrimary';
+import { loginUrl } from '../lib/constant';
+import { LS_AUTH } from '../config/localStorage';
 
-import VBMLogo from '../../assets/images/VBM-Logo.svg';
-import { FiEye } from 'react-icons/fi';
+import { ButtonPrimary } from '../components/button/Buttons';
+
+import VBMLogo from '../assets/images/VBM-Logo.svg';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 export default function FormLogin() {
   const [login, setLogin] = useState({
@@ -15,6 +17,7 @@ export default function FormLogin() {
     isLoggedIn: false,
   });
   const [loading, setLoading] = useState(false);
+  const [passwordShown, setPasswordShown] = useState(false);
   const history = useHistory();
 
   const _handleSubmitLogin = (e) => {
@@ -38,7 +41,7 @@ export default function FormLogin() {
           });
         } else {
           const { access_token } = response.data.results;
-          localStorage.setItem('token', access_token);
+          localStorage.setItem(LS_AUTH, access_token);
           setLogin({ isLoggedIn: true });
           history.push('/dashboard');
         }
@@ -58,6 +61,10 @@ export default function FormLogin() {
     });
   };
 
+  const togglePassword = () => {
+    setPasswordShown(!passwordShown);
+  };
+
   return (
     <div className="right-side">
       <div className="row">
@@ -69,9 +76,12 @@ export default function FormLogin() {
       </div>
       <div className="row">
         <div className="col">
-          <h2 className="fw-semibold welcome-title">
+          <h2 className="fw-semibold welcome-title text-primary-black">
             <span>Welcome to</span>
-            <span>PROPERTY</span> Admin Panel
+            <span className="text-primary-orange text-uppercase">
+              Property
+            </span>{' '}
+            Admin Panel
           </h2>
         </div>
       </div>
@@ -82,7 +92,7 @@ export default function FormLogin() {
         <div className="col-12">
           <form method="post" onSubmit={_handleSubmitLogin}>
             <div className="mb-3">
-              <label htmlFor="email" className="fs-6 form-label mb-1">
+              <label htmlFor="email" className="fs-7 form-label mb-1">
                 Email
               </label>
               <input
@@ -97,12 +107,12 @@ export default function FormLogin() {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="password" className="fs-6 form-label mb-1">
+              <label htmlFor="password" className="fs-7 form-label mb-1">
                 Password
               </label>
               <div className="input-password">
                 <input
-                  type="password"
+                  type={passwordShown ? 'text' : 'password'}
                   className="form-control"
                   id="password"
                   name="password"
@@ -112,13 +122,35 @@ export default function FormLogin() {
                   placeholder="Type your password here"
                 />
                 <div className="eye-icon">
-                  <FiEye size="24" />
+                  <button onClick={togglePassword} type="button">
+                    {passwordShown ? (
+                      <FiEyeOff size="24" />
+                    ) : (
+                      <FiEye size="24" />
+                    )}
+                  </button>
                 </div>
               </div>
             </div>
             <div className="btn-login-container">
-              <ButtonPrimary>
-                {loading ? 'Loading...' : 'Sign in'}
+              <ButtonPrimary
+                className="btn btn-primary-orange text-white px-5 py-2"
+                type="submit"
+                isMedium
+              >
+                {loading ? (
+                  <div className="d-flex align-items-center justify-content-center gap-2">
+                    Sign in
+                    <div
+                      className="spinner-border spinner-border-sm"
+                      role="status"
+                    >
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                  </div>
+                ) : (
+                  'Sign in'
+                )}
               </ButtonPrimary>
             </div>
           </form>

@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { adminProfile } from '../lib/constant';
+import { LS_AUTH } from '../config/localStorage';
 
 export default function DashboardPage() {
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem(LS_AUTH);
     axios({
       method: 'post',
       url: adminProfile,
