@@ -44,7 +44,8 @@ $font-sizes: (
 @import './grid';
 @import './helpers';
 @import './utilities/api';
-@import './bootstrap.scss';
+@import './mixins/breakpoints';
+@import './bootstrap';
 
 :root {
   --text-primary-clr: #26273b;
@@ -121,7 +122,7 @@ $font-sizes: (
   }
 
   .right-side {
-    margin: 0 7.75rem;
+    margin: 129px 7.75rem 92px 7.75rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -202,7 +203,41 @@ $font-sizes: (
 
     .version p {
       color: var(--text-version-clr);
-      margin: 136px 0 0 0;
+      margin: 80px 0 0 0;
+    }
+  }
+}
+
+@include media-breakpoint-down(xl) {
+  .right-side {
+    margin: 0 10% !important;
+
+    .version p {
+      margin: 50px 0 0 0 !important;
+    }
+  }
+
+  .tagline {
+    transform: translate(0, -50%) !important;
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .right-side {
+    margin: 0 8% !important;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .left-side {
+    display: none;
+  }
+
+  .right-side {
+    margin: 0 4% !important;
+
+    h2 {
+      font-size: 1.875rem !important; /* 30px */
     }
   }
 }
