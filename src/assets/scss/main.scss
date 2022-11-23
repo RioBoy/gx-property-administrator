@@ -391,6 +391,78 @@ main {
     .main-content {
       padding: 0 1.875rem;
     }
+
+    table {
+      thead {
+        tr {
+          th {
+            padding: 14px 16px;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 20px;
+            color: #454560;
+          }
+
+          td {
+            padding: 14px 16px;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            color: #26273b;
+
+            p {
+              a {
+                text-decoration: none;
+                color: inherit;
+              }
+
+              &:hover {
+                text-decoration: underline;
+                color: inherit;
+              }
+            }
+          }
+        }
+      }
+
+      tbody {
+        border-top: 1px solid #f0f0f5 !important;
+      }
+
+      span {
+        padding: 2px 8px;
+        border-radius: 8px;
+
+        &.approved {
+          color: white;
+          background-color: #2db986;
+        }
+
+        &.pending {
+          color: #26273b;
+          background-color: #efcf5d;
+        }
+
+        &.rejected {
+          color: white;
+          background-color: #de5263;
+        }
+      }
+
+      img {
+        height: 96px;
+        width: 130px;
+      }
+    }
+
+    tbody,
+    td,
+    tfoot,
+    th,
+    thead,
+    tr {
+      border: 0 !important;
+    }
   }
 
   &.dashboard-content {

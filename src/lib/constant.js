@@ -5,3 +5,5 @@ export const loginUrl = `${baseUrl}/auth/login`;
 export const adminProfile = `${baseUrl}/auth/profile`;
 
 export const logoutUrl = `${baseUrl}/auth/logout`;
+
+export const getAllProperty = `${baseUrl}/property`;
