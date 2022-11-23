@@ -1,7 +1,7 @@
 import React from 'react';
 import FormLogin from './FormLogin';
 
-const LoginPage = () => {
+const Login = () => {
   return (
     <div className="container-login">
       <div className="left-side">
@@ -22,4 +22,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Login;

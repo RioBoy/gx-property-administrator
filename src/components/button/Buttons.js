@@ -7,6 +7,14 @@ export const ButtonPrimary = (props) => {
   if (props.isSemiBold) className.push('fw-semibold');
   if (props.isBold) className.push('fw-bold');
 
+  if (props.isDisabled) {
+    return (
+      <button className={className.join(' ')} style={props.style} disabled>
+        {props.children}
+      </button>
+    );
+  }
+
   return (
     <button className={className.join(' ')} type={props.type}>
       {props.children}
@@ -19,4 +27,5 @@ ButtonPrimary.propTypes = {
   isMedium: propTypes.bool,
   isSemiBold: propTypes.bool,
   isBold: propTypes.bool,
+  isDisabled: propTypes.bool,
 };

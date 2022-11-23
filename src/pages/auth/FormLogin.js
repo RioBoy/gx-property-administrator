@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { loginUrl } from '../lib/constant';
-import { LS_AUTH } from '../config/localStorage';
+import { loginUrl } from '../../lib/constant';
+import { LS_AUTH } from '../../config/localStorage';
 
-import { ButtonPrimary } from '../components/button/Buttons';
+import { ButtonPrimary } from '../../components/button/Buttons';
 
-import VBMLogo from '../assets/images/VBM-Logo.svg';
+import VBMLogo from '../../assets/images/VBM-Logo.svg';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 const FormLogin = () => {
@@ -54,6 +54,7 @@ const FormLogin = () => {
       });
     setLogin({ email: '', password: '' });
   };
+
   const _handleUpdateData = (e) => {
     setLogin({
       ...login,
@@ -64,6 +65,11 @@ const FormLogin = () => {
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
   };
+
+  const isSubmitDisabled =
+    Object.keys(login).filter((key) => {
+      return login[key] === '';
+    }).length < 1;
 
   return (
     <div className="right-side">
@@ -96,7 +102,7 @@ const FormLogin = () => {
             <div className="mb-3">
               <label
                 htmlFor="email"
-                className="fs-7 form-label mb-1 text-dark-blue"
+                className="fs-9 form-label mb-1 text-dark-blue"
               >
                 Email
               </label>
@@ -114,7 +120,7 @@ const FormLogin = () => {
             <div className="mb-3">
               <label
                 htmlFor="password"
-                className="fs-7 form-label mb-1 text-dark-blue"
+                className="fs-9 form-label mb-1 text-dark-blue"
               >
                 Password
               </label>
@@ -146,9 +152,10 @@ const FormLogin = () => {
             </div>
             <div className="btn-login-container">
               <ButtonPrimary
-                className="btn btn-primary-orange text-white px-5 py-2"
+                className="btn px-5 py-2 btn-primary-orange text-white"
                 type="submit"
                 isMedium
+                isDisabled={!isSubmitDisabled}
               >
                 {loading ? (
                   <div className="d-flex align-items-center justify-content-center gap-2">

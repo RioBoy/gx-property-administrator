@@ -1,6 +1,5 @@
 import React from 'react';
 import { useHistory, Link } from 'react-router-dom';
-
 import { Dropdown } from 'react-bootstrap';
 import { HiOutlineMoon, HiOutlineArrowCircleLeft } from 'react-icons/hi';
 
@@ -42,17 +41,17 @@ const Topbar = ({ icon, avatar, navLink }) => {
           </Dropdown.Toggle>
 
           <Dropdown.Menu className="shadow">
-            <h6 className="dropdown-header fs-8 fw-semibold text-uppercase">
+            <h6 className="dropdown-header fs-9 fw-semibold text-uppercase">
               Version 1.0.0
             </h6>
-            <Dropdown.Item href="#/action-2" className="fw-medium">
+            <Link to="/" className="fw-medium text-decoration-none">
               <HiOutlineMoon size={44} />
               Dark Mode
-            </Dropdown.Item>
-            <Dropdown.Item href="#/action-3" className="fw-medium">
+            </Link>
+            <Link to="/logout" className="fw-medium text-decoration-none">
               <HiOutlineArrowCircleLeft size={44} />
               Logout
-            </Dropdown.Item>
+            </Link>
           </Dropdown.Menu>
         </Dropdown>
       </ul>

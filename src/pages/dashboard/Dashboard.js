@@ -1,38 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { adminProfile } from '../lib/constant';
-import { LS_AUTH } from '../config/localStorage';
+import { adminProfile } from '../../lib/constant';
+import { LS_AUTH } from '../../config/localStorage';
 
-import Layout from '../templates/Layout';
+import Layout from '../../components/templates/Layout';
 
-const DashboardPage = () => {
+const Dashboard = () => {
   const [profile, setProfile] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem(LS_AUTH);
-    // axios({
-    //   method: 'post',
-    //   url: adminProfile,
-    //   headers: { Authorization: `Bearer ${token}` },
-    // })
-    //   .then((response) => {
-    //     setProfile(response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-    (async () => {
-      const response = await axios({
-        method: 'post',
-        url: adminProfile,
-        headers: { Authorization: `Bearer ${token}` },
+    setIsLoading(true);
+    axios({
+      method: 'post',
+      url: adminProfile,
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((response) => {
+        const { results } = response.data;
+        setProfile(results.profile);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
-
-      const { results } = await response.data;
-      setProfile(results.profile);
-    })();
-    setIsLoading(false);
   }, []);
 
   return (
@@ -59,4 +53,4 @@ const DashboardPage = () => {
   );
 };
 
-export default DashboardPage;
+export default Dashboard;

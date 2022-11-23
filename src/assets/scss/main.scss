@@ -21,6 +21,7 @@ $theme-colors: map-merge($custom-theme-colors, $theme-colors);
 // marign and padding
 $spacer: 1rem;
 $spacers: (
+  4: $spacer * 2,
   5: $spacer * 2.813,
   6: $spacer * 3,
   7: $spacer * 5,
@@ -31,14 +32,16 @@ $font-size-base: 1rem;
 $h2-font-size: $font-size-base * 2.5;
 $h3-font-size: $font-size-base * 2.125;
 $h6-font-size: $font-size-base;
+$text-md: $font-size-base * 1.125;
 $text-sm: $font-size-base * 0.875;
 $text-xs: $font-size-base * 0.75;
 $font-sizes: (
   2: $h2-font-size,
   3: $h3-font-size,
   6: $h6-font-size,
-  7: $text-sm,
-  8: $text-xs,
+  7: $text-md,
+  8: $text-sm,
+  9: $text-xs,
 );
 
 // add new utilities
@@ -95,10 +98,28 @@ $utilities: map-merge(
       class: px,
       values: $spacers,
     ),
+    'padding-y': (
+      responsive: true,
+      property: padding-top padding-bottom,
+      class: py,
+      values: $spacers,
+    ),
     'margin-x': (
       responsive: true,
       property: margin-right margin-left,
       class: mx,
+      values:
+        map-merge(
+          $spacers,
+          (
+            auto: auto,
+          )
+        ),
+    ),
+    'margin-bottom': (
+      responsive: true,
+      property: margin-bottom,
+      class: mb,
       values:
         map-merge(
           $spacers,
@@ -185,6 +206,13 @@ $utilities: map-merge(
 
       .btn-login-container {
         margin-top: 67px;
+
+        button {
+          &:disabled {
+            cursor: not-allowed;
+            pointer-events: all !important;
+          }
+        }
       }
 
       .input-password {
@@ -331,6 +359,11 @@ $utilities: map-merge(
           padding: 8px;
           color: #6f708b;
         }
+
+        &:hover {
+          background-color: var(--bs-dropdown-link-hover-bg);
+          color: var(--bs-dropdown-link-hover-color);
+        }
       }
     }
   }
@@ -345,8 +378,72 @@ main {
   color: #26273b;
   background-color: #f9f9fc;
 
+  // property
+  .property-page-content {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1rem;
+
+    h5 {
+      margin-bottom: 24px;
+    }
+
+    .main-content {
+      padding: 0 1.875rem;
+    }
+  }
+
   &.dashboard-content {
     padding: 3rem 1.938rem;
+  }
+
+  &.property-content {
+    padding: 0 1.438rem;
+
+    .dropdown,
+    button.filter-property {
+      width: 100%;
+      border: 1px solid #acadc1;
+      border-radius: 8px;
+      color: #454560;
+    }
+
+    .dropdown > button,
+    button.filter-property {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .dropdown-trigger {
+      width: 100%;
+    }
+
+    .dropdown {
+      .dropdown-menu {
+        width: 100% !important;
+      }
+
+      button {
+        &.dropdown-toggle {
+          &::after {
+            content: url('../images/icon-dropdown.svg');
+            border: 0;
+          }
+        }
+      }
+
+      .btn:first-child:active,
+      .btn {
+        border: 0;
+      }
+    }
+
+    .btn,
+    button.filter-property {
+      padding: 8px 16px;
+    }
   }
 }
 
