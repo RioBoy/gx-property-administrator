@@ -3,6 +3,7 @@
 $font-family-base: 'Poppins', sans-serif;
 $btn-border-radius: 0.5rem;
 $input-border-radius: 0.5rem;
+$input-placeholder-color: #acadc1;
 
 @import '../../../node_modules/bootstrap/scss/functions';
 @import '../../../node_modules/bootstrap/scss/variables';
@@ -19,11 +20,6 @@ $theme-colors: map-merge($custom-theme-colors, $theme-colors);
 // marign and padding
 $spacer: 1rem;
 $spacers: (
-  0: 0,
-  1: $spacer * 0.25,
-  2: $spacer * 0.5,
-  3: $spacer,
-  4: $spacer * 1.5,
   5: $spacer * 2.813,
   6: $spacer * 3,
   7: $spacer * 5,
@@ -60,6 +56,8 @@ $utilities: map-merge(
             'primary-orange': #ff7d00,
             'primary-black': #26273b,
             'primary-gray': #f0f0f5,
+            'secondary-gray': #6f708b,
+            'dark-blue': #454560,
             'reset': inherit,
           )
         ),
@@ -162,19 +160,11 @@ $utilities: map-merge(
     }
 
     .form-login {
-      color: #454560;
-
       form {
         margin-top: 32px;
 
         input {
           padding: 8px 12px;
-
-          &::placeholder {
-            color: #acadc1;
-            font-size: 16px;
-            line-height: 24px;
-          }
         }
       }
 
@@ -196,17 +186,10 @@ $utilities: map-merge(
         right: 0;
         margin-right: 12px;
         transform: translate(0, -50%);
-
-        button {
-          border: none;
-          background-color: transparent;
-          padding: 0;
-        }
       }
     }
 
     .version p {
-      color: #6f708b;
       margin: 80px 0 0 0;
     }
   }
@@ -241,7 +224,7 @@ $utilities: map-merge(
     margin: 0 4% !important;
 
     h2 {
-      font-size: 1.875rem !important; /* 30px */
+      font-size: 1.875rem !important;
     }
   }
 }

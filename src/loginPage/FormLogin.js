@@ -87,12 +87,17 @@ export default function FormLogin() {
       </div>
       <div className="row mt-3 form-login">
         <div className="col-12">
-          <h6 className="fw-normal mb-0">Sign in to your account below</h6>
+          <h6 className="fw-normal mb-0 text-dark-blue">
+            Sign in to your account below
+          </h6>
         </div>
         <div className="col-12">
           <form method="post" onSubmit={_handleSubmitLogin}>
             <div className="mb-3">
-              <label htmlFor="email" className="fs-7 form-label mb-1">
+              <label
+                htmlFor="email"
+                className="fs-7 form-label mb-1 text-dark-blue"
+              >
                 Email
               </label>
               <input
@@ -107,7 +112,10 @@ export default function FormLogin() {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="password" className="fs-7 form-label mb-1">
+              <label
+                htmlFor="password"
+                className="fs-7 form-label mb-1 text-dark-blue"
+              >
                 Password
               </label>
               <div className="input-password">
@@ -122,7 +130,11 @@ export default function FormLogin() {
                   placeholder="Type your password here"
                 />
                 <div className="eye-icon">
-                  <button onClick={togglePassword} type="button">
+                  <button
+                    onClick={togglePassword}
+                    type="button"
+                    className="bg-transparent p-0 border-0"
+                  >
                     {passwordShown ? (
                       <FiEyeOff size="24" />
                     ) : (
@@ -158,7 +170,9 @@ export default function FormLogin() {
       </div>
       <div className="row">
         <div className="col version">
-          <p className="d-flex justify-content-center">Version 1.0.0</p>
+          <p className="d-flex justify-content-center text-secondary-gray">
+            Version 1.0.0
+          </p>
         </div>
       </div>
     </div>
