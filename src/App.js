@@ -5,7 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import LoginPage from './loginPage/LoginPage';
 import DashboardPage from './dashboardPage/DashboardPage';
 
-function App() {
+const App = () => {
   return (
     <>
       <Router>
@@ -17,6 +17,6 @@ function App() {
       <ToastContainer />
     </>
   );
-}
+};
 
 export default App;

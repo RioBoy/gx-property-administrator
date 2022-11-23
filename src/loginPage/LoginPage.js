@@ -1,7 +1,7 @@
 import React from 'react';
 import FormLogin from './FormLogin';
 
-export default function LoginPage() {
+const LoginPage = () => {
   return (
     <div className="container-login">
       <div className="left-side">
@@ -20,4 +20,6 @@ export default function LoginPage() {
       <FormLogin />
     </div>
   );
-}
+};
+
+export default LoginPage;

@@ -10,7 +10,7 @@ import { ButtonPrimary } from '../components/button/Buttons';
 import VBMLogo from '../assets/images/VBM-Logo.svg';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 
-export default function FormLogin() {
+const FormLogin = () => {
   const [login, setLogin] = useState({
     email: '',
     password: '',
@@ -177,4 +177,6 @@ export default function FormLogin() {
       </div>
     </div>
   );
-}
+};
+
+export default FormLogin;

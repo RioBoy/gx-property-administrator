@@ -4,6 +4,7 @@ $font-family-base: 'Poppins', sans-serif;
 $btn-border-radius: 0.5rem;
 $input-border-radius: 0.5rem;
 $input-placeholder-color: #acadc1;
+$box-shadow: 2px 4px 9px rgba(24, 37, 92, 0.15);
 
 @import '../../../node_modules/bootstrap/scss/functions';
 @import '../../../node_modules/bootstrap/scss/variables';
@@ -30,12 +31,14 @@ $font-size-base: 1rem;
 $h2-font-size: $font-size-base * 2.5;
 $h3-font-size: $font-size-base * 2.125;
 $h6-font-size: $font-size-base;
-$label-login-size: $font-size-base * 0.875;
+$text-sm: $font-size-base * 0.875;
+$text-xs: $font-size-base * 0.75;
 $font-sizes: (
   2: $h2-font-size,
   3: $h3-font-size,
   6: $h6-font-size,
-  7: $label-login-size,
+  7: $text-sm,
+  8: $text-xs,
 );
 
 // add new utilities
@@ -72,7 +75,18 @@ $utilities: map-merge(
       property: font-weight,
       class: fw,
       values: (
+        normal: 400,
         medium: 500,
+        semibold: 600,
+        bold: 700,
+      ),
+    ),
+    'shadow': (
+      property: box-shadow,
+      class: shadow,
+      values: (
+        null: $box-shadow,
+        none: none,
       ),
     ),
     'padding-x': (
@@ -98,6 +112,7 @@ $utilities: map-merge(
 
 @import '../../../node_modules/bootstrap/scss/bootstrap';
 
+// login
 .container-login {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -170,10 +185,6 @@ $utilities: map-merge(
 
       .btn-login-container {
         margin-top: 67px;
-
-        .btn-has-shadow {
-          box-shadow: 0px 2px 4px rgba(255, 125, 0, 0.25);
-        }
       }
 
       .input-password {
@@ -195,6 +206,161 @@ $utilities: map-merge(
   }
 }
 
+// sidebar
+.sidebar {
+  width: 92px;
+  transition: 0.5s;
+  min-height: 100vh;
+  z-index: 100;
+  overflow: hidden;
+
+  .nav-item {
+    .nav-link {
+      padding: 0.5rem 1.5rem;
+      margin: 0.5rem 0;
+
+      svg {
+        min-width: 1.5rem;
+        min-height: 1.5rem;
+      }
+
+      span {
+        white-space: nowrap;
+      }
+
+      .hidden-span {
+        display: none;
+        justify-content: center;
+      }
+
+      &.active {
+        color: #ff7d00 !important;
+        font-weight: 500;
+      }
+    }
+
+    &:hover {
+      color: #ff7d00 !important;
+    }
+
+    &:not(.active) {
+      color: #acadc1;
+    }
+  }
+
+  .sidebar-brand {
+    margin: 11px 0 67px 0;
+  }
+
+  .custom-nav-link {
+    display: flex;
+    align-items: center;
+    column-gap: 0.75rem;
+  }
+
+  .vbm-logo {
+    svg {
+      width: auto;
+      height: 50px;
+    }
+  }
+
+  .logo-dashboard {
+    height: 50px;
+    width: auto;
+  }
+
+  &.expander {
+    width: calc(92px + 12rem);
+  }
+
+  &.toggled {
+    width: 0 !important;
+    overflow: hidden;
+  }
+
+  &:not(.expander) {
+    .custom-nav-link {
+      column-gap: 0;
+      justify-content: center;
+    }
+  }
+}
+
+// topbar
+.topbar {
+  padding: 1rem 1.438rem !important;
+  height: 4rem;
+
+  .side-nav {
+    display: flex;
+    align-items: center;
+    column-gap: 40px;
+  }
+
+  .nav-toggle {
+    font-size: 1.25rem;
+    padding: 6px 3px;
+    vertical-align: middle;
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+  }
+
+  .navbar-brand {
+    color: #26273b;
+  }
+
+  .dropdown {
+    .dropdown-menu {
+      width: 283px !important;
+      border: none;
+
+      .dropdown-header {
+        color: #acadc1;
+        margin-bottom: 8px;
+      }
+
+      a {
+        color: #6f708b;
+        padding: 8px 10px;
+        display: flex;
+        align-items: center;
+
+        svg {
+          padding: 8px;
+          color: #6f708b;
+        }
+      }
+    }
+  }
+
+  .img-profile {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+main {
+  color: #26273b;
+  background-color: #f9f9fc;
+
+  &.dashboard-content {
+    padding: 3rem 1.938rem;
+  }
+}
+
+// dashboard
+#wrapper {
+  display: flex;
+
+  #content-wrapper {
+    width: 100%;
+    overflow-x: hidden;
+  }
+}
+
+// responsive
 @include media-breakpoint-down(xl) {
   .right-side {
     margin: 0 10% !important;
