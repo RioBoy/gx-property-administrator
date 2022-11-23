@@ -31,12 +31,14 @@ const Dashboard = () => {
 
   return (
     <>
-      {isLoading === true ? (
-        <p className="d-flex justify-content-center align-items-center text-primary-orange fs-2 min-vh-100">
-          Loding...
-        </p>
-      ) : (
-        <Layout>
+      <Layout>
+        {isLoading === true ? (
+          <div className="d-flex justify-content-center align-items-center h-100">
+            <div class="spinner-border text-primary-orange" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        ) : (
           <main className="h-100 dashboard-content">
             <h3 className="text-4xl fw-normal">
               Welcome again,{' '}
@@ -47,8 +49,8 @@ const Dashboard = () => {
               exist
             </h6>
           </main>
-        </Layout>
-      )}
+        )}
+      </Layout>
     </>
   );
 };

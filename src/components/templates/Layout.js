@@ -20,12 +20,12 @@ const Layout = (props) => {
     },
     {
       icon: <FiHome />,
-      name: 'Property Management',
+      name: 'Property',
       link: '/property',
     },
     {
       icon: <FaRegUserCircle />,
-      name: 'Contact Management',
+      name: 'Contact',
       link: '/contact',
     },
   ];

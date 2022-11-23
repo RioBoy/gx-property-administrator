@@ -21,6 +21,10 @@ $theme-colors: map-merge($custom-theme-colors, $theme-colors);
 // marign and padding
 $spacer: 1rem;
 $spacers: (
+  0: 0,
+  1: $spacer * 0.25,
+  2: $spacer * 0.5,
+  3: $spacer,
   4: $spacer * 2,
   5: $spacer * 2.813,
   6: $spacer * 3,
@@ -128,6 +132,14 @@ $utilities: map-merge(
           )
         ),
     ),
+    'min-viewport-height': (
+      property: min-height,
+      class: min-vh,
+      values: (
+        50: 50vh,
+        100: 100vh,
+      ),
+    ),
   )
 );
 
@@ -231,6 +243,13 @@ $utilities: map-merge(
     .version p {
       margin: 80px 0 0 0;
     }
+  }
+}
+
+.pace {
+  .pace-progress {
+    background: #ff7d00 !important;
+    height: 5px;
   }
 }
 
@@ -402,7 +421,13 @@ main {
             line-height: 20px;
             color: #454560;
           }
+        }
+      }
 
+      tbody {
+        border-top: 1px solid #f0f0f5 !important;
+
+        tr {
           td {
             padding: 14px 16px;
             font-weight: 400;
@@ -423,10 +448,6 @@ main {
             }
           }
         }
-      }
-
-      tbody {
-        border-top: 1px solid #f0f0f5 !important;
       }
 
       span {
@@ -483,6 +504,7 @@ main {
     .dropdown > button,
     button.filter-property {
       width: 100%;
+      height: 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
