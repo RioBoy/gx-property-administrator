@@ -7,3 +7,7 @@ export const adminProfile = `${baseUrl}/auth/profile`;
 export const logoutUrl = `${baseUrl}/auth/logout`;
 
 export const getAllProperty = `${baseUrl}/property`;
+
+export const getPropertDetail = (id) => {
+  return `${baseUrl}/property/${id}`;
+};

@@ -30,28 +30,26 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <>
-      <Layout>
-        {isLoading === true ? (
-          <div className="d-flex justify-content-center align-items-center h-100">
-            <div class="spinner-border text-primary-orange" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
+    <Layout>
+      {isLoading === true ? (
+        <div className="d-flex justify-content-center align-items-center h-100">
+          <div className="spinner-border text-primary-orange" role="status">
+            <span className="visually-hidden">Loading...</span>
           </div>
-        ) : (
-          <main className="h-100 dashboard-content">
-            <h3 className="text-4xl fw-normal">
-              Welcome again,{' '}
-              <span className="fw-semibold">{profile.nickName}!</span>
-            </h3>
-            <h6 className="text-base fw-normal font-secondary mt-3">
-              Hi {profile.nickName}, don't forget to control every activity that
-              exist
-            </h6>
-          </main>
-        )}
-      </Layout>
-    </>
+        </div>
+      ) : (
+        <main className="h-100 dashboard-content">
+          <h3 className="fw-normal">
+            Welcome again,{' '}
+            <span className="fw-semibold">{profile.nickName}!</span>
+          </h3>
+          <h6 className="fw-normal text-secondary-gray mt-3">
+            Hi {profile.nickName}, don't forget to control every activity that
+            exist
+          </h6>
+        </main>
+      )}
+    </Layout>
   );
 };
 

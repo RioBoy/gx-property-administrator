@@ -15,6 +15,10 @@ $box-shadow: 2px 4px 9px rgba(24, 37, 92, 0.15);
 // add theme-colors
 $custom-theme-colors: (
   'primary-orange': #ff7d00,
+  'primary-blue': #2767e1,
+  'primary-yellow': #efcf5d,
+  'primary-green': #2db986,
+  'primary-red': #de5263,
 );
 $theme-colors: map-merge($custom-theme-colors, $theme-colors);
 
@@ -36,6 +40,7 @@ $font-size-base: 1rem;
 $h2-font-size: $font-size-base * 2.5;
 $h3-font-size: $font-size-base * 2.125;
 $h6-font-size: $font-size-base;
+$text-lg: $font-size-base * 1.625;
 $text-md: $font-size-base * 1.125;
 $text-sm: $font-size-base * 0.875;
 $text-xs: $font-size-base * 0.75;
@@ -43,9 +48,10 @@ $font-sizes: (
   2: $h2-font-size,
   3: $h3-font-size,
   6: $h6-font-size,
-  7: $text-md,
-  8: $text-sm,
-  9: $text-xs,
+  7: $text-lg,
+  8: $text-md,
+  9: $text-sm,
+  10: $text-xs,
 );
 
 // add new utilities
@@ -65,8 +71,11 @@ $utilities: map-merge(
             'muted': $text-muted,
             'primary-orange': #ff7d00,
             'primary-black': #26273b,
+            'secondary-black': #18255c,
             'primary-gray': #f0f0f5,
             'secondary-gray': #6f708b,
+            'third-gray': #acadc1,
+            'primary-blue': #647deb,
             'dark-blue': #454560,
             'reset': inherit,
           )
@@ -354,29 +363,15 @@ $utilities: map-merge(
     width: 100%;
   }
 
-  .navbar-brand {
-    color: #26273b;
-  }
-
   .dropdown {
     .dropdown-menu {
       width: 283px !important;
-      border: none;
-
-      .dropdown-header {
-        color: #acadc1;
-        margin-bottom: 8px;
-      }
 
       a {
-        color: #6f708b;
         padding: 8px 10px;
-        display: flex;
-        align-items: center;
 
         svg {
           padding: 8px;
-          color: #6f708b;
         }
 
         &:hover {
@@ -439,34 +434,14 @@ main {
               a {
                 text-decoration: none;
                 color: inherit;
-              }
 
-              &:hover {
-                text-decoration: underline;
-                color: inherit;
+                &:hover {
+                  text-decoration: underline;
+                  color: inherit;
+                }
               }
             }
           }
-        }
-      }
-
-      span {
-        padding: 2px 8px;
-        border-radius: 8px;
-
-        &.approved {
-          color: white;
-          background-color: #2db986;
-        }
-
-        &.pending {
-          color: #26273b;
-          background-color: #efcf5d;
-        }
-
-        &.rejected {
-          color: white;
-          background-color: #de5263;
         }
       }
 
@@ -537,6 +512,102 @@ main {
     .btn,
     button.filter-property {
       padding: 8px 16px;
+    }
+  }
+
+  // detail property
+  &.detail-property-content {
+    padding: 1.375rem 2rem;
+
+    .section-1 {
+      margin-bottom: 26px;
+    }
+
+    .section-2 {
+      margin-bottom: 19px;
+
+      .card {
+        background-color: white;
+        border-radius: 8px;
+      }
+    }
+
+    .section-3 {
+      .card {
+        border: 0;
+        padding: 0.75rem 1rem;
+        margin-top: 0;
+      }
+    }
+
+    img {
+      &.villa-image {
+        object-fit: cover;
+        object-position: center;
+      }
+
+      &.image-placeholder {
+        width: 100%;
+        height: 207px;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      &.preview-map {
+        width: 100%;
+        height: 245px;
+        object-fit: cover;
+        object-position: center;
+      }
+    }
+
+    span {
+      margin-top: 12px;
+      display: inline-block;
+    }
+
+    .nav-tabs {
+      border-bottom: 1px solid #f0f0f5 !important;
+
+      @at-root {
+        .nav-link {
+          border: 0 !important;
+        }
+      }
+
+      button {
+        &.nav-link {
+          font-size: 14px;
+          line-height: 20px;
+          font-weight: 400;
+          color: #454560;
+
+          &.active {
+            border-bottom: 2px solid #ff7d00 !important;
+            color: #ff7d00;
+          }
+        }
+      }
+    }
+
+    .history-item {
+      display: flex;
+      gap: 9px;
+
+      img {
+        width: 46px;
+        height: 46px;
+        object-fit: cover;
+        object-position: center;
+      }
+    }
+
+    .tab-content {
+      .tab-pane {
+        &.active {
+          color: #26273b !important;
+        }
+      }
     }
   }
 }

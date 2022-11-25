@@ -15,17 +15,17 @@ const Property = () => {
     <Layout>
       <main className="h-100 property-content py-4">
         <div className="property-page-content">
-          <h5 className="fs-7 fw-medium p-2">Property List</h5>
+          <h5 className="fs-8 fw-medium p-2">Property List</h5>
           <div className="main-content">
             <div className="row mb-3">
-              <div className="col-12 col-md-10 col-lg-8 col-xl-5">
+              <div className="col-12 col-md-10 col-lg-8 col-xl-4">
                 <div className="row gap-3 gap-md-0">
-                  <div className="col-12 col-md-6">
+                  <div className="col-12 col-md-6 px-2">
                     <Dropdown>
                       <Dropdown.Toggle
                         variant="transparent"
                         id="dropdown-basic"
-                        className="fs-8 fw-medium"
+                        className="fs-9 fw-medium"
                       >
                         Filter Status
                       </Dropdown.Toggle>
@@ -55,11 +55,11 @@ const Property = () => {
                       </Dropdown.Menu>
                     </Dropdown>
                   </div>
-                  <div className="col-12 col-md-6">
+                  <div className="col-12 col-md-6 px-2">
                     <Button
                       variant="transparent"
                       onClick={handleShow}
-                      className="fs-8 fw-medium filter-property"
+                      className="fs-9 fw-medium filter-property"
                     >
                       <FiFilter size="24" />
                       Advance Filter
@@ -87,7 +87,7 @@ const Property = () => {
                               <Dropdown.Toggle
                                 variant="transparent"
                                 id="dropdown-basic"
-                                className="text-sm fw-medium"
+                                className="fs-9 fw-medium"
                               >
                                 Filter Status
                               </Dropdown.Toggle>

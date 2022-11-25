@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { loginUrl } from '../../lib/constant';
 import { LS_AUTH } from '../../config/localStorage';
 
-import { ButtonPrimary } from '../../components/button/Buttons';
+import { Buttons } from '../../components/button/Buttons';
 
 import VBMLogo from '../../assets/images/VBM-Logo.svg';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
@@ -102,7 +102,7 @@ const FormLogin = () => {
             <div className="mb-3">
               <label
                 htmlFor="email"
-                className="fs-9 form-label mb-1 text-dark-blue"
+                className="fs-10 form-label mb-1 text-dark-blue"
               >
                 Email
               </label>
@@ -120,7 +120,7 @@ const FormLogin = () => {
             <div className="mb-3">
               <label
                 htmlFor="password"
-                className="fs-9 form-label mb-1 text-dark-blue"
+                className="fs-10 form-label mb-1 text-dark-blue"
               >
                 Password
               </label>
@@ -151,9 +151,10 @@ const FormLogin = () => {
               </div>
             </div>
             <div className="btn-login-container">
-              <ButtonPrimary
-                className="btn px-5 py-2 btn-primary-orange text-white"
+              <Buttons
+                className="btn px-5 py-2 text-white"
                 type="submit"
+                isPrimary
                 isMedium
                 isDisabled={!isSubmitDisabled}
               >
@@ -170,7 +171,7 @@ const FormLogin = () => {
                 ) : (
                   'Sign in'
                 )}
-              </ButtonPrimary>
+              </Buttons>
             </div>
           </form>
         </div>
