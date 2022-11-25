@@ -11,3 +11,5 @@ export const getAllProperty = `${baseUrl}/property`;
 export const getPropertDetail = (id) => {
   return `${baseUrl}/property/${id}`;
 };
+
+export const getAllContacts = `${baseUrl}/contact`;

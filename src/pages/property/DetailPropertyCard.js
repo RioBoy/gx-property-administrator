@@ -10,6 +10,8 @@ import DetailPropertyImage from '../../assets/images/detail-property.jpg';
 import ImagePlaceholder from '../../assets/images/image-placeholder.jpg';
 import Map from '../../assets/images/maps.jpg';
 
+import Spinner from '../../components/spinner/Spinner';
+
 const DetailPropertyCard = () => {
   const [propertyDetail, setPropertyDetail] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -39,11 +41,7 @@ const DetailPropertyCard = () => {
   return (
     <>
       {isLoading === true ? (
-        <div className="d-flex justify-content-center align-items-center min-vh-50">
-          <div className="spinner-border text-primary-orange" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        </div>
+        <Spinner height="min-vh-50" />
       ) : (
         <>
           <div className="row gap-3 gap-lg-0 p-3 section-2 card flex-row border-0">

@@ -258,7 +258,7 @@ $utilities: map-merge(
 .pace {
   .pace-progress {
     background: #ff7d00 !important;
-    height: 5px;
+    height: 3px !important;
   }
 }
 
@@ -392,6 +392,10 @@ main {
   color: #26273b;
   background-color: #f9f9fc;
 
+  &.dashboard-content {
+    padding: 3rem 1.938rem;
+  }
+
   // property
   .property-page-content {
     background-color: white;
@@ -459,10 +463,6 @@ main {
     tr {
       border: 0 !important;
     }
-  }
-
-  &.dashboard-content {
-    padding: 3rem 1.938rem;
   }
 
   &.property-content {
@@ -606,6 +606,33 @@ main {
       .tab-pane {
         &.active {
           color: #26273b !important;
+        }
+      }
+    }
+  }
+
+  // contact
+  &.contact-page-content {
+    padding: 1.5rem 1.438rem;
+
+    .contact-list-content {
+      padding: 1.5rem 1.375rem;
+      background-color: white;
+      border-radius: 8px;
+    }
+
+    .card {
+      margin-top: 53px;
+      border-radius: 8px;
+      border: 1px solid #acadc1;
+
+      h5 {
+        a {
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
         }
       }
     }

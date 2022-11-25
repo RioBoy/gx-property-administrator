@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 
 export const Buttons = (props) => {
   const className = [props.className];
-  if (props.isPrimary) className.push('btn-primary-orange');
+  if (props.isPrimary) className.push('btn btn-primary-orange');
   if (props.isMedium) className.push('fw-medium');
   if (props.isSemiBold) className.push('fw-semibold');
   if (props.isBold) className.push('fw-bold');

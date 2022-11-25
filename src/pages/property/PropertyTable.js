@@ -7,6 +7,8 @@ import { getAllProperty } from '../../lib/constant';
 
 import ImagePlaceholder from '../../assets/images/image-placeholder.jpg';
 
+import Spinner from '../../components/spinner/Spinner';
+
 const PropertyTable = () => {
   const [propertyList, setPropertyList] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -34,11 +36,7 @@ const PropertyTable = () => {
   return (
     <>
       {isLoading === true ? (
-        <div className="d-flex justify-content-center align-items-center min-vh-50">
-          <div className="spinner-border text-primary-orange" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        </div>
+        <Spinner height="min-vh-50" />
       ) : (
         <div className="row mt-3">
           <div className="col-12">
@@ -55,7 +53,7 @@ const PropertyTable = () => {
                 </tr>
               </thead>
               <tbody>
-                {propertyList.properties?.map((property, index) => (
+                {propertyList.properties?.map((property) => (
                   <tr key={property.id}>
                     <td>#{property.number}</td>
                     <td>

@@ -4,6 +4,7 @@ import { adminProfile } from '../../lib/constant';
 import { LS_AUTH } from '../../config/localStorage';
 
 import Layout from '../../components/templates/Layout';
+import Spinner from '../../components/spinner/Spinner';
 
 const Dashboard = () => {
   const [profile, setProfile] = useState({});
@@ -32,11 +33,7 @@ const Dashboard = () => {
   return (
     <Layout>
       {isLoading === true ? (
-        <div className="d-flex justify-content-center align-items-center h-100">
-          <div className="spinner-border text-primary-orange" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        </div>
+        <Spinner height="h-100" />
       ) : (
         <main className="h-100 dashboard-content">
           <h3 className="fw-normal">

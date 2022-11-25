@@ -9,6 +9,7 @@ import { Buttons } from '../../components/button/Buttons';
 
 import VBMLogo from '../../assets/images/VBM-Logo.svg';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
+import Spinner from '../../components/spinner/Spinner';
 
 const FormLogin = () => {
   const [login, setLogin] = useState({
@@ -152,25 +153,13 @@ const FormLogin = () => {
             </div>
             <div className="btn-login-container">
               <Buttons
-                className="btn px-5 py-2 text-white"
+                className="px-5 py-2 text-white"
                 type="submit"
                 isPrimary
                 isMedium
                 isDisabled={!isSubmitDisabled}
               >
-                {loading ? (
-                  <div className="d-flex align-items-center justify-content-center gap-2">
-                    Sign in
-                    <div
-                      className="spinner-border spinner-border-sm"
-                      role="status"
-                    >
-                      <span className="visually-hidden">Loading...</span>
-                    </div>
-                  </div>
-                ) : (
-                  'Sign in'
-                )}
+                {loading ? <Spinner isInButton>Sign in</Spinner> : 'Sign in'}
               </Buttons>
             </div>
           </form>
