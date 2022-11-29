@@ -6,7 +6,7 @@ import ContactCard from './ContactCard';
 
 const Contact = () => {
   return (
-    <Layout>
+    <Layout title="Contact Management">
       <main className="h-100 contact-page-content">
         <div className="contact-list-content">
           <div className="row justify-content-between align-items-center gap-3 gap-md-0">
@@ -21,7 +21,7 @@ const Contact = () => {
                 className="text-decoration-none text-white py-2 px-4"
                 type="link"
                 isPrimary
-                href="/contact/add"
+                href="contact/add"
               >
                 Add New
               </Buttons>

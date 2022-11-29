@@ -6,7 +6,7 @@ import Layout from '../../components/templates/Layout';
 
 const DetailProperty = () => {
   return (
-    <Layout>
+    <Layout title="Property Management">
       <main className="h-100 detail-property-content">
         <div className="row gap-3 gap-md-0 section-1">
           <div className="col-12 col-md-8 order-1 order-md-0">

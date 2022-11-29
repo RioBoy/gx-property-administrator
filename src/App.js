@@ -8,6 +8,7 @@ import Property from './pages/property/Property';
 import DetailProperty from './pages/property/DetailProperty';
 import Contact from './pages/contact/Contact';
 import DetailContact from './pages/contact/DetailContact';
+import AddContact from './pages/contact/AddContact';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Route exact path="/property" component={Property} />
           <Route path="/property/:id" component={DetailProperty} />
           <Route exact path="/contact" component={Contact} />
+          <Route path="/contact/add" component={AddContact} />
           <Route path="/contact/:id" component={DetailContact} />
         </Switch>
       </Router>

@@ -13,3 +13,5 @@ export const getPropertDetail = (id) => {
 };
 
 export const getAllContacts = `${baseUrl}/contact`;
+
+export const addNewContact = `${baseUrl}/contact/register`;

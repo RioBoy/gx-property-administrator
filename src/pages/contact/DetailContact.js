@@ -37,37 +37,33 @@ const DetailContact = () => {
     (contact) => contact?.id === idContact,
   )?.[0];
 
-  console.log(filteredContactById);
-
   return (
-    <Layout>
-      <main className="h-100 contact-detail">
+    <Layout title="Contact Management">
+      <main className="h-100 contact-detail-content">
         <div className="row gap-3 gap-md-0">
           <div className="col-12 col-md-6 order-1 order-md-0">
-            <h3 className="text-4xl fw-semibold contact-detail-title">
-              Contact Detail
-            </h3>
+            <h3 className="fw-semibold text-black-primary">Contact Detail</h3>
           </div>
           <div className="col-12 col-md-6 d-md-flex align-items-center justify-content-end">
             <div className="d-flex gap-3">
               <Buttons
                 type="link"
                 href="/contact"
-                className="btn-back-contact text-sm"
+                className="fs-9 fw-semibold px-3 py-2 btn btn-secondary-green text-white"
               >
                 Back
               </Buttons>
               <Buttons
                 type="link"
                 href="/"
-                className="btn-edit-contact text-sm"
+                className="fs-9 fw-semibold px-3 py-2 btn btn-primary-blue text-white"
               >
                 Edit
               </Buttons>
               <Buttons
                 type="link"
                 href="/"
-                className="btn-delete-contact text-sm"
+                className="fs-9 fw-semibold px-3 py-2 btn btn-secondary-red text-white"
               >
                 Delete
               </Buttons>
@@ -83,15 +79,15 @@ const DetailContact = () => {
                 <div className="card">
                   <div className="row">
                     <div className="col-12 col-md-9">
-                      <h4 className="text-2xl fw-semibold mb-0">
+                      <h4 className="fs-7 fw-semibold mb-0">
                         {filteredContactById?.name}
                       </h4>
-                      <p className="text-base fw-normal font-secondary">
+                      <p className="fw-normal text-secondary-gray mb-0">
                         {filteredContactById?.email}
                       </p>
                     </div>
                     <div className="col-12 col-md-3 d-md-flex align-items-center justify-content-center">
-                      <span className="badge text-bg-success fw-semibold text-xs">
+                      <span className="badge text-bg-third-green fs-10 fw-semibold text-white py-2 px-5 rounded-3">
                         {filteredContactById?.type.display}
                       </span>
                     </div>
@@ -103,40 +99,40 @@ const DetailContact = () => {
               <div className="col-12 col-lg-6 personal-data mt-3">
                 <div className="row">
                   <div className="col">
-                    <div className="card">
-                      <h5 className="text-lg font-medium mb-4">
+                    <div className="card border-0 bg-white rounded-2 p-3 mb-0">
+                      <h5 className="fs-8 font-medium text-secondary-black mb-4">
                         Personal Data
                       </h5>
                       <div className="mb-3">
                         <label
                           htmlFor="fullname"
-                          className="text-sm fw-normal font-secondary mb-2"
+                          className="fs-9 fw-normal text-secondary-gray mb-2"
                         >
                           Full Name
                         </label>
-                        <p className="text-base fw-normal font-primary">
+                        <p className="fw-normal text-primary-black">
                           {filteredContactById?.name}
                         </p>
                       </div>
                       <div className="mb-3">
                         <label
                           htmlFor="statuSalutation"
-                          className="text-sm fw-normal font-secondary mb-2"
+                          className="fs-9 fw-normal text-secondary-gray mb-2"
                         >
                           Status Salutation
                         </label>
-                        <p className="text-base fw-normal font-primary">
+                        <p className="fw-normal text-primary-black">
                           {filteredContactById?.salutation}
                         </p>
                       </div>
                       <div className="mb-3">
                         <label
                           htmlFor="phoneNumber"
-                          className="text-sm fw-normal font-secondary mb-2"
+                          className="fs-9 fw-normal text-secondary-gray mb-2"
                         >
                           Phone Number
                         </label>
-                        <p className="text-base fw-normal font-primary">
+                        <p className="fw-normal text-primary-black">
                           {filteredContactById?.phoneNumber === null
                             ? '-'
                             : filteredContactById?.phoneNumber}
@@ -145,18 +141,18 @@ const DetailContact = () => {
                       <div className="mb-3">
                         <label
                           htmlFor="identityNumber"
-                          className="text-sm fw-normal font-secondary mb-2"
+                          className="fs-9 fw-normal text-secondary-gray mb-2"
                         >
                           Identity Number
                         </label>
-                        <p className="text-base fw-normal font-primary">
+                        <p className="fw-normal text-primary-black">
                           {filteredContactById?.identityNumber}
                         </p>
                       </div>
                       <div className="mb-3">
                         <label
                           htmlFor="identityNumberFile"
-                          className="text-sm fw-normal font-secondary mb-2"
+                          className="fs-9 fw-normal text-secondary-gray mb-2"
                         >
                           Identity Number File
                         </label>
@@ -169,11 +165,11 @@ const DetailContact = () => {
                       <div className="mb-3">
                         <label
                           htmlFor="address"
-                          className="text-sm fw-normal font-secondary mb-2"
+                          className="fs-9 fw-normal text-secondary-gray mb-2"
                         >
                           Address
                         </label>
-                        <p className="text-base fw-normal font-primary">
+                        <p className="fw-normal text-primary-black">
                           Jl. Gunung Sanghyang No. 83, Kerobokan Kaja, Denpasar
                           Barat, Denpasar Kota, Bali
                         </p>
@@ -181,16 +177,16 @@ const DetailContact = () => {
                       <div className="mb-3">
                         <label
                           htmlFor="createdBy"
-                          className="text-sm fw-normal font-secondary mb-2"
+                          className="fs-9 fw-normal text-secondary-gray mb-2"
                         >
                           Created By
                         </label>
-                        <p className="text-base fw-normal font-primary">
+                        <p className="fw-normal text-primary-black">
                           {filteredContactById?.createdBy === null
                             ? '-'
                             : filteredContactById?.createdBy.name}
                         </p>
-                        <p className="mb-0 mt-2 text-xs">
+                        <p className="mb-0 mt-2 fs-10">
                           {filteredContactById?.createdAt}
                         </p>
                       </div>
@@ -199,16 +195,18 @@ const DetailContact = () => {
                 </div>
                 <div className="row">
                   <div className="col contact-company-detail">
-                    <div className="card">
-                      <h5 className="text-lg font-medium mb-4">Company Data</h5>
+                    <div className="card border-0 bg-white rounded-2 p-3 mb-0">
+                      <h5 className="fs-8 font-medium text-secondary-black mb-4">
+                        Company Data
+                      </h5>
                       <div className="mb-3">
                         <label
                           htmlFor="companyName"
-                          className="text-sm fw-normal font-secondary mb-2"
+                          className="fs-9 fw-normal text-secondary-gray mb-2"
                         >
                           Company Name
                         </label>
-                        <p className="text-base fw-normal font-primary">
+                        <p className="fw-normal text-primary-black">
                           {filteredContactById?.companyName === null
                             ? '-'
                             : filteredContactById?.companyName}
@@ -217,11 +215,11 @@ const DetailContact = () => {
                       <div className="mb-3">
                         <label
                           htmlFor="companyName"
-                          className="text-sm fw-normal font-secondary mb-2"
+                          className="fs-9 fw-normal text-secondary-gray mb-2"
                         >
                           Company Tax Number
                         </label>
-                        <p className="text-base fw-normal font-primary">
+                        <p className="fw-normal text-primary-black">
                           {filteredContactById?.companyNPWP === null
                             ? '-'
                             : filteredContactById?.companyNPWP}
@@ -230,11 +228,11 @@ const DetailContact = () => {
                       <div className="mb-3">
                         <label
                           htmlFor="companyName"
-                          className="text-sm fw-normal font-secondary mb-2"
+                          className="fs-9 fw-normal text-secondary-gray mb-2"
                         >
                           Company Address
                         </label>
-                        <p className="text-base fw-normal font-primary">
+                        <p className="fw-normal text-primary-black">
                           {filteredContactById?.companyAddress === null
                             ? '-'
                             : filteredContactById?.companyAddress}
@@ -247,49 +245,77 @@ const DetailContact = () => {
               <div className="col-12 col-lg-6 mt-3">
                 <div className="row other-data">
                   <div className="col">
-                    <div className="card">
-                      <h5 className="text-lg font-medium mb-4">Other Data</h5>
+                    <div className="card border-0 bg-white rounded-2 p-3 mb-0">
+                      <h5 className="fs-8 font-medium text-secondary-black mb-4">
+                        Other Data
+                      </h5>
                       <div className="mb-3">
                         <label
                           htmlFor="taxNumber"
-                          className="text-sm fw-normal font-secondary mb-2"
+                          className="fs-9 fw-normal text-secondary-gray mb-2"
                         >
                           Owner tax number
                         </label>
-                        <p className="text-base fw-normal font-primary">
+                        <p className="fw-normal text-primary-black">
                           {filteredContactById?.ownerTaxNumber.display}
                         </p>
                       </div>
                       <div className="mb-3">
                         <label
                           htmlFor="contactPreferences"
-                          className="text-sm fw-normal font-secondary mb-2"
+                          className="fs-9 fw-normal text-secondary-gray mb-2"
                         >
                           Contact Preferences
                         </label>
-                        <p className="text-base fw-normal font-primary">
-                          {filteredContactById?.contactPreferences[0].display}
-                        </p>
+                        {filteredContactById?.contactPreferences.length > 1 ? (
+                          filteredContactById?.contactPreferences.map(
+                            (contact, i) => (
+                              <p
+                                className="fw-normal text-primary-black mb-0"
+                                key={i}
+                              >
+                                {contact.display}
+                              </p>
+                            ),
+                          )
+                        ) : (
+                          <p className="fw-normal text-primary-black">
+                            {filteredContactById?.contactPreferences[0].display}
+                          </p>
+                        )}
                       </div>
                       <div className="mb-3">
                         <label
                           htmlFor="originContact"
-                          className="text-sm fw-normal font-secondary mb-2"
+                          className="fs-9 fw-normal text-secondary-gray mb-2"
                         >
                           Origin Contacts
                         </label>
-                        <p className="text-base fw-normal font-primary">
-                          {filteredContactById?.originContacts[0].display}
-                        </p>
+                        {filteredContactById?.originContacts.length > 1 ? (
+                          filteredContactById?.originContacts.map(
+                            (origin, i) => (
+                              <p
+                                className="fw-normal text-primary-black mb-0"
+                                key={i}
+                              >
+                                {origin.display}
+                              </p>
+                            ),
+                          )
+                        ) : (
+                          <p className="fw-normal text-primary-black">
+                            {filteredContactById?.originContacts[0].display}
+                          </p>
+                        )}
                       </div>
                       <div className="mb-3">
                         <label
                           htmlFor="associateTo"
-                          className="text-sm fw-normal font-secondary mb-2"
+                          className="fs-9 fw-normal text-secondary-gray mb-2"
                         >
                           Associate To
                         </label>
-                        <p className="text-base fw-normal font-primary">
+                        <p className="fw-normal text-primary-black">
                           {filteredContactById?.associateTo === null
                             ? '-'
                             : filteredContactById?.associateTo}
@@ -298,11 +324,11 @@ const DetailContact = () => {
                       <div className="mb-3">
                         <label
                           htmlFor="email"
-                          className="text-sm fw-normal font-secondary mb-2"
+                          className="fs-9 fw-normal text-secondary-gray mb-2"
                         >
                           Commission
                         </label>
-                        <p className="text-base fw-normal font-primary">
+                        <p className="fw-normal text-primary-black">
                           {filteredContactById?.commission}%
                         </p>
                       </div>
@@ -311,29 +337,29 @@ const DetailContact = () => {
                 </div>
                 <div className="row mt-4 contact-account">
                   <div className="col">
-                    <div className="card">
-                      <h5 className="text-lg font-medium mb-4">
+                    <div className="card border-0 bg-white rounded-2 p-3 mb-0">
+                      <h5 className="fs-8 font-medium text-secondary-black mb-4">
                         Contact Account
                       </h5>
                       <div className="mb-3">
                         <label
                           htmlFor="contactType"
-                          className="text-sm fw-normal font-secondary mb-2"
+                          className="fs-9 fw-normal text-secondary-gray mb-2"
                         >
                           Contact Type
                         </label>
-                        <p className="text-base fw-normal font-primary">
+                        <p className="fw-normal text-primary-black">
                           {filteredContactById?.type.display}
                         </p>
                       </div>
                       <div className="mb-3">
                         <label
                           htmlFor="email"
-                          className="text-sm fw-normal font-secondary mb-2"
+                          className="fs-9 fw-normal text-secondary-gray mb-2"
                         >
                           Email Address
                         </label>
-                        <p className="text-base fw-normal font-primary">
+                        <p className="fw-normal text-primary-black">
                           {filteredContactById?.email}
                         </p>
                       </div>
@@ -342,16 +368,16 @@ const DetailContact = () => {
                           <div className="col-6 col-lg-7">
                             <label
                               htmlFor="password"
-                              className="text-sm fw-normal font-secondary mb-2"
+                              className="fs-9 fw-normal text-secondary-gray mb-2"
                             >
                               Current Password
                             </label>
-                            <p className="text-base fw-normal font-primary">
+                            <p className="fw-normal text-primary-black">
                               •••••••••
                             </p>
                           </div>
                           <div className="col-6 col-lg-5 d-flex justify-content-end">
-                            <button className="text-base font-medium border-0 bg-transparent">
+                            <button className="fw-medium text-primary-blue border-0 bg-transparent">
                               Change Password
                             </button>
                           </div>

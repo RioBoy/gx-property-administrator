@@ -167,9 +167,7 @@ const FormLogin = () => {
       </div>
       <div className="row">
         <div className="col version">
-          <p className="d-flex justify-content-center text-secondary-gray">
-            Version 1.0.0
-          </p>
+          <p className="text-center text-secondary-gray">Version 1.0.0</p>
         </div>
       </div>
     </div>

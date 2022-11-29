@@ -63,7 +63,7 @@ const Sidebar = ({ logo, navLink, toggleMenu }) => {
                 activeClassName="active"
               >
                 {navItem.icon}
-                <span className="fs-9 fw-medium">{navItem.name}</span>
+                <span className="fs-9 fw-normal">{navItem.name}</span>
               </NavLink>
             </li>
           );

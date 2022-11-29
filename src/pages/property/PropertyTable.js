@@ -10,7 +10,7 @@ import ImagePlaceholder from '../../assets/images/image-placeholder.jpg';
 import Spinner from '../../components/spinner/Spinner';
 
 const PropertyTable = () => {
-  const [propertyList, setPropertyList] = useState({});
+  const [propertyList, setPropertyList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const PropertyTable = () => {
 
   return (
     <>
-      {isLoading === true ? (
+      {isLoading ? (
         <Spinner height="min-vh-50" />
       ) : (
         <div className="row mt-3">

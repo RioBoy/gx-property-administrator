@@ -6,7 +6,7 @@ import Spinner from '../../components/spinner/Spinner';
 import { Buttons } from '../../components/button/Buttons';
 
 const ContactCard = () => {
-  const [allContacts, setAllContacts] = useState({});
+  const [allContacts, setAllContacts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const ContactCard = () => {
                     <Buttons
                       type="link"
                       href={`/contact/${contact.id}`}
-                      className="text-reset"
+                      className="text-primary-black"
                     >
                       {contact.name}
                     </Buttons>

@@ -9,7 +9,7 @@ import Avatar from '../../assets/images/avatar.png';
 import Sidebar from './Sidebar';
 import Topbar from './Topbar';
 
-const Layout = (props) => {
+const Layout = ({ title, children }) => {
   const [toggleMenu, setToggleMenu] = useState(false);
 
   const dataNavLink = [
@@ -35,7 +35,7 @@ const Layout = (props) => {
       <Sidebar logo={VBMLogo} navLink={dataNavLink} toggleMenu={toggleMenu} />
       <div id="content-wrapper" className="d-flex flex-column">
         <Topbar
-          navLink={dataNavLink}
+          title={title}
           avatar={Avatar}
           icon={
             <IoMenuOutline
@@ -44,7 +44,7 @@ const Layout = (props) => {
             />
           }
         />
-        {props.children}
+        {children}
       </div>
     </div>
   );

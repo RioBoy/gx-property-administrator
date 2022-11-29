@@ -5,6 +5,7 @@ $btn-border-radius: 0.5rem;
 $input-border-radius: 0.5rem;
 $input-placeholder-color: #acadc1;
 $box-shadow: 2px 4px 9px rgba(24, 37, 92, 0.15);
+$border-color: #acadc1;
 
 @import '../../../node_modules/bootstrap/scss/functions';
 @import '../../../node_modules/bootstrap/scss/variables';
@@ -18,7 +19,11 @@ $custom-theme-colors: (
   'primary-blue': #2767e1,
   'primary-yellow': #efcf5d,
   'primary-green': #2db986,
+  'secondary-green': #0ec837,
+  'third-green': #14c85c,
   'primary-red': #de5263,
+  'secondary-red': #ff1010,
+  'primary-gray': #f0f0f5,
 );
 $theme-colors: map-merge($custom-theme-colors, $theme-colors);
 
@@ -77,9 +82,25 @@ $utilities: map-merge(
             'third-gray': #acadc1,
             'primary-blue': #647deb,
             'dark-blue': #454560,
+            'secondary-red': #ff1010,
             'reset': inherit,
           )
         ),
+    ),
+    'rounded': (
+      property: border-radius,
+      class: rounded,
+      values: (
+        null: var(--#{$prefix}border-radius),
+        0: 0,
+        1: var(--#{$prefix}border-radius-sm),
+        2: 0.5rem,
+        3: 0.625rem,
+        4: var(--#{$prefix}border-radius-xl),
+        5: var(--#{$prefix}border-radius-2xl),
+        circle: 50%,
+        pill: var(--#{$prefix}border-radius-pill),
+      ),
     ),
     'font-size': (
       rfs: true,
@@ -635,6 +656,65 @@ main {
           }
         }
       }
+    }
+  }
+
+  // add contact
+  &.add-contact-content {
+    padding: 1.313rem 1.438rem;
+
+    .section-1 {
+      margin-bottom: 24px;
+
+      .card-body {
+        padding: 0 1.5rem 4.875rem 1.5rem;
+
+        .row {
+          margin-bottom: 1.5rem;
+        }
+      }
+    }
+
+    .section-2 {
+      .row {
+        margin-bottom: 1.5rem;
+
+        // input[type='file']::-webkit-file-upload-button {
+        //   visibility: hidden;
+        // }
+
+        .form-check-input {
+          &:checked[type='radio'] {
+            background-color: #647deb;
+            color: #647deb;
+            background-image: none;
+          }
+        }
+      }
+    }
+  }
+
+  // detail contact
+  &.contact-detail-content {
+    padding: 3.438rem 2.5rem;
+
+    .contact-detail-role {
+      .card {
+        margin-top: 30px !important;
+        background-color: white;
+        border-radius: 8px;
+        padding: 1.5rem 1rem;
+        border: 0;
+      }
+    }
+    .other-data {
+      .card {
+        padding-bottom: 88px !important;
+      }
+    }
+
+    .contact-company-detail {
+      margin-top: 24px !important;
     }
   }
 }

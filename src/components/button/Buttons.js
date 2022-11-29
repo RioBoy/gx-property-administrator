@@ -35,7 +35,7 @@ export const Buttons = (props) => {
   }
 
   return (
-    <button className={className.join(' ')} type={props.type}>
+    <button className={className.join(' ')} type={props.type} onClick={onClick}>
       {props.children}
     </button>
   );

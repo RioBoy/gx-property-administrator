@@ -31,21 +31,23 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <Layout>
-      {isLoading === true ? (
-        <Spinner height="h-100" />
-      ) : (
-        <main className="h-100 dashboard-content">
-          <h3 className="fw-normal">
-            Welcome again,{' '}
-            <span className="fw-semibold">{profile.nickName}!</span>
-          </h3>
-          <h6 className="fw-normal text-secondary-gray mt-3">
-            Hi {profile.nickName}, don't forget to control every activity that
-            exist
-          </h6>
-        </main>
-      )}
+    <Layout title="Dashboard">
+      <main className="h-100 dashboard-content">
+        {isLoading === true ? (
+          <Spinner height="h-100" />
+        ) : (
+          <>
+            <h3 className="fw-normal">
+              Welcome again,{' '}
+              <span className="fw-semibold">{profile.nickName}!</span>
+            </h3>
+            <h6 className="fw-normal text-secondary-gray mt-3">
+              Hi {profile.nickName}, don't forget to control every activity that
+              exist
+            </h6>
+          </>
+        )}
+      </main>
     </Layout>
   );
 };

@@ -12,7 +12,7 @@ const Property = () => {
   const handleShow = () => setShow(true);
 
   return (
-    <Layout>
+    <Layout title="Property Management">
       <main className="h-100 property-content py-4">
         <div className="property-page-content">
           <h5 className="fs-8 fw-medium p-2">Property List</h5>
