@@ -1,22 +1,25 @@
 import './assets/scss/main.scss';
 import 'react-toastify/dist/ReactToastify.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import { Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import LoginPage from './loginPage/LoginPage';
-import DashboardPage from './dashboardPage/DashboardPage';
+import Login from './pages/auth/Login';
+import Dashboard from './pages/dashboard/Dashboard';
+import Property from './pages/property/Property';
+import Contact from './pages/contact/Contact';
 
-function App() {
+const App = () => {
   return (
     <>
-      <Router>
-        <Switch>
-          <Route exact path="/" component={LoginPage} />
-          <Route path="/dashboard" component={DashboardPage} />
-        </Switch>
-      </Router>
+      <Switch>
+        <Route path="/login" component={Login} />
+        <Route path="/dashboard" component={Dashboard} />
+        <Route path="/property" component={Property} />
+        <Route path="/contact" component={Contact} />
+      </Switch>
       <ToastContainer />
     </>
   );
-}
+};
 
 export default App;
