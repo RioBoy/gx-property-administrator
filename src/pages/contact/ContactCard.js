@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link, useRouteMatch } from 'react-router-dom';
 import { getAllContacts } from '../../lib/constant';
 
 import Spinner from '../../components/spinner/Spinner';
-import { Buttons } from '../../components/button/Buttons';
 
 const ContactCard = () => {
   const [allContacts, setAllContacts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const { url } = useRouteMatch();
 
   useEffect(() => {
     setIsLoading(true);
@@ -29,7 +30,7 @@ const ContactCard = () => {
 
   return (
     <>
-      {isLoading === true ? (
+      {isLoading ? (
         <Spinner height="min-vh-50" />
       ) : (
         <>
@@ -38,13 +39,15 @@ const ContactCard = () => {
               <div className="card w-100">
                 <div className="card-body">
                   <h5 className="card-title fw-bold">
-                    <Buttons
-                      type="link"
-                      href={`/contact/${contact.id}`}
+                    <Link
+                      to={{
+                        pathname: `${url}/${contact.id}`,
+                        state: { allContacts, contactId: contact.id },
+                      }}
                       className="text-primary-black"
                     >
                       {contact.name}
-                    </Buttons>
+                    </Link>
                   </h5>
                   <h6 className="fs-9 text-secondary-gray card-subtitle mb-2 fw-medium">
                     {contact.phoneNumber === null
@@ -54,14 +57,17 @@ const ContactCard = () => {
                   <p className="fs-9 text-secondary-gray card-text fw-medium mb-4">
                     {contact.email}
                   </p>
-                  <a
-                    href="/contact/edit/:id"
+                  <Link
+                    to={{
+                      pathname: `${url}/edit/${contact.id}`,
+                      state: { allContacts, contactId: contact.id },
+                    }}
                     className="card-link text-decoration-none mb-2 text-primary-blue"
                   >
                     Edit
-                  </a>
+                  </Link>
                   <a
-                    href="/contact/delete/:id"
+                    href="/dashboard"
                     className="card-link card-link text-decoration-none mb-2 text-primary-blue"
                   >
                     Remove

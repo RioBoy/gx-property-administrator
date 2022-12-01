@@ -1,10 +1,13 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { Buttons } from '../../components/button/Buttons';
 
 import DetailPropertyCard from './DetailPropertyCard';
 import Layout from '../../components/templates/Layout';
 
 const DetailProperty = () => {
+  const history = useHistory();
+
   return (
     <Layout title="Property Management">
       <main className="h-100 detail-property-content">
@@ -17,8 +20,8 @@ const DetailProperty = () => {
           <div className="col-12 col-md-4 d-md-flex align-items-center justify-content-end">
             <div className="d-flex gap-3">
               <Buttons
-                type="link"
-                href="/property"
+                type="button"
+                onClick={() => history.goBack()}
                 className="fs-9 btn py-2 p-3 btn-primary-blue text-uppercase"
               >
                 Back

@@ -1,18 +1,20 @@
-import React, { useState, useRef } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { addNewContact } from '../../lib/constant';
-import { Buttons } from '../../components/button/Buttons';
 import Select from 'react-select';
+import { updateContactById } from '../../lib/constant';
+import { Buttons } from '../../components/button/Buttons';
 import { MdOutlinePhotoSizeSelectActual } from 'react-icons/md';
-
+import ImagePlaceholder from '../../assets/images/image-placeholder.jpg';
 import Layout from '../../components/templates/Layout';
+import axios from 'axios';
+import { LS_AUTH } from '../../config/localStorage';
+import { toast } from 'react-toastify';
 
-const AddContact = () => {
+const EditContact = () => {
   const history = useHistory();
-  const [addContact, setAddContact] = useState({
+  const [updateContact, setUpdateContact] = useState({
     name: '',
+    parentId: 1, // default
     salutation: '',
     email: '',
     password: '', // empty
@@ -28,7 +30,7 @@ const AddContact = () => {
     identityPhoto: '',
     originContacts: [],
     associateTo: '',
-    commission: 15, // default
+    commission: 15,
     companyName: '',
     companyNPWP: '',
     companyAddress: '',
@@ -37,12 +39,13 @@ const AddContact = () => {
   const fileRef = useRef(null);
   const [file, setFile] = useState('');
   const [filePreview, setFilePreview] = useState(null);
+  const [filePreviewUpdate, setFilePreviewUpdate] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
   const [isError, setIsError] = useState('');
   const [isRadio, setIsRadio] = useState('');
 
   const _handleOnChange = (event) => {
-    setAddContact((state) => ({
+    setUpdateContact((state) => ({
       ...state,
       [event.target.name]: event.target.value,
     }));
@@ -55,7 +58,7 @@ const AddContact = () => {
   };
 
   const _handleMultipleValue = (value, action) => {
-    setAddContact((state) => ({
+    setUpdateContact((state) => ({
       ...state,
       [action.name]: value,
     }));
@@ -63,7 +66,7 @@ const AddContact = () => {
 
   const _handleIsChecked = () => {
     if (isChecked || isRadio === 'yes') {
-      setAddContact((state) => ({
+      setUpdateContact((state) => ({
         ...state,
         companyName: '',
         companyNPWP: '',
@@ -74,8 +77,8 @@ const AddContact = () => {
   };
 
   const _handleRadioChange = (event) => {
-    if (isRadio !== 'yes' || addContact.ownerTaxNumber) {
-      setAddContact((state) => ({
+    if (isRadio !== 'yes' || updateContact.ownerTaxNumber) {
+      setUpdateContact((state) => ({
         ...state,
         NPWP: '',
         associateTo: '',
@@ -88,23 +91,28 @@ const AddContact = () => {
     setIsRadio(event.target.value);
   };
 
-  const _handleSubmitContact = (e) => {
+  const _handleSubmitUpdateContact = (e) => {
     e.preventDefault();
+    const token = localStorage.getItem(LS_AUTH);
+    const updatePayload = {
+      ...updateContact,
+      identityPhoto: file,
+      originContacts: updateContact.originContacts.map(
+        (origin) => origin.value,
+      ),
+      contactPreferences: updateContact.contactPreferences.map(
+        (preferences) => preferences.value,
+      ),
+      ownerTaxNumber: isRadio,
+    };
     axios({
       method: 'post',
-      url: addNewContact,
+      url: updateContactById(history.location.state.contactId),
       headers: {
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'multipart/form-data',
       },
-      data: {
-        ...addContact,
-        identityPhoto: file,
-        originContacts: addContact.originContacts.map((origin) => origin.value),
-        contactPreferences: addContact.contactPreferences.map(
-          (preferences) => preferences.value,
-        ),
-        ownerTaxNumber: isRadio,
-      },
+      data: updatePayload,
     })
       .then((response) => {
         const { status, error, success } = response.data;
@@ -121,13 +129,67 @@ const AddContact = () => {
             autoClose: 3000,
           });
           history.push('/contact');
-          setAddContact([]);
+          setUpdateContact([]);
         }
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
+  const { allContacts, contactId } = history.location.state;
+
+  const filteredUpdateContactById = allContacts.contacts?.filter(
+    (contact) => contact?.id === contactId,
+  )?.[0];
+
+  useEffect(() => {
+    if (
+      filteredUpdateContactById.companyName !== '' &&
+      filteredUpdateContactById.companyName !== null
+    ) {
+      setIsChecked(true);
+    }
+    setUpdateContact((state) => ({
+      ...state,
+      name: filteredUpdateContactById.name,
+      // parentId
+      salutation: filteredUpdateContactById.salutation,
+      email: filteredUpdateContactById.email,
+      // password
+      type: filteredUpdateContactById.type.display,
+      // language
+      country: filteredUpdateContactById.country.code,
+      residence: filteredUpdateContactById.residence,
+      phoneNumber: filteredUpdateContactById.phoneNumber,
+      contactPreferences: filteredUpdateContactById.contactPreferences.map(
+        (preferences) => {
+          return {
+            value: preferences.name,
+            label: preferences.display,
+          };
+        },
+      ),
+      // ownerTaxNumber
+      NPWP: filteredUpdateContactById.NPWP,
+      identityNumber: filteredUpdateContactById.identityNumber,
+      // identityPhoto
+      originContacts: filteredUpdateContactById.originContacts.map((origin) => {
+        return {
+          value: origin.name,
+          label: origin.display,
+        };
+      }),
+      associateTo: filteredUpdateContactById.commission,
+      commission: filteredUpdateContactById.commission,
+      companyName: filteredUpdateContactById.companyName,
+      companyNPWP: filteredUpdateContactById.companyNPWP,
+      companyAddress: filteredUpdateContactById.companyAddress,
+      other: filteredUpdateContactById.other,
+    }));
+    setFilePreviewUpdate(filteredUpdateContactById.identityPhoto);
+    setIsRadio(filteredUpdateContactById.ownerTaxNumber.name);
+  }, [filteredUpdateContactById]);
 
   const objectData = (id, value) => {
     return {
@@ -180,7 +242,7 @@ const AddContact = () => {
   return (
     <Layout title="Contact Management">
       <main className="h-100 add-contact-content">
-        <form onSubmit={_handleSubmitContact} method="post">
+        <form onSubmit={_handleSubmitUpdateContact} method="post">
           <section className="section-1">
             <div className="card bg-white border-0 rounded-2">
               <div className="card-header bg-white border-0 mb-2 py-3 px-3">
@@ -200,8 +262,8 @@ const AddContact = () => {
                   </div>
                   <div className="col-9">
                     <input
+                      value={updateContact.name}
                       onChange={_handleOnChange}
-                      value={addContact.name}
                       name="name"
                       type="text"
                       id="name"
@@ -209,7 +271,7 @@ const AddContact = () => {
                       placeholder="Type fullname here"
                     />
                     {requiredParam('name').length > 0 &&
-                    addContact.name === '' ? (
+                    updateContact.name === '' ? (
                       <span className="fs-9 text-secondary-red d-block mt-2">
                         {requiredParam('name')[0]?.message}
                       </span>
@@ -233,7 +295,7 @@ const AddContact = () => {
                   <div className="col-9">
                     <select
                       onChange={_handleOnChange}
-                      value={addContact.salutation}
+                      value={updateContact.salutation}
                       name="salutation"
                       className="form-select text-primary-black"
                       id="salutation"
@@ -246,7 +308,7 @@ const AddContact = () => {
                       ))}
                     </select>
                     {requiredParam('salutation').length > 0 &&
-                    addContact.salutation === '' ? (
+                    updateContact.salutation === '' ? (
                       <span className="fs-9 text-secondary-red d-block mt-2">
                         {requiredParam('salutation')[0]?.message}
                       </span>
@@ -267,7 +329,7 @@ const AddContact = () => {
                   <div className="col-9">
                     <select
                       onChange={_handleOnChange}
-                      value={addContact.type}
+                      value={updateContact.type}
                       name="type"
                       className="form-select text-primary-black"
                       id="type"
@@ -280,7 +342,7 @@ const AddContact = () => {
                       ))}
                     </select>
                     {requiredParam('type').length > 0 &&
-                    addContact.type === '' ? (
+                    updateContact.type === '' ? (
                       <span className="fs-9 text-secondary-red d-block mt-2">
                         {requiredParam('type')[0]?.message}
                       </span>
@@ -298,7 +360,7 @@ const AddContact = () => {
                   <div className="col-9">
                     <select
                       onChange={_handleOnChange}
-                      value={addContact.country}
+                      value={updateContact.country}
                       name="country"
                       className="form-select text-primary-black"
                       id="country"
@@ -324,7 +386,7 @@ const AddContact = () => {
                   <div className="col-9">
                     <textarea
                       onChange={_handleOnChange}
-                      value={addContact.residence}
+                      value={updateContact.residence}
                       name="residence"
                       className="form-control"
                       id="residence"
@@ -359,7 +421,7 @@ const AddContact = () => {
                   <div className="col-9">
                     <input
                       onChange={_handleOnChange}
-                      value={addContact.identityNumber}
+                      value={updateContact.identityNumber}
                       name="identityNumber"
                       type="text"
                       id="identityNumber"
@@ -388,7 +450,7 @@ const AddContact = () => {
                         ref={fileRef}
                         accept="image/*"
                         onChange={(e) => _handleImageUpload(e)}
-                        value={addContact.identityPhoto}
+                        value={updateContact.identityPhoto}
                         name="identityPhoto"
                         type="file"
                         id="identityPhoto"
@@ -407,10 +469,16 @@ const AddContact = () => {
                         className="form-control rounded-2 text-start text-start"
                       />
                     </div>
-                    {filePreview && (
+                    {filePreview ? (
                       <img
                         src={filePreview}
                         alt="Preview"
+                        className="mt-2 image-preview"
+                      />
+                    ) : (
+                      <img
+                        src={filePreviewUpdate ? ImagePlaceholder : ''}
+                        alt={filePreviewUpdate ? 'Preview' : ''}
                         className="mt-2 image-preview"
                       />
                     )}
@@ -431,7 +499,7 @@ const AddContact = () => {
                   <div className="col-9">
                     <input
                       onChange={_handleOnChange}
-                      value={addContact.phoneNumber}
+                      value={updateContact.phoneNumber}
                       name="phoneNumber"
                       type="text"
                       id="phoneNumber"
@@ -457,7 +525,7 @@ const AddContact = () => {
                   <div className="col-9">
                     <input
                       onChange={_handleOnChange}
-                      value={addContact.email}
+                      value={updateContact.email}
                       name="email"
                       type="text"
                       id="email"
@@ -484,14 +552,14 @@ const AddContact = () => {
                     <Select
                       name="contactPreferences"
                       id="contactPreferences"
-                      value={addContact.contactPreferences}
+                      value={updateContact.contactPreferences}
+                      onChange={_handleMultipleValue}
                       options={contactPreferences.map((preferences) => {
                         return {
                           value: preferences.value,
                           label: preferences.label,
                         };
                       })}
-                      onChange={_handleMultipleValue}
                       isMulti
                     />
                   </div>
@@ -512,18 +580,18 @@ const AddContact = () => {
                     <Select
                       name="originContacts"
                       id="originContacts"
-                      value={addContact.originContacts}
+                      value={updateContact.originContacts}
+                      onChange={_handleMultipleValue}
                       options={originContacts.map((origin) => {
                         return {
                           value: origin.value,
                           label: origin.label,
                         };
                       })}
-                      onChange={_handleMultipleValue}
                       isMulti
                     />
                     {requiredParam('originContacts').length > 0 &&
-                    addContact.originContacts.length === 0 ? (
+                    updateContact.originContacts.length === 0 ? (
                       <span className="fs-9 text-secondary-red d-block mt-2">
                         {requiredParam('originContacts')[0]?.message}
                       </span>
@@ -611,7 +679,7 @@ const AddContact = () => {
                       <div className="col-9">
                         <input
                           onChange={_handleOnChange}
-                          value={addContact.NPWP}
+                          value={updateContact.NPWP}
                           name="NPWP"
                           type="text"
                           id="NPWP"
@@ -632,7 +700,7 @@ const AddContact = () => {
                       <div className="col-9">
                         <input
                           onChange={_handleOnChange}
-                          value={addContact.associateTo}
+                          value={updateContact.associateTo}
                           name="associateTo"
                           type="number"
                           id="associateTo"
@@ -640,8 +708,8 @@ const AddContact = () => {
                           placeholder="Search Contact"
                         />
                         {(requiredParam('associateTo').length > 0 &&
-                          addContact.associateTo === '') ||
-                        addContact.associateTo === null ? (
+                          updateContact.associateTo === '') ||
+                        updateContact.associateTo === null ? (
                           <span className="fs-9 text-secondary-red d-block mt-2">
                             {requiredParam('associateTo')[0]?.message}
                           </span>
@@ -664,6 +732,7 @@ const AddContact = () => {
                           <input
                             onChange={_handleIsChecked}
                             value={isChecked}
+                            checked={isChecked}
                             name="isCompany"
                             className="form-check-input"
                             type="checkbox"
@@ -695,7 +764,7 @@ const AddContact = () => {
                           <div className="col-9">
                             <input
                               onChange={_handleOnChange}
-                              value={addContact.companyName}
+                              value={updateContact.companyName}
                               name="companyName"
                               type="text"
                               id="companyName"
@@ -716,7 +785,7 @@ const AddContact = () => {
                           <div className="col-9">
                             <input
                               onChange={_handleOnChange}
-                              value={addContact.companyNPWP}
+                              value={updateContact.companyNPWP}
                               name="companyNPWP"
                               type="text"
                               id="companyNPWP"
@@ -740,7 +809,7 @@ const AddContact = () => {
                           <div className="col-9">
                             <input
                               onChange={_handleOnChange}
-                              value={addContact.companyAddress}
+                              value={updateContact.companyAddress}
                               name="companyAddress"
                               type="text"
                               id="companyAddress"
@@ -782,4 +851,4 @@ const AddContact = () => {
   );
 };
 
-export default AddContact;
+export default EditContact;

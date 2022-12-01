@@ -13,7 +13,7 @@ import Map from '../../assets/images/maps.jpg';
 import Spinner from '../../components/spinner/Spinner';
 
 const DetailPropertyCard = () => {
-  const [propertyDetail, setPropertyDetail] = useState({});
+  const [propertyDetail, setPropertyDetail] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
   const id = history.location.pathname.split('/')[2];

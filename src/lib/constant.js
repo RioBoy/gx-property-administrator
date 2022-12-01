@@ -15,3 +15,7 @@ export const getPropertDetail = (id) => {
 export const getAllContacts = `${baseUrl}/contact`;
 
 export const addNewContact = `${baseUrl}/contact/register`;
+
+export const updateContactById = (id) => {
+  return `${baseUrl}/contact/${id}/update`;
+};

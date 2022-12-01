@@ -53,7 +53,6 @@ const FormLogin = () => {
       .finally(() => {
         setLoading(false);
       });
-    setLogin({ email: '', password: '' });
   };
 
   const _handleUpdateData = (e) => {

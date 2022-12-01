@@ -7,7 +7,7 @@ import Layout from '../../components/templates/Layout';
 import Spinner from '../../components/spinner/Spinner';
 
 const Dashboard = () => {
-  const [profile, setProfile] = useState({});
+  const [profile, setProfile] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {

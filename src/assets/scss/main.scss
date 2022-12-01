@@ -679,15 +679,49 @@ main {
       .row {
         margin-bottom: 1.5rem;
 
-        // input[type='file']::-webkit-file-upload-button {
-        //   visibility: hidden;
-        // }
-
         .form-check-input {
-          &:checked[type='radio'] {
+          &:checked[type='radio'],
+          &:checked[type='checkbox'] {
             background-color: #647deb;
             color: #647deb;
             background-image: none;
+          }
+        }
+
+        .input-group {
+          &.input-file-upload {
+            label {
+              position: absolute;
+              z-index: 1;
+              top: 50%;
+              transform: translateY(-50%);
+              margin: 0;
+              left: 12px;
+              color: #acadc1;
+
+              svg {
+                margin-right: 8px;
+              }
+
+              &:hover {
+                cursor: pointer;
+              }
+            }
+
+            input {
+              &:focus {
+                z-index: 0;
+              }
+            }
+          }
+        }
+
+        img {
+          &.image-preview {
+            max-width: 350px;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
           }
         }
       }
