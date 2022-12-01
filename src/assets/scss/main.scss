@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&family=Poppins:wght@200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap');
 
 $font-family-base: 'Poppins', sans-serif;
 $btn-border-radius: 0.5rem;
@@ -276,6 +276,7 @@ $utilities: map-merge(
   }
 }
 
+// pace loading
 .pace {
   .pace-progress {
     background: #ff7d00 !important;
@@ -760,6 +761,32 @@ main {
   #content-wrapper {
     width: 100%;
     overflow-x: hidden;
+  }
+}
+
+// react-confirm-lart
+.react-confirm-alert-body {
+  font-family: 'Poppins', sans-serif !important;
+
+  h1 {
+    font-weight: 400;
+    font-size: 2.25rem;
+  }
+
+  .react-confirm-alert-button-group {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+
+    button {
+      background-color: #ff7d00;
+      font-size: 1rem;
+
+      &:hover {
+        background-color: #ff9126;
+        border-color: #ff8a1a;
+      }
+    }
   }
 }
 

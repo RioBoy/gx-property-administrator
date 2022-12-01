@@ -16,7 +16,7 @@ const DetailPropertyCard = () => {
   const [propertyDetail, setPropertyDetail] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
-  const id = history.location.pathname.split('/')[2];
+  const id = history.location.state.propertyId;
 
   useEffect(() => {
     const token = localStorage.getItem(LS_AUTH);

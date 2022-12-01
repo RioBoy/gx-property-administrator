@@ -1,5 +1,6 @@
 import './assets/scss/main.scss';
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import { Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Login from './pages/auth/Login';

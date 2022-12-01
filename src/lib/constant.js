@@ -19,3 +19,7 @@ export const addNewContact = `${baseUrl}/contact/register`;
 export const updateContactById = (id) => {
   return `${baseUrl}/contact/${id}/update`;
 };
+
+export const deleteContactById = (id) => {
+  return `${baseUrl}/contact/${id}/delete`;
+};

@@ -139,7 +139,7 @@ const EditContact = () => {
 
   const { allContacts, contactId } = history.location.state;
 
-  const filteredUpdateContactById = allContacts.contacts?.filter(
+  const filteredUpdateContactById = allContacts?.filter(
     (contact) => contact?.id === contactId,
   )?.[0];
 
@@ -499,7 +499,7 @@ const EditContact = () => {
                   <div className="col-9">
                     <input
                       onChange={_handleOnChange}
-                      value={updateContact.phoneNumber}
+                      value={updateContact.phoneNumber || ''}
                       name="phoneNumber"
                       type="text"
                       id="phoneNumber"

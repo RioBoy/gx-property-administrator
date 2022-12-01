@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useRouteMatch } from 'react-router-dom';
+import { useRouteMatch, Link } from 'react-router-dom';
 import { Table } from 'react-bootstrap';
 import { LS_AUTH } from '../../config/localStorage';
 import { getAllProperty } from '../../lib/constant';
@@ -8,7 +8,6 @@ import { getAllProperty } from '../../lib/constant';
 import ImagePlaceholder from '../../assets/images/image-placeholder.jpg';
 
 import Spinner from '../../components/spinner/Spinner';
-import { Buttons } from '../../components/button/Buttons';
 
 const PropertyTable = () => {
   const [propertyList, setPropertyList] = useState([]);
@@ -67,13 +66,15 @@ const PropertyTable = () => {
                     </td>
                     <td>
                       <p className="mb-0 fs-9 fw-normal">
-                        <Buttons
-                          type="link"
-                          href={`${url}/${property.id}`}
+                        <Link
+                          to={{
+                            pathname: `${url}/${property.id}`,
+                            state: { propertyId: property.id },
+                          }}
                           className="text-primary-black"
                         >
                           {property.land ? property.land.name : 'Ini Vie Villa'}
-                        </Buttons>
+                        </Link>
                       </p>
                       <p className="fs-10 text-secondary-gray mt-2 mb-0 fw-normal">
                         {property.ownershipStatus.display} -{' '}

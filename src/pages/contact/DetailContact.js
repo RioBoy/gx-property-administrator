@@ -1,15 +1,58 @@
 import React from 'react';
+import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
-import { Buttons } from '../../components/button/Buttons';
+import { confirmAlert } from 'react-confirm-alert';
+import { toast } from 'react-toastify';
+import { deleteContactById } from '../../lib/constant';
+import { LS_AUTH } from '../../config/localStorage';
 import IdentityFile from '../../assets/images/identityFile.jpg';
 
+import { Buttons } from '../../components/button/Buttons';
 import Layout from '../../components/templates/Layout';
 
 const DetailContact = () => {
   const history = useHistory();
+  const token = localStorage.getItem(LS_AUTH);
   const { allContacts, contactId } = history.location.state;
 
-  const filteredContactById = allContacts.contacts?.filter(
+  const _handleDeleteContact = (id) => {
+    confirmAlert({
+      title: 'Confirm to delete',
+      message: 'Are you sure to do this.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {
+            axios({
+              method: 'post',
+              url: deleteContactById(id),
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+              .then((response) => {
+                const { status, success } = response.data;
+                if (status === 'success') {
+                  toast(success.msg, {
+                    autoClose: 3000,
+                  });
+                  history.push('/contact');
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          },
+        },
+        {
+          label: 'No',
+          onClick: () => console.log('Batal'),
+        },
+      ],
+    });
+  };
+
+  const filteredContactById = allContacts?.filter(
     (contact) => contact?.id === contactId,
   )?.[0];
 
@@ -39,8 +82,8 @@ const DetailContact = () => {
                 Edit
               </Link>
               <Buttons
-                type="link"
-                href="/"
+                type="button"
+                onClick={() => _handleDeleteContact(contactId)}
                 className="fs-9 fw-semibold px-3 py-2 btn btn-secondary-red text-white"
               >
                 Delete
