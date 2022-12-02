@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from 'react';
-import { Link, NavLink, useHistory } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import { FaRegUserCircle } from 'react-icons/fa';
+import { FiHome } from 'react-icons/fi';
+import { TbLayoutDashboard } from 'react-icons/tb';
 
-const Sidebar = ({ logo, navLink, toggleMenu }) => {
+const Sidebar = ({ logo, toggleMenu }) => {
   const expander = useRef(null);
-  const history = useHistory();
 
   useEffect(() => {
     if (expander.current) {
@@ -34,9 +36,6 @@ const Sidebar = ({ logo, navLink, toggleMenu }) => {
     }
   }
 
-  const pathName = history.location.pathname;
-  const splitPathName = pathName.split('/');
-
   return (
     <div className="sidebar" id="navbar" ref={expander}>
       <ul className="navbar-nav">
@@ -48,26 +47,36 @@ const Sidebar = ({ logo, navLink, toggleMenu }) => {
             <img src={logo} alt="Logo" className="logo-dashboard" />
           </div>
         </Link>
-        {navLink.map((navItem, i) => {
-          return (
-            <li
-              className={[
-                'nav-item',
-                splitPathName[1] === navItem.link ? 'active' : '',
-              ].join(' ')}
-              key={i}
-            >
-              <NavLink
-                to={navItem.link}
-                className="nav-link custom-nav-link"
-                activeClassName="active"
-              >
-                {navItem.icon}
-                <span className="fs-9 fw-normal">{navItem.name}</span>
-              </NavLink>
-            </li>
-          );
-        })}
+        <li className="nav-item">
+          <NavLink
+            to="/dashboard"
+            className="nav-link custom-nav-link"
+            activeClassName="active"
+          >
+            <TbLayoutDashboard />
+            <span className="fs-9 fw-normal">Dasboard</span>
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink
+            to="/property"
+            className="nav-link custom-nav-link"
+            activeClassName="active"
+          >
+            <FiHome />
+            <span className="fs-9 fw-normal">Property</span>
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink
+            to="/contact"
+            className="nav-link custom-nav-link"
+            activeClassName="active"
+          >
+            <FaRegUserCircle />
+            <span className="fs-9 fw-normal">Contact</span>
+          </NavLink>
+        </li>
       </ul>
     </div>
   );

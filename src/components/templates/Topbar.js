@@ -44,7 +44,7 @@ const Topbar = ({ icon, avatar, title }) => {
               Profile
             </Link>
             <Link
-              to="/"
+              to="/darkmode"
               className="fw-medium text-secondary-gray text-decoration-none d-flex align-items-center"
             >
               <HiOutlineMoon size={44} className="text-secondary-gray" />
