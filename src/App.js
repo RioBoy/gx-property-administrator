@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Login from './pages/auth/Login';
 import Dashboard from './pages/dashboard/Dashboard';
+import Profile from './pages/dashboard/Profile';
 import Property from './pages/property/Property';
 import Contact from './pages/contact/Contact';
 
@@ -14,6 +15,7 @@ const App = () => {
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/dashboard" component={Dashboard} />
+        <Route path="/profile" component={Profile} />
         <Route path="/property" component={Property} />
         <Route path="/contact" component={Contact} />
       </Switch>

@@ -418,6 +418,18 @@ main {
     padding: 3rem 1.938rem;
   }
 
+  // my-account
+  &.profile-content {
+    padding: 2.313rem 1.688rem;
+
+    img {
+      &.img-profile {
+        width: 64px;
+        height: 64px;
+      }
+    }
+  }
+
   // property
   .property-page-content {
     background-color: white;
@@ -764,7 +776,7 @@ main {
   }
 }
 
-// react-confirm-lart
+// react-confirm-alert
 .react-confirm-alert-body {
   font-family: 'Poppins', sans-serif !important;
 

@@ -121,7 +121,6 @@ const AddContact = () => {
             autoClose: 3000,
           });
           history.push('/contact');
-          setAddContact([]);
         }
       })
       .catch((error) => {
