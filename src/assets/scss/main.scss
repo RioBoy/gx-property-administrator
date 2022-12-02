@@ -389,7 +389,8 @@ $utilities: map-merge(
     .dropdown-menu {
       width: 283px !important;
 
-      a {
+      a,
+      button {
         padding: 8px 10px;
 
         svg {
@@ -397,8 +398,8 @@ $utilities: map-merge(
         }
 
         &:hover {
-          background-color: var(--bs-dropdown-link-hover-bg);
-          color: var(--bs-dropdown-link-hover-color);
+          background-color: var(--bs-dropdown-link-hover-bg) !important;
+          color: var(--bs-dropdown-link-hover-color) !important;
         }
       }
     }

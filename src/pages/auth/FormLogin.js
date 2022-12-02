@@ -1,58 +1,23 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { useHistory } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { loginUrl } from '../../lib/constant';
-import { LS_AUTH } from '../../config/localStorage';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
+
+import { withAuth } from '../../context/Auth';
 
 import { Buttons } from '../../components/button/Buttons';
 
 import VBMLogo from '../../assets/images/VBM-Logo.svg';
-import { FiEye, FiEyeOff } from 'react-icons/fi';
 import Spinner from '../../components/spinner/Spinner';
 
-const FormLogin = () => {
+const FormLogin = (props) => {
   const [login, setLogin] = useState({
     email: '',
     password: '',
-    isLoggedIn: false,
   });
-  const [loading, setLoading] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
-  const history = useHistory();
 
   const _handleSubmitLogin = (e) => {
     e.preventDefault();
-    setLoading(true);
-    axios({
-      method: 'post',
-      url: loginUrl,
-      headers: { 'Content-Type': 'application/json' },
-      data: JSON.stringify(login),
-    })
-      .then((response) => {
-        const { status } = response.data;
-        if (status === 'error') {
-          toast(response.data.error.internalMsg, {
-            autoClose: 3000,
-          });
-          toast(response.data.error.msg, {
-            delay: 3000,
-            autoClose: 5000,
-          });
-        } else {
-          const { access_token } = response.data.results;
-          localStorage.setItem(LS_AUTH, access_token);
-          setLogin({ isLoggedIn: true });
-          history.push('/dashboard');
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    props.login(login);
   };
 
   const _handleUpdateData = (e) => {
@@ -158,7 +123,11 @@ const FormLogin = () => {
                 isMedium
                 isDisabled={!isSubmitDisabled}
               >
-                {loading ? <Spinner isInButton>Sign in</Spinner> : 'Sign in'}
+                {props.isLoading ? (
+                  <Spinner isInButton>Sign in</Spinner>
+                ) : (
+                  'Sign in'
+                )}
               </Buttons>
             </div>
           </form>
@@ -173,4 +142,4 @@ const FormLogin = () => {
   );
 };
 
-export default FormLogin;
+export default withAuth(FormLogin);
