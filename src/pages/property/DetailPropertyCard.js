@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useLayoutEffect,
+  useState,
+  useCallback,
+} from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { LS_AUTH } from '../../config/localStorage';
-import { getPropertDetail } from '../../lib/constant';
+import { getPropertDetail, getPropertDetailHistory } from '../../lib/constant';
 import { Tab, Tabs } from 'react-bootstrap';
-import '../../config/thousand';
+import { numberFormatIDR } from '../../config/currency';
 import UserAvatarHistory from '../../assets/images/user-history.png';
 import DetailPropertyImage from '../../assets/images/detail-property.jpg';
 import ImagePlaceholder from '../../assets/images/image-placeholder.jpg';
@@ -14,12 +19,21 @@ import Spinner from '../../components/spinner/Spinner';
 
 const DetailPropertyCard = () => {
   const [propertyDetail, setPropertyDetail] = useState([]);
+  const [propertyDetailHistory, setPropertyDetailHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
   const id = history.location.state.propertyId;
+  const token = localStorage.getItem(LS_AUTH);
 
-  useEffect(() => {
-    const token = localStorage.getItem(LS_AUTH);
+  useLayoutEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
+  }, [history.location.key]);
+
+  const getPropertDetailData = useCallback(() => {
     setIsLoading(true);
     axios({
       method: 'get',
@@ -36,12 +50,40 @@ const DetailPropertyCard = () => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [id]);
+  }, [id, token]);
+
+  const getPropertyDetailHistoryData = useCallback(() => {
+    setIsLoading(true);
+    axios({
+      method: 'get',
+      url: getPropertDetailHistory(id),
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((response) => {
+        const { results } = response.data;
+        setPropertyDetailHistory(results);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, [id, token]);
+
+  useEffect(() => {
+    getPropertDetailData();
+    getPropertyDetailHistoryData();
+  }, [
+    getPropertDetailData,
+    getPropertyDetailHistoryData,
+    history.location.key,
+  ]);
 
   return (
     <>
       {isLoading === true ? (
-        <Spinner height="min-vh-50" />
+        <Spinner height="min-vh-100" />
       ) : (
         <>
           <div className="row gap-3 gap-lg-0 p-3 section-2 card flex-row border-0">
@@ -115,8 +157,14 @@ const DetailPropertyCard = () => {
                     IDR{' '}
                     {propertyDetail.property?.priceManagement.IDR
                       .finalEstimation.publicPrice
-                      ? propertyDetail.property?.priceManagement.IDR.finalEstimation.publicPrice.thousand()
-                      : propertyDetail.property?.priceManagement.IDR.ownerEstimation.publicPrice.thousand()}
+                      ? numberFormatIDR(
+                          propertyDetail.property?.priceManagement.IDR
+                            .finalEstimation.publicPrice,
+                        )
+                      : numberFormatIDR(
+                          propertyDetail.property?.priceManagement.IDR
+                            .ownerEstimation.publicPrice,
+                        )}
                   </h4>
                 </div>
               </div>
@@ -141,7 +189,9 @@ const DetailPropertyCard = () => {
                           Contact
                         </label>
                         <p className="fw-normal text-primary-black">
-                          Contact Name
+                          {propertyDetail.property?.building.contacts.length > 0
+                            ? 'Nama contact'
+                            : 'Belum ada contact'}
                         </p>
                       </div>
                     </div>
@@ -610,89 +660,104 @@ const DetailPropertyCard = () => {
                   </div>
                 </Tab>
                 <Tab eventKey="profile" title="Facilities">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Vitae, voluptates? Debitis libero praesentium quisquam
-                  delectus consequatur possimus obcaecati unde veritatis
-                  consectetur, quos nobis voluptatibus eum tempora. Commodi,
-                  quisquam. Doloribus, magni!
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Omnis tempore aut fuga voluptates quo maiores illo inventore
+                  sequi ratione aspernatur facilis qui suscipit, exercitationem
+                  deserunt laborum quia ipsum voluptate, quis consectetur illum
+                  tempora veniam itaque obcaecati. Animi, vero adipisci
+                  excepturi similique debitis dignissimos itaque cum repellendus
+                  deleniti atque a doloremque nemo sit, laborum necessitatibus
+                  voluptatem hic optio! Perspiciatis et hic ratione animi
+                  perferendis alias aliquid, illo iusto deleniti veritatis,
+                  consectetur esse voluptates enim. Itaque natus ut corporis ad.
+                  Id, eum. Quos minus eius temporibus vero vitae beatae quia,
+                  consectetur itaque. Laborum provident beatae accusantium
+                  commodi facere blanditiis necessitatibus dolorum, dolore
+                  laudantium ex iusto harum tenetur fuga totam eius quis autem.
+                  Ex quasi voluptatem neque, sint consequatur nisi iure,
+                  molestias quae ullam necessitatibus culpa maiores corporis
+                  modi, quia nemo earum tenetur blanditiis! Qui iusto nobis quod
+                  corrupti possimus ullam laboriosam quos excepturi, quae
+                  doloribus repudiandae a debitis vero, nostrum mollitia impedit
+                  minus? Voluptas eius maxime alias aspernatur velit adipisci
+                  nihil laboriosam maiores? Sint iusto qui accusantium
+                  voluptates perspiciatis facilis cumque hic asperiores quam
+                  assumenda totam itaque minima corporis beatae voluptatem quasi
+                  repudiandae eum, omnis atque repellat praesentium obcaecati?
+                  Odio non, quasi cumque maxime accusantium ea culpa laborum
+                  dolorum, doloribus voluptates vel error similique mollitia
+                  eligendi harum, vitae ipsam dolorem atque. Beatae ipsam,
+                  excepturi accusantium, rem illum consequuntur at quam nam
+                  itaque sunt eveniet voluptate exercitationem iusto aliquid
+                  omnis provident porro corrupti optio facere, quaerat quod.
+                  Rerum illo vitae similique minima iure aliquam saepe repellat
+                  adipisci corrupti sed maiores odit eveniet doloribus quos
+                  ullam possimus dolore debitis sint, doloremque optio et quasi!
+                  Esse nam repellat eos autem aperiam placeat provident adipisci
+                  expedita tempore eius numquam consectetur culpa quisquam ipsa
+                  ullam voluptas, molestiae optio quasi quidem sint
+                  reprehenderit tenetur ratione. Dignissimos ipsum aspernatur et
+                  reprehenderit harum? Dolor provident quidem obcaecati dicta,
+                  dolore sapiente similique mollitia beatae tempora nobis eos
+                  animi commodi doloremque earum sunt optio consequatur eius
+                  laudantium aspernatur dolorem! Deleniti sapiente vel
+                  voluptates obcaecati necessitatibus eius, enim recusandae
+                  facilis aliquam magni ullam praesentium, natus atque molestiae
+                  omnis nostrum temporibus nam architecto ad. Natus, autem
+                  voluptas? Qui iste dolore quibusdam atque tempora error eos
+                  molestias, perferendis ipsa, nulla, similique eum veniam.
+                  Laboriosam, dolorum dolor. Corporis, hic? Impedit quas
+                  accusamus commodi praesentium cumque molestiae blanditiis non
+                  consectetur vitae, neque ab, voluptatibus in inventore quos
+                  animi iste incidunt libero temporibus repellendus perferendis
+                  ea laboriosam qui unde. Iste minus consectetur excepturi
+                  earum. Laboriosam minima amet dolore nemo vitae facere earum
+                  ipsum nihil repudiandae fugit quis adipisci corporis magni
+                  debitis mollitia nobis dicta, voluptas deserunt atque aliquam
+                  esse odio! Commodi obcaecati deserunt at illum explicabo
+                  fugiat doloremque, a ullam. Quis maiores quaerat distinctio,
+                  expedita soluta nobis. Deserunt, error, commodi recusandae
+                  enim ut saepe ab impedit pariatur nulla aperiam molestiae,
+                  voluptatem aut libero. Provident nam, excepturi tempore sunt
+                  quod corrupti suscipit a hic dicta? Ut totam cumque, quia
+                  maiores tempore commodi quisquam, natus dolores, aliquid
+                  voluptates vitae placeat! Ad accusantium esse explicabo
+                  perspiciatis nemo praesentium possimus aliquid officia id
+                  similique beatae animi saepe officiis ex, neque consequuntur
+                  quas.
                 </Tab>
               </Tabs>
             </div>
             <div className="col-12 col-lg-4 col-xl-4 ps-0 ps-lg-3 pe-0">
               <div className="card">
                 <h5 className="fs-7 fw-medium mb-2">History</h5>
-                <div className="history-item mb-2 p-2">
-                  <img
-                    src={UserAvatarHistory}
-                    alt="User"
-                    className="rounded-circle"
-                  />
-                  <div className="user-history">
-                    <p className="fs-9 text-primary-black mb-1">
-                      <span className="fw-semibold mt-0 ps-0">Sales Name</span>{' '}
-                      has visited{' '}
-                      <span className="fw-semibold mt-0 ps-0">
-                        The Popus Villa
-                      </span>{' '}
-                      with customer
-                    </p>
-                    <p className="fs-10 text-third-gray">7 minutes ago</p>
+                {propertyDetailHistory.histories?.map((propertyHistory) => (
+                  <div
+                    className="history-item mb-2 p-2"
+                    key={propertyHistory.id}
+                  >
+                    <img
+                      src={UserAvatarHistory}
+                      alt="User"
+                      className="rounded-circle"
+                    />
+                    <div className="user-history">
+                      <p className="fs-9 text-primary-black mb-1">
+                        <span className="fw-semibold mt-0 ps-0">
+                          {propertyHistory.createdBy}
+                        </span>{' '}
+                        {propertyHistory.description},{' '}
+                        <span className="fw-semibold mt-0 ps-0">
+                          {propertyHistory.description.split(' ').splice(-1)}
+                        </span>{' '}
+                        with customer
+                      </p>
+                      <p className="fs-10 text-third-gray">
+                        {propertyHistory.createdAt}
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <div className="history-item mb-2 p-2">
-                  <img
-                    src={UserAvatarHistory}
-                    alt="User"
-                    className="rounded-circle"
-                  />
-                  <div className="user-history">
-                    <p className="fs-9 text-primary-black mb-1">
-                      <span className="fw-semibold mt-0 ps-0">Sales Name</span>{' '}
-                      has visited{' '}
-                      <span className="fw-semibold mt-0 ps-0">
-                        The Popus Villa
-                      </span>{' '}
-                      with customer
-                    </p>
-                    <p className="fs-10 minutes">7 minutes ago</p>
-                  </div>
-                </div>
-                <div className="history-item mb-2 p-2">
-                  <img
-                    src={UserAvatarHistory}
-                    alt="User"
-                    className="rounded-circle"
-                  />
-                  <div className="user-history">
-                    <p className="fs-9 text-primary-black mb-1">
-                      <span className="fw-semibold mt-0 ps-0">Sales Name</span>{' '}
-                      has visited{' '}
-                      <span className="fw-semibold mt-0 ps-0">
-                        The Popus Villa
-                      </span>{' '}
-                      with customer
-                    </p>
-                    <p className="fs-10 minutes">7 minutes ago</p>
-                  </div>
-                </div>
-                <div className="history-item mb-2 p-2">
-                  <img
-                    src={UserAvatarHistory}
-                    alt="User"
-                    className="rounded-circle"
-                  />
-                  <div className="user-history">
-                    <p className="fs-9 text-primary-black mb-1">
-                      <span className="fw-semibold mt-0 ps-0">Sales Name</span>{' '}
-                      has visited{' '}
-                      <span className="fw-semibold mt-0 ps-0">
-                        The Popus Villa
-                      </span>{' '}
-                      with customer
-                    </p>
-                    <p className="fs-10 minutes">7 minutes ago</p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>

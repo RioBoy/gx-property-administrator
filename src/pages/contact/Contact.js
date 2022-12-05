@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
-import { Buttons } from '../../components/button/Buttons';
 
 import Layout from '../../components/templates/Layout';
+import { Buttons } from '../../components/button/Buttons';
 import ContactCard from './ContactCard';
 import AddContact from './AddContact';
 import EditContact from './EditContact';

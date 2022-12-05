@@ -12,6 +12,10 @@ export const getPropertDetail = (id) => {
   return `${baseUrl}/property/${id}`;
 };
 
+export const getPropertDetailHistory = (id) => {
+  return `${baseUrl}/property/${id}/history`;
+};
+
 export const getAllContacts = `${baseUrl}/contact`;
 
 export const addNewContact = `${baseUrl}/contact/register`;

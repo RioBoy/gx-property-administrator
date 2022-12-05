@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import Select from 'react-select';
+import { toast } from 'react-toastify';
 import { updateContactById } from '../../lib/constant';
-import { Buttons } from '../../components/button/Buttons';
 import { MdOutlinePhotoSizeSelectActual } from 'react-icons/md';
 import ImagePlaceholder from '../../assets/images/image-placeholder.jpg';
-import Layout from '../../components/templates/Layout';
-import axios from 'axios';
 import { LS_AUTH } from '../../config/localStorage';
-import { toast } from 'react-toastify';
+
+import { Buttons } from '../../components/button/Buttons';
+import Spinner from '../../components/spinner/Spinner';
+import Layout from '../../components/templates/Layout';
 
 const EditContact = () => {
   const history = useHistory();
@@ -43,6 +45,7 @@ const EditContact = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [isError, setIsError] = useState('');
   const [isRadio, setIsRadio] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const _handleOnChange = (event) => {
     setUpdateContact((state) => ({
@@ -93,6 +96,7 @@ const EditContact = () => {
 
   const _handleSubmitUpdateContact = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     const token = localStorage.getItem(LS_AUTH);
     const updatePayload = {
       ...updateContact,
@@ -134,6 +138,9 @@ const EditContact = () => {
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -241,7 +248,7 @@ const EditContact = () => {
 
   return (
     <Layout title="Contact Management">
-      <main className="h-100 add-contact-content">
+      <main className="h-auto add-contact-content">
         <form onSubmit={_handleSubmitUpdateContact} method="post">
           <section className="section-1">
             <div className="card bg-white border-0 rounded-2">
@@ -822,26 +829,32 @@ const EditContact = () => {
                     )}
                   </>
                 )}
-                <div className="row">
-                  <div className="col d-flex gap-4 justify-content-end align-items-center">
-                    <Buttons
-                      type="button"
-                      isMedium
-                      onClick={() => history.goBack()}
-                      className="btn btn-bg-white border text-primary-black px-3 py-2"
-                    >
-                      Cancel
-                    </Buttons>
-                    <Buttons
-                      type="submit"
-                      isPrimary
-                      isMedium
-                      className="text-white px-3 py-2"
-                    >
-                      Save Data
-                    </Buttons>
-                  </div>
-                </div>
+              </div>
+            </div>
+          </section>
+          <section className="section-3 shadow-lg">
+            <div className="row">
+              <div className="col d-flex gap-4 justify-content-end align-items-center">
+                <Buttons
+                  type="button"
+                  isMedium
+                  onClick={() => history.goBack()}
+                  className="btn btn-bg-white border text-primary-black px-3 py-2"
+                >
+                  Cancel
+                </Buttons>
+                <Buttons
+                  type="submit"
+                  isPrimary
+                  isMedium
+                  className="text-white px-3 py-2"
+                >
+                  {isLoading ? (
+                    <Spinner isInButton>Save Data</Spinner>
+                  ) : (
+                    'Save Data'
+                  )}
+                </Buttons>
               </div>
             </div>
           </section>

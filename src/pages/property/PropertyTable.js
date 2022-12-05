@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useRouteMatch, Link } from 'react-router-dom';
+import { useRouteMatch, useHistory } from 'react-router-dom';
 import { Table } from 'react-bootstrap';
 import { LS_AUTH } from '../../config/localStorage';
 import { getAllProperty } from '../../lib/constant';
 
-import ImagePlaceholder from '../../assets/images/image-placeholder.jpg';
-
 import Spinner from '../../components/spinner/Spinner';
+
+import ImagePlaceholder from '../../assets/images/image-placeholder.jpg';
 
 const PropertyTable = () => {
   const [propertyList, setPropertyList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const history = useHistory();
   const { url } = useRouteMatch();
+
+  const _handleToDetail = (id) => {
+    history.push({
+      pathname: `${url}/${id}`,
+      state: { propertyId: id },
+    });
+  };
 
   useEffect(() => {
     const token = localStorage.getItem(LS_AUTH);
@@ -37,7 +45,7 @@ const PropertyTable = () => {
   return (
     <>
       {isLoading ? (
-        <Spinner height="min-vh-50" />
+        <Spinner height="min-vh-100" />
       ) : (
         <div className="row mt-3">
           <div className="col-12">
@@ -55,7 +63,10 @@ const PropertyTable = () => {
               </thead>
               <tbody>
                 {propertyList.properties?.map((property) => (
-                  <tr key={property.id}>
+                  <tr
+                    key={property.id}
+                    onClick={() => _handleToDetail(property.id)}
+                  >
                     <td>#{property.number}</td>
                     <td>
                       {property.photos.length > 0 ? (
@@ -66,15 +77,7 @@ const PropertyTable = () => {
                     </td>
                     <td>
                       <p className="mb-0 fs-9 fw-normal">
-                        <Link
-                          to={{
-                            pathname: `${url}/${property.id}`,
-                            state: { propertyId: property.id },
-                          }}
-                          className="text-primary-black"
-                        >
-                          {property.land ? property.land.name : 'Ini Vie Villa'}
-                        </Link>
+                        {property.land ? property.land.name : 'Ini Vie Villa'}
                       </p>
                       <p className="fs-10 text-secondary-gray mt-2 mb-0 fw-normal">
                         {property.ownershipStatus.display} -{' '}

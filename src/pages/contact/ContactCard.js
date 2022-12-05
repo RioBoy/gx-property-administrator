@@ -1,21 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { useHistory, useRouteMatch } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { confirmAlert } from 'react-confirm-alert';
 import { getAllContacts, deleteContactById } from '../../lib/constant';
 import { LS_AUTH } from '../../config/localStorage';
-import { toast } from 'react-toastify';
 
-import { Buttons } from '../../components/button/Buttons';
 import Spinner from '../../components/spinner/Spinner';
 
 const ContactCard = () => {
   const [allContacts, setAllContacts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { url } = useRouteMatch();
+  const history = useHistory();
   const token = localStorage.getItem(LS_AUTH);
 
-  const _handleDeleteContact = (id) => {
+  const _handleEditContact = (id, e) => {
+    e.stopPropagation();
+    history.push({
+      pathname: `${url}/edit/${id}`,
+      state: {
+        allContacts,
+        contactId: id,
+      },
+    });
+  };
+
+  const _handleDeleteContact = (id, e) => {
+    e.stopPropagation();
     confirmAlert({
       title: 'Confirm to delete',
       message: 'Are you sure to do this.',
@@ -55,6 +67,16 @@ const ContactCard = () => {
     });
   };
 
+  const _handleToDetail = (id) => {
+    history.push({
+      pathname: `${url}/${id}`,
+      state: {
+        allContacts,
+        contactId: id,
+      },
+    });
+  };
+
   useEffect(() => {
     setIsLoading(true);
     axios({
@@ -81,18 +103,13 @@ const ContactCard = () => {
         <>
           {allContacts?.map((contact) => (
             <div className="col-12 col-md-6 col-lg-4 col-xl-3" key={contact.id}>
-              <div className="card w-100">
+              <div
+                className="card w-100 mb-4"
+                onClick={(e) => _handleToDetail(contact.id, e)}
+              >
                 <div className="card-body">
-                  <h5 className="card-title fw-bold">
-                    <Link
-                      to={{
-                        pathname: `${url}/${contact.id}`,
-                        state: { allContacts, contactId: contact.id },
-                      }}
-                      className="text-primary-black"
-                    >
-                      {contact.name}
-                    </Link>
+                  <h5 className="card-title fw-bold text-primary-black">
+                    {contact.name}
                   </h5>
                   <h6 className="fs-9 text-secondary-gray card-subtitle mb-2 fw-medium">
                     {contact.phoneNumber === null
@@ -102,22 +119,22 @@ const ContactCard = () => {
                   <p className="fs-9 text-secondary-gray card-text fw-medium mb-4">
                     {contact.email}
                   </p>
-                  <Link
-                    to={{
-                      pathname: `${url}/edit/${contact.id}`,
-                      state: { allContacts, contactId: contact.id },
-                    }}
-                    className="card-link text-decoration-none mb-2 text-primary-blue"
+                  <button
+                    type="button"
+                    onClick={(e) => _handleEditContact(contact.id, e)}
+                    className="text-primary-blue mb-2 bg-transparent border-0"
+                    title="Edit"
                   >
                     Edit
-                  </Link>
-                  <Buttons
+                  </button>
+                  <button
                     type="button"
-                    onClick={() => _handleDeleteContact(contact.id)}
-                    className="card-link card-link text-decoration-none mb-2 text-primary-blue bg-transparent border-0"
+                    onClick={(e) => _handleDeleteContact(contact.id, e)}
+                    className="text-primary-blue mb-2 bg-transparent border-0"
+                    title="Remove"
                   >
                     Remove
-                  </Buttons>
+                  </button>
                 </div>
               </div>
             </div>

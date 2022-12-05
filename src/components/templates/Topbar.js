@@ -10,9 +10,14 @@ import {
 
 import { Buttons } from '../button/Buttons';
 
-const Topbar = ({ icon, avatar, title, logout }) => {
+const Topbar = ({ icon, avatar, title, logout, toggleMenu }) => {
   return (
-    <nav className="navbar navbar-expand-lg topbar justify-content-between">
+    <nav
+      className="navbar navbar-expand-lg topbar justify-content-between shadow-sm"
+      style={{
+        left: toggleMenu ? '92px' : 'calc(92px + 8rem)',
+      }}
+    >
       <ul className="navbar-nav side-nav">
         <li className="nav-item">{icon}</li>
         <li className="nav-item d-none d-md-block">

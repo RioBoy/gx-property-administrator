@@ -58,7 +58,7 @@ const DetailContact = () => {
 
   return (
     <Layout title="Contact Management">
-      <main className="h-100 contact-detail-content">
+      <main className="contact-detail-content">
         <div className="row gap-3 gap-md-0">
           <div className="col-12 col-md-6 order-1 order-md-0">
             <h3 className="fw-semibold text-black-primary">Contact Detail</h3>
