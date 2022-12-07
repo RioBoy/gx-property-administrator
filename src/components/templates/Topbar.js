@@ -1,4 +1,5 @@
 import React from 'react';
+import { withAuth } from '../../context/Auth';
 import { Link } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
 import {
@@ -7,9 +8,16 @@ import {
   HiOutlineUser,
 } from 'react-icons/hi';
 
-const Topbar = ({ icon, avatar, title }) => {
+import { Buttons } from '../button/Buttons';
+
+const Topbar = ({ icon, avatar, title, logout, toggleMenu }) => {
   return (
-    <nav className="navbar navbar-expand-lg topbar justify-content-between">
+    <nav
+      className="navbar navbar-expand-lg topbar justify-content-between shadow-sm border-start-2"
+      style={{
+        left: toggleMenu ? '92px' : 'calc(92px + 8rem)',
+      }}
+    >
       <ul className="navbar-nav side-nav">
         <li className="nav-item">{icon}</li>
         <li className="nav-item d-none d-md-block">
@@ -50,16 +58,17 @@ const Topbar = ({ icon, avatar, title }) => {
               <HiOutlineMoon size={44} className="text-secondary-gray" />
               Dark Mode
             </Link>
-            <Link
-              to="/logout"
-              className="fw-medium text-secondary-gray text-decoration-none d-flex align-items-center"
+            <Buttons
+              type="button"
+              onClick={() => logout()}
+              className="fw-medium text-secondary-gray text-decoration-none d-flex align-items-center border-0 bg-transparent w-100"
             >
               <HiOutlineArrowCircleLeft
                 size={44}
                 className="text-secondary-gray p-2"
               />
               Logout
-            </Link>
+            </Buttons>
           </Dropdown.Menu>
         </Dropdown>
       </ul>
@@ -67,4 +76,4 @@ const Topbar = ({ icon, avatar, title }) => {
   );
 };
 
-export default Topbar;
+export default withAuth(Topbar);

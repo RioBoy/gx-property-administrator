@@ -1,4 +1,4 @@
-const baseUrl = 'https://phplaravel-347545-2684651.cloudwaysapps.com/api';
+const baseUrl = process.env.REACT_APP_BASE_URL_API;
 
 export const loginUrl = `${baseUrl}/auth/login`;
 
@@ -8,8 +8,16 @@ export const logoutUrl = `${baseUrl}/auth/logout`;
 
 export const getAllProperty = `${baseUrl}/property`;
 
+export const filterPropertyByStatus = (page = 1, status) => {
+  return `${baseUrl}/property?page=${page}&status=${status}`;
+};
+
 export const getPropertDetail = (id) => {
   return `${baseUrl}/property/${id}`;
+};
+
+export const getPropertDetailHistory = (id) => {
+  return `${baseUrl}/property/${id}/history`;
 };
 
 export const getAllContacts = `${baseUrl}/contact`;

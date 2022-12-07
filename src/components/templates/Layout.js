@@ -11,18 +11,25 @@ const Layout = ({ title, children }) => {
 
   return (
     <div id="wrapper">
+      <Topbar
+        title={title}
+        avatar={Avatar}
+        icon={
+          <IoMenuOutline
+            className="nav-toggle"
+            onClick={() => setToggleMenu((toggle) => !toggle)}
+          />
+        }
+        toggleMenu={toggleMenu}
+      />
       <Sidebar logo={VBMLogo} toggleMenu={toggleMenu} />
-      <div id="content-wrapper" className="d-flex flex-column">
-        <Topbar
-          title={title}
-          avatar={Avatar}
-          icon={
-            <IoMenuOutline
-              className="nav-toggle"
-              onClick={() => setToggleMenu((toggle) => !toggle)}
-            />
-          }
-        />
+      <div
+        id="content-wrapper"
+        className="d-flex flex-column"
+        style={{
+          left: toggleMenu ? '92px' : 'calc(92px + 8rem)',
+        }}
+      >
         {children}
       </div>
     </div>

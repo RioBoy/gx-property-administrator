@@ -1,12 +1,13 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { addNewContact } from '../../lib/constant';
-import { Buttons } from '../../components/button/Buttons';
-import Select from 'react-select';
 import { MdOutlinePhotoSizeSelectActual } from 'react-icons/md';
+import Select from 'react-select';
 
+import Spinner from '../../components/spinner/Spinner';
+import { Buttons } from '../../components/button/Buttons';
 import Layout from '../../components/templates/Layout';
 
 const AddContact = () => {
@@ -40,6 +41,8 @@ const AddContact = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [isError, setIsError] = useState('');
   const [isRadio, setIsRadio] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const { urlParent, allContacts } = history.location.state;
 
   const _handleOnChange = (event) => {
     setAddContact((state) => ({
@@ -74,7 +77,7 @@ const AddContact = () => {
   };
 
   const _handleRadioChange = (event) => {
-    if (isRadio !== 'yes' || addContact.ownerTaxNumber) {
+    if (isRadio !== 'yes' || addContact.ownerTaxNumber !== 'yes') {
       setAddContact((state) => ({
         ...state,
         NPWP: '',
@@ -90,6 +93,7 @@ const AddContact = () => {
 
   const _handleSubmitContact = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     axios({
       method: 'post',
       url: addNewContact,
@@ -120,11 +124,14 @@ const AddContact = () => {
           toast(success.msg, {
             autoClose: 3000,
           });
-          history.push('/contact');
+          history.push(urlParent);
         }
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -178,7 +185,7 @@ const AddContact = () => {
 
   return (
     <Layout title="Contact Management">
-      <main className="h-100 add-contact-content">
+      <main className="h-auto add-contact-content">
         <form onSubmit={_handleSubmitContact} method="post">
           <section className="section-1">
             <div className="card bg-white border-0 rounded-2">
@@ -752,26 +759,33 @@ const AddContact = () => {
                     )}
                   </>
                 )}
-                <div className="row">
-                  <div className="col d-flex gap-4 justify-content-end align-items-center">
-                    <Buttons
-                      type="button"
-                      isMedium
-                      onClick={() => history.goBack()}
-                      className="btn btn-bg-white border text-primary-black px-3 py-2"
-                    >
-                      Cancel
-                    </Buttons>
-                    <Buttons
-                      type="submit"
-                      isPrimary
-                      isMedium
-                      className="text-white px-3 py-2"
-                    >
-                      Save Data
-                    </Buttons>
-                  </div>
-                </div>
+              </div>
+            </div>
+          </section>
+          <section className="section-3 shadow-lg">
+            <div className="row">
+              <div className="col d-flex gap-4 justify-content-end align-items-center">
+                <Link
+                  to={{
+                    pathname: urlParent,
+                    state: { allContacts },
+                  }}
+                  className="btn btn-bg-white border text-primary-black fw-medium px-3 py-2"
+                >
+                  Cancel
+                </Link>
+                <Buttons
+                  type="submit"
+                  isPrimary
+                  isMedium
+                  className="text-white px-3 py-2"
+                >
+                  {isLoading ? (
+                    <Spinner isInButton>Save Data</Spinner>
+                  ) : (
+                    'Save Data'
+                  )}
+                </Buttons>
               </div>
             </div>
           </section>

@@ -1,7 +1,13 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
+import { withAuth } from '../../context/Auth';
 import FormLogin from './FormLogin';
 
-const Login = () => {
+const Login = (props) => {
+  if (props.isLoggedIn) {
+    return <Redirect push to="/dashboard" />;
+  }
+
   return (
     <div className="container-login">
       <div className="left-side">
@@ -22,4 +28,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default withAuth(Login);

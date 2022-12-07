@@ -19,7 +19,7 @@ const Property = () => {
       <Route path={`${path}/:id`} component={DetailProperty} />
       <Route path={path}>
         <Layout title="Property Management">
-          <main className="h-100 property-content py-4">
+          <main className="h-auto property-content py-4">
             <div className="property-page-content">
               <h5 className="fs-8 fw-medium p-2">Property List</h5>
               <div className="main-content">

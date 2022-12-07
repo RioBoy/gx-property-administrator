@@ -3,6 +3,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import ProtectedRoute from './routes/ProtectedRoute';
 import Login from './pages/auth/Login';
 import Dashboard from './pages/dashboard/Dashboard';
 import Profile from './pages/dashboard/Profile';
@@ -14,10 +15,11 @@ const App = () => {
     <>
       <Switch>
         <Route path="/login" component={Login} />
-        <Route path="/dashboard" component={Dashboard} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/property" component={Property} />
-        <Route path="/contact" component={Contact} />
+        <ProtectedRoute path="/dashboard" component={Dashboard} />
+        <ProtectedRoute path="/profile" component={Profile} />
+        <ProtectedRoute path="/property" component={Property} />
+        <ProtectedRoute path="/contact" component={Contact} />
+        <ProtectedRoute exact path="/" component={Login} />
       </Switch>
       <ToastContainer />
     </>
