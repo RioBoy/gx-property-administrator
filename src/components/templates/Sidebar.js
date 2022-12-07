@@ -52,6 +52,7 @@ const Sidebar = ({ logo, toggleMenu }) => {
             to="/dashboard"
             className="nav-link custom-nav-link"
             activeClassName="active"
+            title="Dashboard"
           >
             <TbLayoutDashboard />
             <span className="fs-9 fw-normal">Dasboard</span>
@@ -62,6 +63,7 @@ const Sidebar = ({ logo, toggleMenu }) => {
             to="/property"
             className="nav-link custom-nav-link"
             activeClassName="active"
+            title="Property"
           >
             <FiHome />
             <span className="fs-9 fw-normal">Property</span>
@@ -72,6 +74,7 @@ const Sidebar = ({ logo, toggleMenu }) => {
             to="/contact"
             className="nav-link custom-nav-link"
             activeClassName="active"
+            title="Contact"
           >
             <FaRegUserCircle />
             <span className="fs-9 fw-normal">Contact</span>

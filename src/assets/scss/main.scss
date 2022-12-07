@@ -132,6 +132,17 @@ $utilities: map-merge(
         none: none,
       ),
     ),
+    'border-start': (
+      property: border-left,
+      class: border-start,
+      values: (
+        null: var(--#{$prefix}border-width) var(--#{$prefix}border-style)
+          var(--#{$prefix}border-color),
+        0: 0,
+        1: 1px solid #ebebeb,
+        2: 2px solid #ebebeb,
+      ),
+    ),
     'padding-x': (
       responsive: true,
       property: padding-right padding-left,
@@ -537,7 +548,7 @@ main {
     .dropdown > button,
     button.filter-property {
       width: 100%;
-      min-height: 40px;
+      max-height: 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;

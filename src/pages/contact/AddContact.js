@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { addNewContact } from '../../lib/constant';
 import { MdOutlinePhotoSizeSelectActual } from 'react-icons/md';
@@ -42,6 +42,7 @@ const AddContact = () => {
   const [isError, setIsError] = useState('');
   const [isRadio, setIsRadio] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const { urlParent, allContacts } = history.location.state;
 
   const _handleOnChange = (event) => {
     setAddContact((state) => ({
@@ -76,7 +77,7 @@ const AddContact = () => {
   };
 
   const _handleRadioChange = (event) => {
-    if (isRadio !== 'yes' || addContact.ownerTaxNumber) {
+    if (isRadio !== 'yes' || addContact.ownerTaxNumber !== 'yes') {
       setAddContact((state) => ({
         ...state,
         NPWP: '',
@@ -123,7 +124,7 @@ const AddContact = () => {
           toast(success.msg, {
             autoClose: 3000,
           });
-          history.push('/contact');
+          history.push(urlParent);
         }
       })
       .catch((error) => {
@@ -764,14 +765,15 @@ const AddContact = () => {
           <section className="section-3 shadow-lg">
             <div className="row">
               <div className="col d-flex gap-4 justify-content-end align-items-center">
-                <Buttons
-                  type="button"
-                  isMedium
-                  onClick={() => history.goBack()}
-                  className="btn btn-bg-white border text-primary-black px-3 py-2"
+                <Link
+                  to={{
+                    pathname: urlParent,
+                    state: { allContacts },
+                  }}
+                  className="btn btn-bg-white border text-primary-black fw-medium px-3 py-2"
                 >
                   Cancel
-                </Buttons>
+                </Link>
                 <Buttons
                   type="submit"
                   isPrimary

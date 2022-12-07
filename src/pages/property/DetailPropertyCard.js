@@ -12,10 +12,10 @@ import { Tab, Tabs } from 'react-bootstrap';
 import { numberFormatIDR } from '../../config/currency';
 import UserAvatarHistory from '../../assets/images/user-history.png';
 import DetailPropertyImage from '../../assets/images/detail-property.jpg';
-import ImagePlaceholder from '../../assets/images/image-placeholder.jpg';
-import Map from '../../assets/images/maps.jpg';
+import ImagePlaceholderDefault from '../../assets/images/image-placeholder-default.jpg';
 
 import Spinner from '../../components/spinner/Spinner';
+import DetailPropertyPreviewMap from './DetailPropertyPreviewMap';
 
 const DetailPropertyCard = () => {
   const [propertyDetail, setPropertyDetail] = useState([]);
@@ -88,19 +88,11 @@ const DetailPropertyCard = () => {
         <>
           <div className="row gap-3 gap-lg-0 p-3 section-2 card flex-row border-0">
             <div className="col-12 col-lg-4">
-              {propertyDetail.property?.photos.length > 0 ? (
-                <img
-                  src={propertyDetail.property?.photos[0].photo}
-                  alt="Villa"
-                  className="w-100 h-100 villa-image"
-                />
-              ) : (
-                <img
-                  src={DetailPropertyImage}
-                  alt="Villa"
-                  className="w-100 h-100 villa-image"
-                />
-              )}
+              <img
+                src={DetailPropertyImage}
+                alt="Villa"
+                className="w-100 h-100 villa-image"
+              />
             </div>
             <div className="col-12 col-lg-8">
               <div className="row gap-3 gap-md-0 justify-content-between">
@@ -189,7 +181,8 @@ const DetailPropertyCard = () => {
                           Contact
                         </label>
                         <p className="fw-normal text-primary-black">
-                          {propertyDetail.property?.building.contacts.length > 0
+                          {propertyDetail.property?.building?.contacts?.length >
+                          0
                             ? 'Nama contact'
                             : 'Belum ada contact'}
                         </p>
@@ -341,7 +334,7 @@ const DetailPropertyCard = () => {
                         IMB Image
                       </label>
                       <img
-                        src={ImagePlaceholder}
+                        src={ImagePlaceholderDefault}
                         alt="Villa"
                         className="image-placeholder"
                       />
@@ -405,14 +398,16 @@ const DetailPropertyCard = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="col-12 col-md-6">
+                    <div className="col-12 col-md-6 position-relative">
                       <label
                         htmlFor="fullname"
                         className="fs-9 fw-normal text-secondary-gray mb-1"
                       >
                         Preview Map
                       </label>
-                      <img src={Map} alt="Villa" className="preview-map" />
+                      <DetailPropertyPreviewMap
+                        location={history.location.state}
+                      />
                     </div>
                   </div>
                   <div className="row mb-5">

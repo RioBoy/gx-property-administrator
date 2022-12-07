@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import { Table } from 'react-bootstrap';
@@ -7,6 +7,7 @@ import { getAllProperty } from '../../lib/constant';
 
 import Spinner from '../../components/spinner/Spinner';
 
+import ImagePlaceholderDefault from '../../assets/images/image-placeholder-default.jpg';
 import ImagePlaceholder from '../../assets/images/image-placeholder.jpg';
 
 const PropertyTable = () => {
@@ -15,32 +16,48 @@ const PropertyTable = () => {
   const history = useHistory();
   const { url } = useRouteMatch();
 
-  const _handleToDetail = (id) => {
+  const _handleToDetail = (id, latitude, longitude) => {
     history.push({
       pathname: `${url}/${id}`,
-      state: { propertyId: id },
+      state: {
+        propertyId: id,
+        propertyList,
+        url,
+        latitude,
+        longitude,
+      },
     });
   };
 
+  const dataFromDetail = history.location.state?.propertyList;
+
+  const _getDataProperties = useCallback(() => {
+    if (!dataFromDetail) {
+      const token = localStorage.getItem(LS_AUTH);
+      setIsLoading(true);
+      axios({
+        method: 'get',
+        url: getAllProperty,
+        headers: { Authorization: `Bearer ${token}` },
+      })
+        .then((response) => {
+          const { results } = response.data;
+          setPropertyList(results.properties);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    } else {
+      setPropertyList(dataFromDetail);
+    }
+  }, [dataFromDetail]);
+
   useEffect(() => {
-    const token = localStorage.getItem(LS_AUTH);
-    setIsLoading(true);
-    axios({
-      method: 'get',
-      url: getAllProperty,
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((response) => {
-        const { results } = response.data;
-        setPropertyList(results);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
+    _getDataProperties();
+  }, [_getDataProperties]);
 
   return (
     <>
@@ -62,17 +79,23 @@ const PropertyTable = () => {
                 </tr>
               </thead>
               <tbody>
-                {propertyList.properties?.map((property) => (
+                {propertyList?.map((property) => (
                   <tr
                     key={property.id}
-                    onClick={() => _handleToDetail(property.id)}
+                    onClick={() =>
+                      _handleToDetail(
+                        property.id,
+                        property?.location?.latitude,
+                        property?.location?.longitude,
+                      )
+                    }
                   >
                     <td>#{property.number}</td>
                     <td>
                       {property.photos.length > 0 ? (
-                        <img src={property.photos[0].photo} alt="Property" />
-                      ) : (
                         <img src={ImagePlaceholder} alt="Property" />
+                      ) : (
+                        <img src={ImagePlaceholderDefault} alt="Property" />
                       )}
                     </td>
                     <td>

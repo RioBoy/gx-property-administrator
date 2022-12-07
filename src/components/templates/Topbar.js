@@ -13,7 +13,7 @@ import { Buttons } from '../button/Buttons';
 const Topbar = ({ icon, avatar, title, logout, toggleMenu }) => {
   return (
     <nav
-      className="navbar navbar-expand-lg topbar justify-content-between shadow-sm"
+      className="navbar navbar-expand-lg topbar justify-content-between shadow-sm border-start-2"
       style={{
         left: toggleMenu ? '92px' : 'calc(92px + 8rem)',
       }}

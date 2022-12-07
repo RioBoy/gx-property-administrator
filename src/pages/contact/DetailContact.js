@@ -13,7 +13,7 @@ import Layout from '../../components/templates/Layout';
 const DetailContact = () => {
   const history = useHistory();
   const token = localStorage.getItem(LS_AUTH);
-  const { allContacts, contactId } = history.location.state;
+  const { allContacts, contactId, urlParent } = history.location.state;
 
   const _handleDeleteContact = (id) => {
     confirmAlert({
@@ -36,7 +36,7 @@ const DetailContact = () => {
                   toast(success.msg, {
                     autoClose: 3000,
                   });
-                  history.push('/contact');
+                  history.push(urlParent);
                 }
               })
               .catch((error) => {
@@ -49,6 +49,7 @@ const DetailContact = () => {
           onClick: () => console.log('Batal'),
         },
       ],
+      closeOnClickOutside: false,
     });
   };
 
@@ -65,17 +66,19 @@ const DetailContact = () => {
           </div>
           <div className="col-12 col-md-6 d-md-flex align-items-center justify-content-end">
             <div className="d-flex gap-3">
-              <Buttons
-                type="button"
-                onClick={() => history.goBack()}
+              <Link
+                to={{
+                  pathname: urlParent,
+                  state: { allContacts },
+                }}
                 className="fs-9 fw-semibold px-3 py-2 btn btn-secondary-green text-white"
               >
                 Back
-              </Buttons>
+              </Link>
               <Link
                 to={{
-                  pathname: `/contact/edit/${contactId}`,
-                  state: { allContacts, contactId },
+                  pathname: `${urlParent}/edit/${contactId}`,
+                  state: { allContacts, contactId, urlParent },
                 }}
                 className="fs-9 fw-semibold px-3 py-2 btn btn-primary-blue text-white"
               >

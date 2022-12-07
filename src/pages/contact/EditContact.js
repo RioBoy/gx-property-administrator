@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
-import { updateContactById } from '../../lib/constant';
 import { MdOutlinePhotoSizeSelectActual } from 'react-icons/md';
-import ImagePlaceholder from '../../assets/images/image-placeholder.jpg';
+import { updateContactById } from '../../lib/constant';
 import { LS_AUTH } from '../../config/localStorage';
+import ImagePlaceholderDefault from '../../assets/images/image-placeholder-default.jpg';
 
 import { Buttons } from '../../components/button/Buttons';
 import Spinner from '../../components/spinner/Spinner';
@@ -46,6 +46,7 @@ const EditContact = () => {
   const [isError, setIsError] = useState('');
   const [isRadio, setIsRadio] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const { urlParent } = history.location.state;
 
   const _handleOnChange = (event) => {
     setUpdateContact((state) => ({
@@ -80,7 +81,7 @@ const EditContact = () => {
   };
 
   const _handleRadioChange = (event) => {
-    if (isRadio !== 'yes' || updateContact.ownerTaxNumber) {
+    if (isRadio !== 'yes' || updateContact.ownerTaxNumber !== 'yes') {
       setUpdateContact((state) => ({
         ...state,
         NPWP: '',
@@ -132,7 +133,7 @@ const EditContact = () => {
           toast(success.msg, {
             autoClose: 3000,
           });
-          history.push('/contact');
+          history.push(urlParent);
           setUpdateContact([]);
         }
       })
@@ -484,7 +485,7 @@ const EditContact = () => {
                       />
                     ) : (
                       <img
-                        src={filePreviewUpdate ? ImagePlaceholder : ''}
+                        src={filePreviewUpdate ? ImagePlaceholderDefault : ''}
                         alt={filePreviewUpdate ? 'Preview' : ''}
                         className="mt-2 image-preview"
                       />
@@ -835,14 +836,15 @@ const EditContact = () => {
           <section className="section-3 shadow-lg">
             <div className="row">
               <div className="col d-flex gap-4 justify-content-end align-items-center">
-                <Buttons
-                  type="button"
-                  isMedium
-                  onClick={() => history.goBack()}
-                  className="btn btn-bg-white border text-primary-black px-3 py-2"
+                <Link
+                  to={{
+                    pathname: urlParent,
+                    state: { allContacts },
+                  }}
+                  className="btn btn-bg-white border text-primary-black fw-medium px-3 py-2"
                 >
                   Cancel
-                </Buttons>
+                </Link>
                 <Buttons
                   type="submit"
                   isPrimary
