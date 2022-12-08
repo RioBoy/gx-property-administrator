@@ -16,7 +16,7 @@ const Spinner = ({ height, isInButton, children }) => {
   return (
     <div
       className={[
-        'd-flex justify-content-center align-items-center',
+        'd-flex justify-content-center align-items-center spinner-loading',
         height,
       ].join(' ')}
     >

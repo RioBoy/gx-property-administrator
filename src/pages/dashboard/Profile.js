@@ -33,7 +33,7 @@ const Profile = () => {
 
   return (
     <Layout title="My Account">
-      <main className="h-100 profile-content">
+      <main className="profile-content">
         {isLoading ? (
           <Spinner height="min-vh-50" />
         ) : (

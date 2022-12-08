@@ -183,8 +183,8 @@ const Property = () => {
                             </Modal.Title>
                           </Modal.Header>
                           <Modal.Body>
-                            <div className="row mb-3">
-                              <div className="col-4">
+                            <div className="row mb-0 mb-md-3">
+                              <div className="col-12 col-lg-4 mb-2 mb-md-0">
                                 <label
                                   htmlFor="advancedFilterStatus"
                                   className="fs-9 fw-medium col-form-label"
@@ -205,7 +205,7 @@ const Property = () => {
                                   ))}
                                 </select>
                               </div>
-                              <div className="col-4">
+                              <div className="col-12 col-lg-4 mb-2 mb-md-0">
                                 <label
                                   htmlFor="advancedPropertyOwnerType"
                                   className="fs-9 fw-medium col-form-label"
@@ -220,7 +220,7 @@ const Property = () => {
                                   <option value="">Select Option</option>
                                 </select>
                               </div>
-                              <div className="col-4">
+                              <div className="col-12 col-lg-4 mb-2 mb-md-0">
                                 <label
                                   htmlFor="advancedPropertyType"
                                   className="fs-9 fw-medium col-form-label"
@@ -236,8 +236,8 @@ const Property = () => {
                                 </select>
                               </div>
                             </div>
-                            <div className="row mb-3">
-                              <div className="col-4">
+                            <div className="row mb-0 mb-md-3">
+                              <div className="col-12 col-lg-4 mb-2 mb-md-0">
                                 <label
                                   htmlFor="advancedPropertyReferences"
                                   className="fs-9 fw-medium col-form-label"
@@ -252,7 +252,7 @@ const Property = () => {
                                   placeholder="e.g VL0001"
                                 />
                               </div>
-                              <div className="col-4">
+                              <div className="col-12 col-lg-4 mb-2 mb-md-0">
                                 <label
                                   htmlFor="advancedContact"
                                   className="fs-9 fw-medium col-form-label"
@@ -267,7 +267,7 @@ const Property = () => {
                                   placeholder="e.g Jhon Doe"
                                 />
                               </div>
-                              <div className="col-4">
+                              <div className="col-12 col-lg-4 mb-2 mb-md-0">
                                 <label
                                   htmlFor="advancedContactType"
                                   className="fs-9 fw-medium col-form-label"
@@ -283,8 +283,8 @@ const Property = () => {
                                 </select>
                               </div>
                             </div>
-                            <div className="row mb-3">
-                              <div className="col-4">
+                            <div className="row mb-0 mb-md-3">
+                              <div className="col-12 col-lg-4">
                                 <label
                                   htmlFor="advancedEntriesBy"
                                   className="fs-9 fw-medium col-form-label"

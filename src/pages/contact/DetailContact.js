@@ -97,7 +97,7 @@ const DetailContact = () => {
         <div className="row contact-detail-role">
           <div className="col">
             <div className="card">
-              <div className="row">
+              <div className="row gap-3 gap-md-0">
                 <div className="col-12 col-md-9">
                   <h4 className="fs-7 fw-semibold mb-0">
                     {filteredContactById?.name}

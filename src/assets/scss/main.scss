@@ -306,7 +306,6 @@ $utilities: map-merge(
   width: 92px;
   transition: 0.3s;
   min-height: 100vh;
-  z-index: 100;
   overflow: hidden;
   position: fixed;
   top: 0;
@@ -329,7 +328,7 @@ $utilities: map-merge(
       }
 
       .hidden-span {
-        display: none;
+        display: none !important;
         justify-content: center;
       }
 
@@ -394,13 +393,14 @@ $utilities: map-merge(
   position: fixed;
   right: 0;
   background-color: white;
-  z-index: 1;
+  z-index: 2;
   transition: 0.3s;
 
   .side-nav {
     display: flex;
     align-items: center;
     column-gap: 40px;
+    flex-direction: row;
   }
 
   .nav-toggle {
@@ -449,6 +449,7 @@ main {
   // my-account
   &.profile-content {
     padding: 2.313rem 1.688rem;
+    height: 100%;
 
     img {
       &.img-profile {
@@ -881,6 +882,18 @@ main {
   .right-side {
     margin: 0 8% !important;
   }
+
+  .profile-content {
+    height: auto !important;
+
+    .spinner-loading {
+      height: 100vh !important;
+    }
+  }
+
+  .image-preview {
+    max-width: 250px !important;
+  }
 }
 
 @include media-breakpoint-down(md) {
@@ -894,5 +907,9 @@ main {
     h2 {
       font-size: 1.875rem !important;
     }
+  }
+
+  .image-preview {
+    max-width: 180px !important;
   }
 }

@@ -260,7 +260,7 @@ const EditContact = () => {
               </div>
               <div className="card-body">
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex gap-2 align-items-center">
+                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
                     <label htmlFor="name" className="col-form-label fw-bold">
                       Fullname
                     </label>
@@ -289,7 +289,7 @@ const EditContact = () => {
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex gap-2 align-items-center">
+                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
                     <label
                       htmlFor="salutation"
                       className="col-form-label fw-bold"
@@ -326,7 +326,7 @@ const EditContact = () => {
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex gap-2 align-items-center">
+                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
                     <label htmlFor="type" className="col-form-label fw-bold">
                       Contact Type
                     </label>
@@ -360,7 +360,7 @@ const EditContact = () => {
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex gap-2 align-items-center">
+                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
                     <label htmlFor="country" className="col-form-label fw-bold">
                       Country
                     </label>
@@ -383,7 +383,7 @@ const EditContact = () => {
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex gap-2 align-items-center">
+                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
                     <label
                       htmlFor="residence"
                       className="col-form-label fw-bold"
@@ -415,7 +415,7 @@ const EditContact = () => {
               </div>
               <div className="card-body">
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex gap-2 align-items-center">
+                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
                     <label
                       htmlFor="identityNumber"
                       className="col-form-label fw-bold"
@@ -444,7 +444,7 @@ const EditContact = () => {
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex gap-2 align-items-center">
+                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
                     <label
                       htmlFor="identityPhoto"
                       className="col-form-label fw-bold"
@@ -493,7 +493,7 @@ const EditContact = () => {
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex gap-2 align-items-center">
+                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
                     <label
                       htmlFor="phoneNumber"
                       className="col-form-label fw-bold"
@@ -522,7 +522,7 @@ const EditContact = () => {
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex gap-2 align-items-center">
+                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
                     <label htmlFor="email" className="col-form-label fw-bold">
                       Email
                     </label>
@@ -548,7 +548,7 @@ const EditContact = () => {
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex gap-2 align-items-center">
+                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
                     <label
                       htmlFor="contactPreferences"
                       className="col-form-label fw-bold"
@@ -573,7 +573,7 @@ const EditContact = () => {
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex gap-2 align-items-center">
+                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
                     <label
                       htmlFor="originContacts"
                       className="col-form-label fw-bold"
@@ -609,7 +609,7 @@ const EditContact = () => {
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex gap-2 align-items-center">
+                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
                     <label
                       htmlFor="ownerTaxNumber"
                       className="col-form-label fw-bold"
@@ -618,7 +618,7 @@ const EditContact = () => {
                     </label>
                   </div>
                   <div className="col-9">
-                    <div className="d-flex gap-4 align-items-center">
+                    <div className="d-flex flex-column flex-md-row gap-4 align-items-start align-items-md-center">
                       <div className="form-check">
                         <input
                           className="form-check-input"
@@ -676,7 +676,7 @@ const EditContact = () => {
                 {isRadio === 'yes' && (
                   <>
                     <div className="row g-3 align-items-center">
-                      <div className="col-3 d-flex gap-2 align-items-center">
+                      <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
                         <label
                           htmlFor="NPWP"
                           className="col-form-label fw-bold"
@@ -697,7 +697,7 @@ const EditContact = () => {
                       </div>
                     </div>
                     <div className="row g-3 align-items-center">
-                      <div className="col-3 d-flex gap-2 align-items-center">
+                      <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
                         <label
                           htmlFor="associateTo"
                           className="col-form-label fw-bold"
@@ -727,7 +727,7 @@ const EditContact = () => {
                       </div>
                     </div>
                     <div className="row g-3 align-items-center">
-                      <div className="col-3 d-flex gap-2 align-items-center">
+                      <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
                         <label
                           htmlFor="isCompany"
                           className="col-form-label fw-bold"
@@ -758,7 +758,7 @@ const EditContact = () => {
                     {isChecked && (
                       <>
                         <div className="row g-3 align-items-center">
-                          <div className="col-3 d-flex gap-2 align-items-center">
+                          <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
                             <label
                               htmlFor="companyName"
                               className="col-form-label fw-bold"
@@ -782,7 +782,7 @@ const EditContact = () => {
                           </div>
                         </div>
                         <div className="row g-3 align-items-center">
-                          <div className="col-3 d-flex gap-2 align-items-center">
+                          <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
                             <label
                               htmlFor="companyNPWP"
                               className="col-form-label fw-bold"
@@ -803,7 +803,7 @@ const EditContact = () => {
                           </div>
                         </div>
                         <div className="row g-3 align-items-center">
-                          <div className="col-3 d-flex gap-2 align-items-center">
+                          <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
                             <label
                               htmlFor="companyAddress"
                               className="col-form-label fw-bold"
