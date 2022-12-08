@@ -537,7 +537,7 @@ main {
   &.property-content {
     padding: 0 1.438rem;
 
-    .dropdown,
+    .filter-status,
     button.filter-property {
       width: 100%;
       border: 1px solid #acadc1;
@@ -545,10 +545,10 @@ main {
       color: #454560;
     }
 
-    .dropdown > button,
+    .filter-status,
     button.filter-property {
       width: 100%;
-      max-height: 40px;
+      height: 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -561,15 +561,6 @@ main {
     .dropdown {
       .dropdown-menu {
         width: 100% !important;
-      }
-
-      button {
-        &.dropdown-toggle {
-          &::after {
-            content: url('../images/icon-dropdown.svg');
-            border: 0;
-          }
-        }
       }
 
       .btn:first-child:active,
@@ -818,6 +809,18 @@ main {
 
     .contact-company-detail {
       margin-top: 24px !important;
+    }
+  }
+}
+
+// modal advanced filter
+.modal {
+  &.modal-advance-filter {
+    .modal-body {
+      input,
+      select {
+        height: 40px !important;
+      }
     }
   }
 }

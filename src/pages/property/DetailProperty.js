@@ -22,7 +22,9 @@ const DetailProperty = () => {
               <Link
                 to={{
                   pathname: `${url}`,
-                  state: { propertyList },
+                  state: {
+                    propertyList,
+                  },
                 }}
                 className="fs-9 btn py-2 p-3 btn-primary-blue text-uppercase"
               >
