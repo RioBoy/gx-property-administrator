@@ -8,7 +8,7 @@ export const logoutUrl = `${baseUrl}/auth/logout`;
 
 export const getAllProperty = `${baseUrl}/property`;
 
-export const filterPropertyByStatus = (page = 1, status) => {
+export const filterPropertyByStatus = (page = 1, status = '') => {
   return `${baseUrl}/property?page=${page}&status=${status}`;
 };
 

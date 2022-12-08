@@ -4,7 +4,7 @@ import { FaRegUserCircle } from 'react-icons/fa';
 import { FiHome } from 'react-icons/fi';
 import { TbLayoutDashboard } from 'react-icons/tb';
 
-const Sidebar = ({ logo, toggleMenu }) => {
+const Sidebar = ({ logo, toggleMenu, isMobile }) => {
   const expander = useRef(null);
 
   useEffect(() => {
@@ -37,7 +37,20 @@ const Sidebar = ({ logo, toggleMenu }) => {
   }
 
   return (
-    <div className="sidebar" id="navbar" ref={expander}>
+    <div
+      className="sidebar"
+      id="navbar"
+      ref={expander}
+      style={
+        isMobile
+          ? {
+              width: toggleMenu ? '92px' : '0',
+            }
+          : {
+              width: toggleMenu ? '92px' : 'calc(92px + 8rem)',
+            }
+      }
+    >
       <ul className="navbar-nav">
         <Link
           to="/dashboard"
@@ -55,7 +68,12 @@ const Sidebar = ({ logo, toggleMenu }) => {
             title="Dashboard"
           >
             <TbLayoutDashboard />
-            <span className="fs-9 fw-normal">Dasboard</span>
+            <span
+              className="fs-9 fw-normal"
+              style={{ display: isMobile ? 'none' : 'block' }}
+            >
+              Dasboard
+            </span>
           </NavLink>
         </li>
         <li className="nav-item">
@@ -66,7 +84,12 @@ const Sidebar = ({ logo, toggleMenu }) => {
             title="Property"
           >
             <FiHome />
-            <span className="fs-9 fw-normal">Property</span>
+            <span
+              className="fs-9 fw-normal"
+              style={{ display: isMobile ? 'none' : 'block' }}
+            >
+              Property
+            </span>
           </NavLink>
         </li>
         <li className="nav-item">
@@ -77,7 +100,12 @@ const Sidebar = ({ logo, toggleMenu }) => {
             title="Contact"
           >
             <FaRegUserCircle />
-            <span className="fs-9 fw-normal">Contact</span>
+            <span
+              className="fs-9 fw-normal"
+              style={{ display: isMobile ? 'none' : 'block' }}
+            >
+              Contact
+            </span>
           </NavLink>
         </li>
       </ul>

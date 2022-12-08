@@ -10,13 +10,19 @@ import {
 
 import { Buttons } from '../button/Buttons';
 
-const Topbar = ({ icon, avatar, title, logout, toggleMenu }) => {
+const Topbar = ({ icon, avatar, title, logout, toggleMenu, isMobile }) => {
   return (
     <nav
       className="navbar navbar-expand-lg topbar justify-content-between shadow-sm border-start-2"
-      style={{
-        left: toggleMenu ? '92px' : 'calc(92px + 8rem)',
-      }}
+      style={
+        isMobile
+          ? {
+              left: toggleMenu ? '92px' : '0',
+            }
+          : {
+              left: toggleMenu ? '92px' : 'calc(92px + 8rem)',
+            }
+      }
     >
       <ul className="navbar-nav side-nav">
         <li className="nav-item">{icon}</li>
@@ -39,7 +45,6 @@ const Topbar = ({ icon, avatar, title, logout, toggleMenu }) => {
               className="img-profile rounded-circle"
             />
           </Dropdown.Toggle>
-
           <Dropdown.Menu className="shadow border-0">
             <h6 className="dropdown-header fs-10 fw-semibold text-third-gray text-uppercase mb-2">
               Version 1.0.0
