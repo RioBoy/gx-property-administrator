@@ -12,6 +12,19 @@ export const filterPropertyByStatus = (page = 1, status = '') => {
   return `${baseUrl}/property?page=${page}&status=${status}`;
 };
 
+export const filterAdvanceProperty = (
+  page = 1,
+  status = '',
+  ownershipStatus = '',
+  type = '',
+  number = '',
+  contact = '',
+  contactType = '',
+  createdBy = '',
+) => {
+  return `${baseUrl}/property?page=${page}&status=${status}&ownershipStatus=${ownershipStatus}&type=${type}&number=${number}&contact=${contact}&contactType=${contactType}&createdBy=${createdBy}`;
+};
+
 export const getPropertDetail = (id) => {
   return `${baseUrl}/property/${id}`;
 };

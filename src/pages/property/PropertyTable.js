@@ -34,7 +34,7 @@ const PropertyTable = ({
               </thead>
               <tbody>
                 {isEmptyFilter ? (
-                  <tr style={{ cursor: 'default' }}>
+                  <tr style={{ pointerEvents: 'none' }}>
                     <td colSpan={7}>
                       <p className="text-center fs-7 tet-primary-black fw-medium my-4">
                         Data not found

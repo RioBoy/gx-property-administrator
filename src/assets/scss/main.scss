@@ -551,7 +551,7 @@ main {
       width: 100%;
       height: 40px;
       display: flex;
-      justify-content: space-between;
+      gap: 4px;
       align-items: center;
     }
 
@@ -911,5 +911,9 @@ main {
 
   .image-preview {
     max-width: 180px !important;
+  }
+
+  button.filter-property {
+    justify-content: space-between;
   }
 }
