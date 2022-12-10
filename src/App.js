@@ -1,23 +1,29 @@
-import './App.css';
+import './assets/scss/main.scss';
+import 'react-toastify/dist/ReactToastify.css';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import { Route, Switch } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import ProtectedRoute from './routes/ProtectedRoute';
+import Login from './pages/auth/Login';
+import Dashboard from './pages/dashboard/Dashboard';
+import Profile from './pages/dashboard/Profile';
+import Property from './pages/property/Property';
+import Contact from './pages/contact/Contact';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, quod
-        eligendi animi temporibus amet optio similique aspernatur vel hic atque
-        quos, officia cupiditate cum. A voluptate hic nesciunt eos excepturi
-        soluta aspernatur nostrum temporibus, obcaecati ut corrupti ab debitis,
-        alias fuga amet vitae voluptatum molestiae tempora! Nam assumenda et
-        ipsa consectetur porro doloremque odio, corrupti cum est harum quo
-        voluptas. Quae culpa nihil distinctio, facilis expedita atque quos,
-        rerum perspiciatis magnam neque repudiandae quasi? Deleniti ex, amet ab
-        obcaecati placeat expedita iusto voluptatem doloremque eos
-        exercitationem odio repellat repellendus fugiat illo sed molestiae culpa
-        consectetur veritatis architecto non adipisci in.
-      </p>
-    </div>
+    <>
+      <Switch>
+        <Route path="/login" component={Login} />
+        <ProtectedRoute path="/dashboard" component={Dashboard} />
+        <ProtectedRoute path="/profile" component={Profile} />
+        <ProtectedRoute path="/property" component={Property} />
+        <ProtectedRoute path="/contact" component={Contact} />
+        <ProtectedRoute exact path="/" component={Login} />
+      </Switch>
+      <ToastContainer />
+    </>
   );
-}
+};
 
 export default App;
