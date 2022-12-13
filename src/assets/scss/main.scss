@@ -1,30 +1,34 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap');
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/maps';
+@import '~bootstrap/scss/mixins';
+@import '~bootstrap/scss/utilities';
 
+// Setting
 $font-family-base: 'Poppins', sans-serif;
 $btn-border-radius: 0.5rem;
 $input-border-radius: 0.5rem;
 $input-placeholder-color: #acadc1;
 $border-color: #acadc1;
 
-@import '../../../node_modules/bootstrap/scss/functions';
-@import '../../../node_modules/bootstrap/scss/variables';
-@import '../../../node_modules/bootstrap/scss/maps';
-@import '../../../node_modules/bootstrap/scss/mixins';
-@import '../../../node_modules/bootstrap/scss/utilities';
-
-// add theme-colors
-$custom-theme-colors: (
-  'primary-orange': #ff7d00,
-  'primary-blue': #2767e1,
-  'primary-yellow': #efcf5d,
-  'primary-green': #2db986,
-  'secondary-green': #0ec837,
-  'third-green': #14c85c,
-  'primary-red': #de5263,
-  'secondary-red': #ff1010,
-  'primary-gray': #f0f0f5,
+// theme-colors
+$theme-colors: (
+  'brand-amber': #ff7d00,
+  'brand-celtic': #2767e1,
+  'brand-united-nations': #647deb,
+  'brand-crayola': #efcf5d,
+  'brand-vivid': #ff1010,
+  'brand-terra-cotta': #de5263,
+  'brand-pastel-green': #0ec837,
+  'brand-mountain-meadow': #2db986,
+  'brand-malachite': #14c85c,
+  'brand-yankees': #26273b,
+  'brand-space-cadet': #18255c,
+  'brand-independence': #454560,
+  'brand-rhythm': #6f708b,
+  'brand-cadet-blue': #acadc1,
+  'brand-anti-flash': #f0f0f5,
 );
-$theme-colors: map-merge($custom-theme-colors, $theme-colors);
 
 // marign and padding
 $spacer: 1rem;
@@ -73,23 +77,7 @@ $utilities: map-merge(
       local-vars: (
         'text-opacity': 1,
       ),
-      values:
-        map-merge(
-          $utilities-text-colors,
-          (
-            'muted': $text-muted,
-            'primary-orange': #ff7d00,
-            'primary-black': #26273b,
-            'secondary-black': #18255c,
-            'primary-gray': #f0f0f5,
-            'secondary-gray': #6f708b,
-            'third-gray': #acadc1,
-            'primary-blue': #647deb,
-            'dark-blue': #454560,
-            'secondary-red': #ff1010,
-            'reset': inherit,
-          )
-        ),
+      values: map-merge($utilities-text-colors, $theme-colors),
     ),
     'rounded': (
       property: border-radius,
@@ -135,6 +123,17 @@ $utilities: map-merge(
     'border-start': (
       property: border-left,
       class: border-start,
+      values: (
+        null: var(--#{$prefix}border-width) var(--#{$prefix}border-style)
+          var(--#{$prefix}border-color),
+        0: 0,
+        1: 1px solid #ebebeb,
+        2: 2px solid #ebebeb,
+      ),
+    ),
+    'border-end': (
+      property: border-right,
+      class: border-end,
       values: (
         null: var(--#{$prefix}border-width) var(--#{$prefix}border-style)
           var(--#{$prefix}border-color),
@@ -190,7 +189,8 @@ $utilities: map-merge(
   )
 );
 
-@import '../../../node_modules/bootstrap/scss/bootstrap';
+@import '~bootstrap/scss/bootstrap';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap');
 
 // login
 .container-login {
@@ -310,7 +310,7 @@ $utilities: map-merge(
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 2;
+  z-index: 10;
   background-color: white;
 
   .nav-item {
@@ -386,6 +386,16 @@ $utilities: map-merge(
   }
 }
 
+// overlay
+.overlay-sidebar {
+  position: fixed;
+  z-index: 5;
+  width: 100vw;
+  height: 100vh;
+  background-color: #454560;
+  opacity: 0.5;
+}
+
 // topbar
 .topbar {
   padding: 1rem 1.438rem !important;
@@ -415,9 +425,11 @@ $utilities: map-merge(
   .dropdown {
     .dropdown-menu {
       width: 283px !important;
+      position: absolute;
 
       a,
       button {
+        font-size: 16px !important;
         padding: 8px 10px;
 
         svg {
@@ -785,7 +797,7 @@ main {
       z-index: 1;
       background-color: white;
       width: 100%;
-      padding: 23px;
+      padding: 1rem;
     }
   }
 
@@ -829,7 +841,6 @@ main {
 // dashboard
 #wrapper {
   #content-wrapper {
-    position: absolute;
     top: 64px;
     right: 0;
     bottom: 0;
@@ -915,5 +926,56 @@ main {
 
   button.filter-property {
     justify-content: space-between;
+  }
+
+  .topbar {
+    .side-nav {
+      column-gap: 16px;
+
+      h5 {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(xs) {
+  .topbar {
+    padding: 1rem !important;
+  }
+}
+
+@include media-breakpoint-between(xs, lg) {
+  .topbar {
+    height: auto !important;
+
+    .dropdown {
+      .dropdown-menu {
+        width: auto !important;
+
+        a,
+        button {
+          font-size: 14px !important;
+          padding: 0 10px;
+        }
+      }
+    }
+  }
+
+  .sidebar {
+    .nav-item {
+      .nav-link {
+        .hidden-span {
+          display: block !important;
+        }
+      }
+    }
+
+    &:not(.expander) {
+      .custom-nav-link {
+        column-gap: 0.75rem;
+        justify-content: start;
+      }
+    }
   }
 }

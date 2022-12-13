@@ -9,17 +9,18 @@ import Dashboard from './pages/dashboard/Dashboard';
 import Profile from './pages/dashboard/Profile';
 import Property from './pages/property/Property';
 import Contact from './pages/contact/Contact';
+import * as path from './routes/path';
 
 const App = () => {
   return (
     <>
       <Switch>
-        <Route path="/login" component={Login} />
-        <ProtectedRoute path="/dashboard" component={Dashboard} />
-        <ProtectedRoute path="/profile" component={Profile} />
-        <ProtectedRoute path="/property" component={Property} />
-        <ProtectedRoute path="/contact" component={Contact} />
-        <ProtectedRoute exact path="/" component={Login} />
+        <Route path={path.URLLogin} component={Login} />
+        <ProtectedRoute path={path.URLDashboard} component={Dashboard} />
+        <ProtectedRoute path={path.URLProfile} component={Profile} />
+        <ProtectedRoute path={path.URLProperty} component={Property} />
+        <ProtectedRoute path={path.URLContact} component={Contact} />
+        <ProtectedRoute exact path={path.URLHome} component={Login} />
       </Switch>
       <ToastContainer />
     </>

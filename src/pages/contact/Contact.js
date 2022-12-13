@@ -126,13 +126,13 @@ const Contact = () => {
                 <div className="row justify-content-between align-items-center gap-3 gap-md-0">
                   <div className="col-12 col-md-6 col-lg-8 col-xl-10">
                     <h5 className="fw-semibold">Manage Contact Management</h5>
-                    <p className="fs-9 fw-normal text-secondary-gray mb-0">
+                    <p className="fs-9 fw-normal text-brand-rhythm mb-0">
                       Manage all contact management here
                     </p>
                   </div>
                   <div className="col-12 col-md-6 col-lg-4 col-xl-2 d-flex justify-content-start justify-content-md-end">
                     <Link
-                      className="text-decoration-none text-white btn btn-primary-orange py-2 px-4"
+                      className="text-decoration-none text-white btn btn-brand-amber py-2 px-4"
                       to={{
                         pathname: `${url}/add`,
                         state: {

@@ -48,10 +48,10 @@ const Profile = () => {
                   />
                 </div>
                 <div className="user-info-wrapper">
-                  <h4 className="fs-7 fw-semibold text-secondary-black mb-0">
+                  <h4 className="fs-7 fw-semibold text-brand-space-cadet mb-0">
                     {profile.name}
                   </h4>
-                  <p className="fw-normal text-secondary-gray mb-0">
+                  <p className="fw-normal text-brand-rhythm mb-0">
                     {profile.nickName}
                   </p>
                 </div>
@@ -65,7 +65,7 @@ const Profile = () => {
                     <div className="mb-3">
                       <label
                         htmlFor="fullname"
-                        className="fs-9 fw-normal text-secondary-gray mb-2"
+                        className="fs-9 fw-normal text-brand-rhythm mb-2"
                       >
                         Full Name
                       </label>
@@ -76,7 +76,7 @@ const Profile = () => {
                     <div className="mb-3">
                       <label
                         htmlFor="phoneNumber"
-                        className="fs-9 fw-normal text-secondary-gray mb-2"
+                        className="fs-9 fw-normal text-brand-rhythm mb-2"
                       >
                         Phone Number
                       </label>
@@ -87,7 +87,7 @@ const Profile = () => {
                     <div className="mb-3">
                       <label
                         htmlFor="birthdate"
-                        className="fs-9 fw-normal text-secondary-gray mb-2"
+                        className="fs-9 fw-normal text-brand-rhythm mb-2"
                       >
                         Birth of Date
                       </label>
@@ -98,7 +98,7 @@ const Profile = () => {
                     <div className="mb-3">
                       <label
                         htmlFor="gender"
-                        className="fs-9 fw-normal text-secondary-gray mb-2"
+                        className="fs-9 fw-normal text-brand-rhythm mb-2"
                       >
                         Gender
                       </label>
@@ -109,7 +109,7 @@ const Profile = () => {
                     <div className="mb-3">
                       <label
                         htmlFor="address"
-                        className="fs-9 fw-normal text-secondary-gray mb-2"
+                        className="fs-9 fw-normal text-brand-rhythm mb-2"
                       >
                         Address
                       </label>
@@ -125,7 +125,7 @@ const Profile = () => {
                     <div className="mb-3">
                       <label
                         htmlFor="email"
-                        className="fs-9 fw-normal text-secondary-gray mb-2"
+                        className="fs-9 fw-normal text-brand-rhythm mb-2"
                       >
                         Email Address
                       </label>
@@ -138,7 +138,7 @@ const Profile = () => {
                         <div className="col-6 col-lg-7">
                           <label
                             htmlFor="password"
-                            className="fs-9 fw-normal text-secondary-gray mb-2"
+                            className="fs-9 fw-normal text-brand-rhythm mb-2"
                           >
                             Current Password
                           </label>
@@ -147,7 +147,7 @@ const Profile = () => {
                           </p>
                         </div>
                         <div className="col-6 col-lg-5">
-                          <button className="fw-medium text-primary-blue border-0 bg-transparent">
+                          <button className="fw-medium text-brand-united-nations border-0 bg-transparent">
                             Change Password
                           </button>
                         </div>

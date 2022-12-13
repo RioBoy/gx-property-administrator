@@ -97,16 +97,16 @@ const DetailPropertyCard = () => {
             <div className="col-12 col-lg-8">
               <div className="row gap-3 gap-md-0 justify-content-between">
                 <div className="col">
-                  <h5 className="fw-semibold text-secondary-black mb-2">
+                  <h5 className="fw-semibold text-brand-space-cadet mb-2">
                     {propertyDetail.property?.building
                       ? propertyDetail.property?.building.name
                       : propertyDetail.property?.land.name}
                   </h5>
-                  <p className="fw-normal text-dark-blue mb-2">
+                  <p className="fw-normal text-brand-independence mb-2">
                     {propertyDetail.property?.ownershipStatus.display} •{' '}
                     {propertyDetail.property?.type.display}
                   </p>
-                  <p className="fs-9 fw-normal text-secondary-gray mt-1 mb-2">
+                  <p className="fs-9 fw-normal text-brand-rhythm mt-1 mb-2">
                     ID Property
                   </p>
                   <p className="fs-9 fw-normal mb-3">
@@ -114,7 +114,7 @@ const DetailPropertyCard = () => {
                   </p>
                   <div className="d-flex gap-4">
                     <div className="created-on me-1">
-                      <p className="fs-9 fw-normal text-secondary-gray mb-2">
+                      <p className="fs-9 fw-normal text-brand-rhythm mb-2">
                         Created on
                       </p>
                       <p className="fs-9 fw-normal mb-0">
@@ -122,7 +122,7 @@ const DetailPropertyCard = () => {
                       </p>
                     </div>
                     <div className="entried-by">
-                      <p className="fs-9 fw-normal text-secondary-gray mb-2">
+                      <p className="fs-9 fw-normal text-brand-rhythm mb-2">
                         Entried by
                       </p>
                       <p className="fs-9 fw-normal mb-0">
@@ -131,11 +131,11 @@ const DetailPropertyCard = () => {
                     </div>
                   </div>
                   {propertyDetail.property?.status.name === 'pending' ? (
-                    <span className="fw-normal text-primary-black rounded-2 badge text-bg-primary-yellow px-2">
+                    <span className="fw-normal text-primary-black rounded-2 badge text-bg-brand-crayola px-2">
                       {propertyDetail.property?.status.display}
                     </span>
                   ) : propertyDetail.property?.status.name === 'approved' ? (
-                    <span className="fw-normal text-white rounded-2 badge text-bg-primary-green px-2">
+                    <span className="fw-normal text-white rounded-2 badge text-bg-brand-mountain-meadow px-2">
                       {propertyDetail.property?.status.display}
                     </span>
                   ) : (
@@ -145,7 +145,7 @@ const DetailPropertyCard = () => {
                   )}
                 </div>
                 <div className="col d-flex justify-content-start justify-content-md-end">
-                  <h4 className="fs-7 fw-semibold text-primary-orange">
+                  <h4 className="fs-7 fw-semibold text-brand-amber">
                     IDR{' '}
                     {propertyDetail.property?.priceManagement.IDR
                       .finalEstimation.publicPrice
@@ -163,20 +163,20 @@ const DetailPropertyCard = () => {
             </div>
           </div>
           <div className="row section-3 gap-3 gap-xl-0">
-            <div className="col-12 col-lg-7 col-xl-8 card">
+            <div className="col-12 col-lg-7 col-xl-8 card px-0">
               <Tabs
                 defaultActiveKey="home"
                 id="uncontrolled-tab-example"
                 className="mb-3"
               >
-                <Tab eventKey="home" title="Main Info">
+                <Tab eventKey="home" title="Main Info" className="px-3">
                   <div className="row">
                     <h5 className="fw-semibold mb-3">General Info</h5>
                     <div className="col-12">
                       <div className="mb-3">
                         <label
                           htmlFor="contactName"
-                          className="fs-9 fw-normal text-secondary-gray mb-1"
+                          className="fs-9 fw-normal text-brand-rhythm mb-1"
                         >
                           Contact
                         </label>
@@ -192,7 +192,7 @@ const DetailPropertyCard = () => {
                       <div className="mb-3">
                         <label
                           htmlFor="villaType"
-                          className="fs-9 fw-normal text-secondary-gray mb-1"
+                          className="fs-9 fw-normal text-brand-rhythm mb-1"
                         >
                           Villa Type
                         </label>
@@ -210,7 +210,7 @@ const DetailPropertyCard = () => {
                       <div className="mb-3">
                         <label
                           htmlFor="landSize"
-                          className="fs-9 fw-normal text-secondary-gray mb-1"
+                          className="fs-9 fw-normal text-brand-rhythm mb-1"
                         >
                           Land Size
                         </label>
@@ -226,7 +226,7 @@ const DetailPropertyCard = () => {
                       <div className="mb-3">
                         <label
                           htmlFor="fullname"
-                          className="fs-9 fw-normal text-secondary-gray mb-1"
+                          className="fs-9 fw-normal text-brand-rhythm mb-1"
                         >
                           Villa Total Size
                         </label>
@@ -239,7 +239,7 @@ const DetailPropertyCard = () => {
                       <div className="mb-3">
                         <label
                           htmlFor="fullname"
-                          className="fs-9 fw-normal text-secondary-gray mb-1"
+                          className="fs-9 fw-normal text-brand-rhythm mb-1"
                         >
                           Year Build
                         </label>
@@ -250,7 +250,7 @@ const DetailPropertyCard = () => {
                       <div className="mb-3">
                         <label
                           htmlFor="fullname"
-                          className="fs-9 fw-normal text-secondary-gray mb-1"
+                          className="fs-9 fw-normal text-brand-rhythm mb-1"
                         >
                           Year of Renovation
                         </label>
@@ -263,7 +263,7 @@ const DetailPropertyCard = () => {
                       <div className="mb-3">
                         <label
                           htmlFor="fullname"
-                          className="fs-9 fw-normal text-secondary-gray mb-1"
+                          className="fs-9 fw-normal text-brand-rhythm mb-1"
                         >
                           NPWPD
                         </label>
@@ -274,7 +274,7 @@ const DetailPropertyCard = () => {
                       <div className="mb-3">
                         <label
                           htmlFor="fullname"
-                          className="fs-9 fw-normal text-secondary-gray mb-1"
+                          className="fs-9 fw-normal text-brand-rhythm mb-1"
                         >
                           Roof Type
                         </label>
@@ -291,7 +291,7 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Does it have IMB?
                             </label>
@@ -302,7 +302,7 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               IMB Type
                             </label>
@@ -315,7 +315,7 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Valid Until
                             </label>
@@ -329,7 +329,7 @@ const DetailPropertyCard = () => {
                     <div className="col-12 col-md-6">
                       <label
                         htmlFor="fullname"
-                        className="fs-9 fw-normal text-secondary-gray mb-1"
+                        className="fs-9 fw-normal text-brand-rhythm mb-1"
                       >
                         IMB Image
                       </label>
@@ -348,7 +348,7 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Location
                             </label>
@@ -361,7 +361,7 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Meeting Point
                             </label>
@@ -374,7 +374,7 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Area
                             </label>
@@ -387,7 +387,7 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Notes
                             </label>
@@ -401,7 +401,7 @@ const DetailPropertyCard = () => {
                     <div className="col-12 col-md-6 position-relative">
                       <label
                         htmlFor="fullname"
-                        className="fs-9 fw-normal text-secondary-gray mb-1"
+                        className="fs-9 fw-normal text-brand-rhythm mb-1"
                       >
                         Preview Map
                       </label>
@@ -416,7 +416,7 @@ const DetailPropertyCard = () => {
                       <div className="mb-3">
                         <label
                           htmlFor="fullname"
-                          className="fs-9 fw-normal text-secondary-gray mb-1"
+                          className="fs-9 fw-normal text-brand-rhythm mb-1"
                         >
                           Floor
                         </label>
@@ -429,7 +429,7 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Total Room
                             </label>
@@ -442,7 +442,7 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Total Bathroom
                             </label>
@@ -457,7 +457,7 @@ const DetailPropertyCard = () => {
                       <div className="mb-3">
                         <label
                           htmlFor="fullname"
-                          className="fs-9 fw-normal text-secondary-gray mb-1"
+                          className="fs-9 fw-normal text-brand-rhythm mb-1"
                         >
                           Living Room
                         </label>
@@ -468,7 +468,7 @@ const DetailPropertyCard = () => {
                       <div className="mb-3">
                         <label
                           htmlFor="fullname"
-                          className="fs-9 fw-normal text-secondary-gray mb-1"
+                          className="fs-9 fw-normal text-brand-rhythm mb-1"
                         >
                           Other Room
                         </label>
@@ -483,7 +483,7 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Room Circulation
                             </label>
@@ -496,7 +496,7 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               AC
                             </label>
@@ -516,7 +516,7 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Building Configuration
                             </label>
@@ -529,7 +529,7 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Does it have Pool?
                             </label>
@@ -544,7 +544,7 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Other Room in Residence
                             </label>
@@ -557,7 +557,7 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Pool Size
                             </label>
@@ -570,7 +570,7 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Pool Type
                             </label>
@@ -587,7 +587,7 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Does it have Jacuzzi?
                             </label>
@@ -598,7 +598,7 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Garden Type
                             </label>
@@ -611,7 +611,7 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Parking Plot
                             </label>
@@ -628,7 +628,7 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Jacuzzi Size
                             </label>
@@ -641,7 +641,7 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Outdoor Amenities
                             </label>
@@ -654,7 +654,7 @@ const DetailPropertyCard = () => {
                     </div>
                   </div>
                 </Tab>
-                <Tab eventKey="profile" title="Facilities">
+                <Tab eventKey="profile" title="Facilities" className="px-3">
                   Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                   Omnis tempore aut fuga voluptates quo maiores illo inventore
                   sequi ratione aspernatur facilis qui suscipit, exercitationem
@@ -747,7 +747,7 @@ const DetailPropertyCard = () => {
                         </span>{' '}
                         with customer
                       </p>
-                      <p className="fs-10 text-third-gray">
+                      <p className="fs-10 text-brand-cadet-blue">
                         {propertyHistory.createdAt}
                       </p>
                     </div>

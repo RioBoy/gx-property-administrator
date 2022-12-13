@@ -62,7 +62,7 @@ const DetailContact = () => {
       <main className="contact-detail-content">
         <div className="row gap-3 gap-md-0">
           <div className="col-12 col-md-6 order-1 order-md-0">
-            <h3 className="fw-semibold text-black-primary">Contact Detail</h3>
+            <h3 className="fw-semibold text-brand-yankees">Contact Detail</h3>
           </div>
           <div className="col-12 col-md-6 d-md-flex align-items-center justify-content-end">
             <div className="d-flex gap-3">
@@ -71,7 +71,7 @@ const DetailContact = () => {
                   pathname: urlParent,
                   state: { allContacts },
                 }}
-                className="fs-9 fw-semibold px-3 py-2 btn btn-secondary-green text-white"
+                className="fs-9 fw-semibold px-3 py-2 btn btn-brand-pastel-green text-white"
               >
                 Back
               </Link>
@@ -80,14 +80,14 @@ const DetailContact = () => {
                   pathname: `${urlParent}/edit/${contactId}`,
                   state: { allContacts, contactId, urlParent },
                 }}
-                className="fs-9 fw-semibold px-3 py-2 btn btn-primary-blue text-white"
+                className="fs-9 fw-semibold px-3 py-2 btn btn-brand-celtic text-white"
               >
                 Edit
               </Link>
               <Buttons
                 type="button"
                 onClick={() => _handleDeleteContact(contactId)}
-                className="fs-9 fw-semibold px-3 py-2 btn btn-secondary-red text-white"
+                className="fs-9 fw-semibold px-3 py-2 btn btn-brand-vivid text-white"
               >
                 Delete
               </Buttons>
@@ -102,12 +102,12 @@ const DetailContact = () => {
                   <h4 className="fs-7 fw-semibold mb-0">
                     {filteredContactById?.name}
                   </h4>
-                  <p className="fw-normal text-secondary-gray mb-0">
+                  <p className="fw-normal text-brand-rhythm mb-0">
                     {filteredContactById?.email}
                   </p>
                 </div>
                 <div className="col-12 col-md-3 d-md-flex align-items-center justify-content-center">
-                  <span className="badge text-bg-third-green fs-10 fw-semibold text-white py-2 px-5 rounded-3">
+                  <span className="badge text-bg-brand-malachite fs-10 fw-semibold text-white py-2 px-5 rounded-3">
                     {filteredContactById?.type.display}
                   </span>
                 </div>
@@ -120,13 +120,13 @@ const DetailContact = () => {
             <div className="row">
               <div className="col">
                 <div className="card border-0 bg-white rounded-2 p-3 mb-0">
-                  <h5 className="fs-8 font-medium text-secondary-black mb-4">
+                  <h5 className="fs-8 font-medium text-brand-space-cadet mb-4">
                     Personal Data
                   </h5>
                   <div className="mb-3">
                     <label
                       htmlFor="fullname"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Full Name
                     </label>
@@ -137,7 +137,7 @@ const DetailContact = () => {
                   <div className="mb-3">
                     <label
                       htmlFor="statuSalutation"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Status Salutation
                     </label>
@@ -148,7 +148,7 @@ const DetailContact = () => {
                   <div className="mb-3">
                     <label
                       htmlFor="phoneNumber"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Phone Number
                     </label>
@@ -161,7 +161,7 @@ const DetailContact = () => {
                   <div className="mb-3">
                     <label
                       htmlFor="identityNumber"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Identity Number
                     </label>
@@ -172,7 +172,7 @@ const DetailContact = () => {
                   <div className="mb-3">
                     <label
                       htmlFor="identityNumberFile"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Identity Number File
                     </label>
@@ -185,7 +185,7 @@ const DetailContact = () => {
                   <div className="mb-3">
                     <label
                       htmlFor="address"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Address
                     </label>
@@ -197,7 +197,7 @@ const DetailContact = () => {
                   <div className="mb-3">
                     <label
                       htmlFor="createdBy"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Created By
                     </label>
@@ -216,13 +216,13 @@ const DetailContact = () => {
             <div className="row">
               <div className="col contact-company-detail">
                 <div className="card border-0 bg-white rounded-2 p-3 mb-0">
-                  <h5 className="fs-8 font-medium text-secondary-black mb-4">
+                  <h5 className="fs-8 font-medium text-brand-space-cadet mb-4">
                     Company Data
                   </h5>
                   <div className="mb-3">
                     <label
                       htmlFor="companyName"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Company Name
                     </label>
@@ -235,7 +235,7 @@ const DetailContact = () => {
                   <div className="mb-3">
                     <label
                       htmlFor="companyName"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Company Tax Number
                     </label>
@@ -248,7 +248,7 @@ const DetailContact = () => {
                   <div className="mb-3">
                     <label
                       htmlFor="companyName"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Company Address
                     </label>
@@ -266,13 +266,13 @@ const DetailContact = () => {
             <div className="row other-data">
               <div className="col">
                 <div className="card border-0 bg-white rounded-2 p-3 mb-0">
-                  <h5 className="fs-8 font-medium text-secondary-black mb-4">
+                  <h5 className="fs-8 font-medium text-brand-space-cadet mb-4">
                     Other Data
                   </h5>
                   <div className="mb-3">
                     <label
                       htmlFor="taxNumber"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Owner tax number
                     </label>
@@ -283,7 +283,7 @@ const DetailContact = () => {
                   <div className="mb-3">
                     <label
                       htmlFor="contactPreferences"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Contact Preferences
                     </label>
@@ -307,7 +307,7 @@ const DetailContact = () => {
                   <div className="mb-3">
                     <label
                       htmlFor="originContact"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Origin Contacts
                     </label>
@@ -329,7 +329,7 @@ const DetailContact = () => {
                   <div className="mb-3">
                     <label
                       htmlFor="associateTo"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Associate To
                     </label>
@@ -342,7 +342,7 @@ const DetailContact = () => {
                   <div className="mb-3">
                     <label
                       htmlFor="email"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Commission
                     </label>
@@ -356,13 +356,13 @@ const DetailContact = () => {
             <div className="row mt-4 contact-account">
               <div className="col">
                 <div className="card border-0 bg-white rounded-2 p-3 mb-0">
-                  <h5 className="fs-8 font-medium text-secondary-black mb-4">
+                  <h5 className="fs-8 font-medium text-brand-space-cadet mb-4">
                     Contact Account
                   </h5>
                   <div className="mb-3">
                     <label
                       htmlFor="contactType"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Contact Type
                     </label>
@@ -373,7 +373,7 @@ const DetailContact = () => {
                   <div className="mb-3">
                     <label
                       htmlFor="email"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Email Address
                     </label>
@@ -386,7 +386,7 @@ const DetailContact = () => {
                       <div className="col-6 col-lg-7">
                         <label
                           htmlFor="password"
-                          className="fs-9 fw-normal text-secondary-gray mb-2"
+                          className="fs-9 fw-normal text-brand-rhythm mb-2"
                         >
                           Current Password
                         </label>
@@ -395,7 +395,7 @@ const DetailContact = () => {
                         </p>
                       </div>
                       <div className="col-6 col-lg-5 d-flex justify-content-end">
-                        <button className="fw-medium text-primary-blue border-0 bg-transparent">
+                        <button className="fw-medium text-brand-united-nations border-0 bg-transparent">
                           Change Password
                         </button>
                       </div>

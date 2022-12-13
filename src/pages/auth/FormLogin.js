@@ -49,7 +49,7 @@ const FormLogin = (props) => {
         <div className="col">
           <h2 className="fw-semibold welcome-title text-primary-black">
             <span>Welcome to</span>
-            <span className="text-primary-orange text-uppercase">
+            <span className="text-brand-amber text-uppercase">
               Property
             </span>{' '}
             Admin Panel
@@ -58,7 +58,7 @@ const FormLogin = (props) => {
       </div>
       <div className="row mt-3 form-login">
         <div className="col-12">
-          <h6 className="fw-normal mb-0 text-dark-blue">
+          <h6 className="fw-normal mb-0 text-brand-independence">
             Sign in to your account below
           </h6>
         </div>
@@ -67,7 +67,7 @@ const FormLogin = (props) => {
             <div className="mb-3">
               <label
                 htmlFor="email"
-                className="fs-10 form-label mb-1 text-dark-blue"
+                className="fs-10 form-label mb-1 text-brand-independence"
               >
                 Email
               </label>
@@ -85,7 +85,7 @@ const FormLogin = (props) => {
             <div className="mb-3">
               <label
                 htmlFor="password"
-                className="fs-10 form-label mb-1 text-dark-blue"
+                className="fs-10 form-label mb-1 text-brand-independence"
               >
                 Password
               </label>
@@ -135,7 +135,7 @@ const FormLogin = (props) => {
       </div>
       <div className="row">
         <div className="col version">
-          <p className="text-center text-secondary-gray">Version 1.0.0</p>
+          <p className="text-center text-brand-rhythm">Version 1.0.0</p>
         </div>
       </div>
     </div>

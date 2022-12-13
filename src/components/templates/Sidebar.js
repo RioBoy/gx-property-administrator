@@ -1,18 +1,16 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { FaRegUserCircle } from 'react-icons/fa';
 import { FiHome } from 'react-icons/fi';
 import { TbLayoutDashboard } from 'react-icons/tb';
 
-const Sidebar = ({ logo, toggleMenu, isMobile }) => {
-  const expander = useRef(null);
-
+const Sidebar = ({ logo, toggleMenu, isMobile, expander }) => {
   useEffect(() => {
     if (expander.current) {
       expander.current.classList.toggle('expander');
     }
     document.body.id = 'body-pd';
-  }, [toggleMenu]);
+  }, [toggleMenu, expander]);
 
   const span = document?.querySelectorAll('.nav-link span');
   document.body.id = 'body-pd';
@@ -38,13 +36,13 @@ const Sidebar = ({ logo, toggleMenu, isMobile }) => {
 
   return (
     <div
-      className="sidebar"
+      className="sidebar border-end-1"
       id="navbar"
       ref={expander}
       style={
         isMobile
           ? {
-              width: toggleMenu ? '92px' : '0',
+              width: toggleMenu ? '55%' : '0',
             }
           : {
               width: toggleMenu ? '92px' : 'calc(92px + 8rem)',
@@ -68,12 +66,7 @@ const Sidebar = ({ logo, toggleMenu, isMobile }) => {
             title="Dashboard"
           >
             <TbLayoutDashboard />
-            <span
-              className="fs-9 fw-normal"
-              style={{ display: isMobile ? 'none' : 'block' }}
-            >
-              Dasboard
-            </span>
+            <span className="fs-9 fw-normal">Dasboard</span>
           </NavLink>
         </li>
         <li className="nav-item">
@@ -84,12 +77,7 @@ const Sidebar = ({ logo, toggleMenu, isMobile }) => {
             title="Property"
           >
             <FiHome />
-            <span
-              className="fs-9 fw-normal"
-              style={{ display: isMobile ? 'none' : 'block' }}
-            >
-              Property
-            </span>
+            <span className="fs-9 fw-normal">Property</span>
           </NavLink>
         </li>
         <li className="nav-item">
@@ -100,12 +88,7 @@ const Sidebar = ({ logo, toggleMenu, isMobile }) => {
             title="Contact"
           >
             <FaRegUserCircle />
-            <span
-              className="fs-9 fw-normal"
-              style={{ display: isMobile ? 'none' : 'block' }}
-            >
-              Contact
-            </span>
+            <span className="fs-9 fw-normal">Contact</span>
           </NavLink>
         </li>
       </ul>

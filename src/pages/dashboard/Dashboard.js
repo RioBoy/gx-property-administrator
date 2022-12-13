@@ -41,7 +41,7 @@ const Dashboard = () => {
               Welcome again,{' '}
               <span className="fw-semibold">{profile.nickName}!</span>
             </h3>
-            <h6 className="fw-normal text-secondary-gray mt-3">
+            <h6 className="fw-normal text-brand-rhythm mt-3">
               Hi {profile.nickName}, don't forget to control every activity that
               exist
             </h6>

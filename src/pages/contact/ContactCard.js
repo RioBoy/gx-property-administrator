@@ -28,18 +28,18 @@ const ContactCard = ({
                   <h5 className="card-title fw-bold text-primary-black">
                     {contact.name}
                   </h5>
-                  <h6 className="fs-9 text-secondary-gray card-subtitle mb-2 fw-medium">
+                  <h6 className="fs-9 text-brand-rhythm card-subtitle mb-2 fw-medium">
                     {contact.phoneNumber === null
                       ? 'Belum memiliki no handphone'
                       : contact.phoneNumber}
                   </h6>
-                  <p className="fs-9 text-secondary-gray card-text fw-medium mb-4">
+                  <p className="fs-9 text-brand-rhythm card-text fw-medium mb-4">
                     {contact.email}
                   </p>
                   <button
                     type="button"
                     onClick={(e) => _handleEditContact(contact.id, url, e)}
-                    className="text-primary-blue mb-2 bg-transparent border-0"
+                    className="text-brand-united-nations mb-2 bg-transparent border-0"
                     title="Edit"
                   >
                     Edit
@@ -47,7 +47,7 @@ const ContactCard = ({
                   <button
                     type="button"
                     onClick={(e) => _handleDeleteContact(contact.id, e)}
-                    className="text-primary-blue mb-2 bg-transparent border-0"
+                    className="text-brand-united-nations mb-2 bg-transparent border-0"
                     title="Remove"
                   >
                     Remove

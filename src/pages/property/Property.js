@@ -261,7 +261,7 @@ const Property = () => {
                             >
                               <Modal.Title
                                 id="contained-modal-title-vcenter"
-                                className="h5 fw-semibold text-secondary-black"
+                                className="h5 fw-semibold text-brand-space-cadet"
                               >
                                 Advance Search
                               </Modal.Title>

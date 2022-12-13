@@ -254,7 +254,7 @@ const EditContact = () => {
           <section className="section-1">
             <div className="card bg-white border-0 rounded-2">
               <div className="card-header bg-white border-0 mb-2 py-3 px-3">
-                <h5 className="fs-8 fw-medium text-secondary-black mb-0">
+                <h5 className="fs-8 fw-medium text-brand-space-cadet mb-0">
                   Contact Account Information
                 </h5>
               </div>
@@ -264,7 +264,7 @@ const EditContact = () => {
                     <label htmlFor="name" className="col-form-label fw-bold">
                       Fullname
                     </label>
-                    <span className="fs-10 fw-normal badge text-bg-primary-gray rounded-2 px-2">
+                    <span className="fs-10 fw-normal badge text-bg-brand-anti-flash rounded-2 px-2">
                       Required
                     </span>
                   </div>
@@ -280,7 +280,7 @@ const EditContact = () => {
                     />
                     {requiredParam('name').length > 0 &&
                     updateContact.name === '' ? (
-                      <span className="fs-9 text-secondary-red d-block mt-2">
+                      <span className="fs-9 text-brand-vivid d-block mt-2">
                         {requiredParam('name')[0]?.message}
                       </span>
                     ) : (
@@ -296,7 +296,7 @@ const EditContact = () => {
                     >
                       Status Salutation
                     </label>
-                    <span className="fs-10 fw-normal badge text-bg-primary-gray rounded-2 px-2">
+                    <span className="fs-10 fw-normal badge text-bg-brand-anti-flash rounded-2 px-2">
                       Required
                     </span>
                   </div>
@@ -317,7 +317,7 @@ const EditContact = () => {
                     </select>
                     {requiredParam('salutation').length > 0 &&
                     updateContact.salutation === '' ? (
-                      <span className="fs-9 text-secondary-red d-block mt-2">
+                      <span className="fs-9 text-brand-vivid d-block mt-2">
                         {requiredParam('salutation')[0]?.message}
                       </span>
                     ) : (
@@ -330,7 +330,7 @@ const EditContact = () => {
                     <label htmlFor="type" className="col-form-label fw-bold">
                       Contact Type
                     </label>
-                    <span className="fs-10 fw-normal badge text-bg-primary-gray rounded-2 px-2">
+                    <span className="fs-10 fw-normal badge text-bg-brand-anti-flash rounded-2 px-2">
                       Required
                     </span>
                   </div>
@@ -351,7 +351,7 @@ const EditContact = () => {
                     </select>
                     {requiredParam('type').length > 0 &&
                     updateContact.type === '' ? (
-                      <span className="fs-9 text-secondary-red d-block mt-2">
+                      <span className="fs-9 text-brand-vivid d-block mt-2">
                         {requiredParam('type')[0]?.message}
                       </span>
                     ) : (
@@ -409,7 +409,7 @@ const EditContact = () => {
           <section className="section-2">
             <div className="card bg-white border-0 rounded-2">
               <div className="card-header bg-white border-0 mb-2 py-3 px-3">
-                <h5 className="fs-8 fw-medium text-secondary-black mb-0">
+                <h5 className="fs-8 fw-medium text-brand-space-cadet mb-0">
                   Contact Information
                 </h5>
               </div>
@@ -422,7 +422,7 @@ const EditContact = () => {
                     >
                       Identity Number
                     </label>
-                    <span className="fs-10 fw-normal badge text-bg-primary-gray rounded-2 px-2">
+                    <span className="fs-10 fw-normal badge text-bg-brand-anti-flash rounded-2 px-2">
                       Required
                     </span>
                   </div>
@@ -437,14 +437,14 @@ const EditContact = () => {
                       placeholder="e.g 5288252258888852"
                     />
                     {requiredParam('identityNumber').length > 0 && (
-                      <span className="fs-9 text-secondary-red d-block mt-2">
+                      <span className="fs-9 text-brand-vivid d-block mt-2">
                         {requiredParam('identityNumber')[0]?.message}
                       </span>
                     )}
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
+                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-self-start">
                     <label
                       htmlFor="identityPhoto"
                       className="col-form-label fw-bold"
@@ -500,7 +500,7 @@ const EditContact = () => {
                     >
                       Phone Number
                     </label>
-                    <span className="fs-10 fw-normal badge text-bg-primary-gray rounded-2 px-2">
+                    <span className="fs-10 fw-normal badge text-bg-brand-anti-flash rounded-2 px-2">
                       Required
                     </span>
                   </div>
@@ -515,7 +515,7 @@ const EditContact = () => {
                       placeholder="e.g 082255569999"
                     />
                     {requiredParam('phoneNumber').length > 0 && (
-                      <span className="fs-9 text-secondary-red d-block mt-2">
+                      <span className="fs-9 text-brand-vivid d-block mt-2">
                         {requiredParam('phoneNumber')[0]?.message}
                       </span>
                     )}
@@ -526,7 +526,7 @@ const EditContact = () => {
                     <label htmlFor="email" className="col-form-label fw-bold">
                       Email
                     </label>
-                    <span className="fs-10 fw-normal badge text-bg-primary-gray rounded-2 px-2">
+                    <span className="fs-10 fw-normal badge text-bg-brand-anti-flash rounded-2 px-2">
                       Required
                     </span>
                   </div>
@@ -541,7 +541,7 @@ const EditContact = () => {
                       placeholder="e.g john@example.com"
                     />
                     {requiredParam('email').length > 0 && (
-                      <span className="fs-9 text-secondary-red d-block mt-2">
+                      <span className="fs-9 text-brand-vivid d-block mt-2">
                         {requiredParam('email')[0]?.message}
                       </span>
                     )}
@@ -580,7 +580,7 @@ const EditContact = () => {
                     >
                       Contact Origin
                     </label>
-                    <span className="fs-10 fw-normal badge text-bg-primary-gray rounded-2 px-2">
+                    <span className="fs-10 fw-normal badge text-bg-brand-anti-flash rounded-2 px-2">
                       Required
                     </span>
                   </div>
@@ -600,7 +600,7 @@ const EditContact = () => {
                     />
                     {requiredParam('originContacts').length > 0 &&
                     updateContact.originContacts.length === 0 ? (
-                      <span className="fs-9 text-secondary-red d-block mt-2">
+                      <span className="fs-9 text-brand-vivid d-block mt-2">
                         {requiredParam('originContacts')[0]?.message}
                       </span>
                     ) : (
@@ -718,7 +718,7 @@ const EditContact = () => {
                         {(requiredParam('associateTo').length > 0 &&
                           updateContact.associateTo === '') ||
                         updateContact.associateTo === null ? (
-                          <span className="fs-9 text-secondary-red d-block mt-2">
+                          <span className="fs-9 text-brand-vivid d-block mt-2">
                             {requiredParam('associateTo')[0]?.message}
                           </span>
                         ) : (
@@ -765,7 +765,7 @@ const EditContact = () => {
                             >
                               Company Name
                             </label>
-                            <span className="fs-10 fw-normal badge text-bg-primary-gray rounded-2 px-2">
+                            <span className="fs-10 fw-normal badge text-bg-brand-anti-flash rounded-2 px-2">
                               Required
                             </span>
                           </div>
@@ -810,7 +810,7 @@ const EditContact = () => {
                             >
                               Company Address
                             </label>
-                            <span className="fs-10 fw-normal badge text-bg-primary-gray rounded-2 px-2">
+                            <span className="fs-10 fw-normal badge text-bg-brand-anti-flash rounded-2 px-2">
                               Required
                             </span>
                           </div>
@@ -836,15 +836,33 @@ const EditContact = () => {
           <section className="section-3 shadow-lg">
             <div className="row">
               <div className="col d-flex gap-4 justify-content-end align-items-center">
-                <Link
-                  to={{
-                    pathname: urlParent,
-                    state: { allContacts },
-                  }}
-                  className="btn btn-bg-white border text-primary-black fw-medium px-3 py-2"
-                >
-                  Cancel
-                </Link>
+                {isLoading ? (
+                  <Buttons
+                    type="button"
+                    className="btn btn-bg-white border text-primary-black fw-medium px-3 py-2"
+                    isDisabled
+                    style={
+                      isLoading
+                        ? {
+                            cursor: 'not-allowed',
+                            pointerEvents: 'all',
+                          }
+                        : {}
+                    }
+                  >
+                    Cancel
+                  </Buttons>
+                ) : (
+                  <Link
+                    to={{
+                      pathname: urlParent,
+                      state: { allContacts },
+                    }}
+                    className="btn btn-bg-white border text-primary-black fw-medium px-3 py-2"
+                  >
+                    Cancel
+                  </Link>
+                )}
                 <Buttons
                   type="submit"
                   isPrimary
