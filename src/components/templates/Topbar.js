@@ -7,6 +7,7 @@ import {
   HiOutlineArrowCircleLeft,
   HiOutlineUser,
 } from 'react-icons/hi';
+import * as path from '../../routes/path';
 
 import { Buttons } from '../button/Buttons';
 
@@ -37,7 +38,7 @@ const Topbar = ({ icon, avatar, title, logout, toggleMenu, isMobile }) => {
           <Dropdown.Toggle
             variant="transparent"
             id="dropdown-basic"
-            className="border-0 p-0"
+            className="border-0"
           >
             <img
               src={avatar}
@@ -50,7 +51,7 @@ const Topbar = ({ icon, avatar, title, logout, toggleMenu, isMobile }) => {
               Version 1.0.0
             </h6>
             <Link
-              to="/profile"
+              to={path.URLProfile}
               className="fw-medium text-brand-rhythm text-decoration-none d-flex align-items-center"
             >
               <HiOutlineUser

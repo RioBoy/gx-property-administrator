@@ -5,12 +5,13 @@ import { confirmAlert } from 'react-confirm-alert';
 import { toast } from 'react-toastify';
 import { deleteContactById } from '../../lib/constant';
 import { LS_AUTH } from '../../config/localStorage';
+import * as path from '../../routes/path';
 import IdentityFile from '../../assets/images/identityFile.jpg';
 
 import { Buttons } from '../../components/button/Buttons';
 import Layout from '../../components/templates/Layout';
 
-const DetailContact = () => {
+const ContactDetail = () => {
   const history = useHistory();
   const token = localStorage.getItem(LS_AUTH);
   const { allContacts, contactId, urlParent } = history.location.state;
@@ -77,7 +78,7 @@ const DetailContact = () => {
               </Link>
               <Link
                 to={{
-                  pathname: `${urlParent}/edit/${contactId}`,
+                  pathname: `${path.URLContactEdit(contactId)}`,
                   state: { allContacts, contactId, urlParent },
                 }}
                 className="fs-9 fw-semibold px-3 py-2 btn btn-brand-celtic text-white"
@@ -411,4 +412,4 @@ const DetailContact = () => {
   );
 };
 
-export default DetailContact;
+export default ContactDetail;

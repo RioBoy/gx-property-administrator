@@ -423,6 +423,10 @@ $utilities: map-merge(
   }
 
   .dropdown {
+    button {
+      padding: 6px 12px;
+    }
+
     .dropdown-menu {
       width: 283px !important;
       position: absolute;
@@ -450,9 +454,14 @@ $utilities: map-merge(
   }
 }
 
+body {
+  main {
+    background-color: #f9f9fc !important;
+  }
+}
+
 main {
   color: #26273b;
-  background-color: #f9f9fc;
 
   &.dashboard-content {
     padding: 3rem 1.938rem;
@@ -950,6 +959,10 @@ main {
     height: auto !important;
 
     .dropdown {
+      button {
+        padding: 0;
+      }
+
       .dropdown-menu {
         width: auto !important;
 

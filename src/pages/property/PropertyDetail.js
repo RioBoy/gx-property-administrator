@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-import DetailPropertyCard from './DetailPropertyCard';
+import PropertyDetailCard from './PropertyDetailCard';
 import Layout from '../../components/templates/Layout';
 
-const DetailProperty = () => {
+const PropertyDetail = () => {
   const history = useHistory();
-  const { propertyList, url } = history.location.state;
+  const { propertyList, url, isFullHeight } = history.location.state;
 
   return (
     <Layout title="Property Management">
@@ -24,6 +24,7 @@ const DetailProperty = () => {
                   pathname: `${url}`,
                   state: {
                     propertyList,
+                    isFullHeight,
                   },
                 }}
                 className="fs-9 btn py-2 p-3 btn-brand-celtic text-uppercase"
@@ -33,10 +34,10 @@ const DetailProperty = () => {
             </div>
           </div>
         </div>
-        <DetailPropertyCard />
+        <PropertyDetailCard />
       </main>
     </Layout>
   );
 };
 
-export default DetailProperty;
+export default PropertyDetail;

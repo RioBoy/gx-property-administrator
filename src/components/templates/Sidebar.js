@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { FaRegUserCircle } from 'react-icons/fa';
 import { FiHome } from 'react-icons/fi';
 import { TbLayoutDashboard } from 'react-icons/tb';
+import * as path from '../../routes/path';
 
 const Sidebar = ({ logo, toggleMenu, isMobile, expander }) => {
   useEffect(() => {
@@ -51,7 +52,7 @@ const Sidebar = ({ logo, toggleMenu, isMobile, expander }) => {
     >
       <ul className="navbar-nav">
         <Link
-          to="/dashboard"
+          to={path.URLDashboard}
           className="sidebar-brand d-flex align-items-center justify-content-center"
         >
           <div className="vbm-logo">
@@ -60,7 +61,7 @@ const Sidebar = ({ logo, toggleMenu, isMobile, expander }) => {
         </Link>
         <li className="nav-item">
           <NavLink
-            to="/dashboard"
+            to={path.URLDashboard}
             className="nav-link custom-nav-link"
             activeClassName="active"
             title="Dashboard"
@@ -71,7 +72,7 @@ const Sidebar = ({ logo, toggleMenu, isMobile, expander }) => {
         </li>
         <li className="nav-item">
           <NavLink
-            to="/property"
+            to={path.URLProperty}
             className="nav-link custom-nav-link"
             activeClassName="active"
             title="Property"
@@ -82,7 +83,7 @@ const Sidebar = ({ logo, toggleMenu, isMobile, expander }) => {
         </li>
         <li className="nav-item">
           <NavLink
-            to="/contact"
+            to={path.URLContact}
             className="nav-link custom-nav-link"
             activeClassName="active"
             title="Contact"

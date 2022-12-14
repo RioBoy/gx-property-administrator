@@ -15,7 +15,7 @@ import DetailPropertyImage from '../../assets/images/detail-property.jpg';
 import ImagePlaceholderDefault from '../../assets/images/image-placeholder-default.jpg';
 
 import Spinner from '../../components/spinner/Spinner';
-import DetailPropertyPreviewMap from './DetailPropertyPreviewMap';
+import PropertyDetailPreviewMap from './PropertyDetailPreviewMap';
 
 const DetailPropertyCard = () => {
   const [propertyDetail, setPropertyDetail] = useState([]);
@@ -405,7 +405,7 @@ const DetailPropertyCard = () => {
                       >
                         Preview Map
                       </label>
-                      <DetailPropertyPreviewMap
+                      <PropertyDetailPreviewMap
                         location={history.location.state}
                       />
                     </div>

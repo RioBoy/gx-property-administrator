@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { loginUrl, logoutUrl } from '../lib/constant';
 import { LS_AUTH } from '../config/localStorage';
+import * as path from '../routes/path';
 
 const axiosReq = axios.create();
 const AuthContext = React.createContext();
@@ -41,7 +42,7 @@ class Auth extends Component {
             token: access_token,
             isLoggedIn: true,
           });
-          this.props.history.push('/dashboard');
+          this.props.history.push(path.URLDashboard);
 
           return response.data;
         }
@@ -70,7 +71,7 @@ class Auth extends Component {
           toast(success.msg, {
             autoClose: 3000,
           });
-          this.props.history.push('/login');
+          this.props.history.push(path.URLLogin);
         }
 
         return response.data;

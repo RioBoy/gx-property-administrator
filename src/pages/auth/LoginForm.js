@@ -8,7 +8,7 @@ import { Buttons } from '../../components/button/Buttons';
 import VBMLogo from '../../assets/images/VBM-Logo.svg';
 import Spinner from '../../components/spinner/Spinner';
 
-const FormLogin = (props) => {
+const LoginForm = (props) => {
   const [login, setLogin] = useState({
     email: '',
     password: '',
@@ -142,4 +142,4 @@ const FormLogin = (props) => {
   );
 };
 
-export default withAuth(FormLogin);
+export default withAuth(LoginForm);

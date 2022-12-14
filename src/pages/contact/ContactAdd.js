@@ -10,7 +10,7 @@ import Spinner from '../../components/spinner/Spinner';
 import { Buttons } from '../../components/button/Buttons';
 import Layout from '../../components/templates/Layout';
 
-const AddContact = () => {
+const ContactAdd = () => {
   const history = useHistory();
   const [addContact, setAddContact] = useState({
     name: '',
@@ -813,4 +813,4 @@ const AddContact = () => {
   );
 };
 
-export default AddContact;
+export default ContactAdd;

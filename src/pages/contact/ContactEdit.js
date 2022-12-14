@@ -12,7 +12,7 @@ import { Buttons } from '../../components/button/Buttons';
 import Spinner from '../../components/spinner/Spinner';
 import Layout from '../../components/templates/Layout';
 
-const EditContact = () => {
+const ContactEdit = () => {
   const history = useHistory();
   const [updateContact, setUpdateContact] = useState({
     name: '',
@@ -884,4 +884,4 @@ const EditContact = () => {
   );
 };
 
-export default EditContact;
+export default ContactEdit;

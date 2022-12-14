@@ -1,11 +1,12 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { withAuth } from '../../context/Auth';
-import FormLogin from './FormLogin';
+import LoginForm from './LoginForm';
+import * as path from '../../routes/path';
 
 const Login = (props) => {
   if (props.isLoggedIn) {
-    return <Redirect push to="/dashboard" />;
+    return <Redirect push to={path.URLDashboard} />;
   }
 
   return (
@@ -23,7 +24,7 @@ const Login = (props) => {
           </div>
         </div>
       </div>
-      <FormLogin />
+      <LoginForm />
     </div>
   );
 };
