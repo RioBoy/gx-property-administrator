@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
 import { FiFilter } from 'react-icons/fi';
+import { toast } from 'react-toastify';
 import {
   filterPropertyByStatus,
   getAllProperty,
@@ -14,14 +15,17 @@ import * as path from '../../routes/path';
 import Layout from '../../components/templates/Layout';
 import { Buttons } from '../../components/button/Buttons';
 import PropertyTable from './PropertyTable';
+import { useCancelToken } from '../../config/useCancelToken';
 
 const Property = () => {
   const [show, setShow] = useState(false);
   const [propertyList, setPropertyList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isEmptyFiltered, setIsEmptyFiltered] = useState(false);
-  const [isFullHeight, setIsFullHeight] = useState(false);
   const history = useHistory();
+  const [isFullHeight, setIsFullHeight] = useState(
+    history.location.state?.isFullHeight || false,
+  );
   const token = localStorage.getItem(LS_AUTH);
 
   const objectData = (label, value) => {
@@ -31,32 +35,39 @@ const Property = () => {
     };
   };
 
-  const statusList = [
-    objectData('All Status', ''),
-    objectData('Pending', 'pending'),
-    objectData('Approved', 'approved'),
-    objectData('Publish', 'publish'),
-    objectData('Draft', 'draft'),
-    objectData('Cancel', 'cancel'),
-    objectData('On Sale', 'sale'),
-    objectData('Not Completed Yet', 'uncompleted'),
-    objectData('Sold Out', 'sold'),
-    objectData('Rejected', 'rejected'),
-    objectData('Rented', 'rented'),
-  ];
+  const statusList = useMemo(() => {
+    return [
+      objectData('All Status', ''),
+      objectData('Pending', 'pending'),
+      objectData('Approved', 'approved'),
+      objectData('Publish', 'publish'),
+      objectData('Draft', 'draft'),
+      objectData('Cancel', 'cancel'),
+      objectData('On Sale', 'sale'),
+      objectData('Not Completed Yet', 'uncompleted'),
+      objectData('Sold Out', 'sold'),
+      objectData('Rejected', 'rejected'),
+      objectData('Rented', 'rented'),
+    ];
+  }, []);
 
   const [advanceFilterStatus, setAdvanceFilterStatus] = useState({
     page: 1, //default
-    status: statusList[0].value,
-    ownershipStatus: '',
-    type: '',
-    number: '',
-    contact: '',
-    contactType: '',
-    createdBy: '',
+    status:
+      history.location.state?.advanceFilterStatus?.status ||
+      statusList[0].value,
+    ownershipStatus:
+      history.location.state?.advanceFilterStatus?.ownershipStatus || '',
+    type: history.location.state?.advanceFilterStatus?.type || '',
+    number: history.location.state?.advanceFilterStatus?.number || '',
+    contact: history.location.state?.advanceFilterStatus?.contact || '',
+    contactType: history.location.state?.advanceFilterStatus?.contactType || '',
+    createdBy: history.location.state?.advanceFilterStatus?.createdBy || '',
   });
 
-  const [selectedOption, setSelectedOption] = useState(statusList[0].value);
+  const [selectedOption, setSelectedOption] = useState(
+    history.location.state?.selectedOption || statusList[0].value,
+  );
 
   const ownershipStatusList = [
     objectData('Leasehold', 'leasehold'),
@@ -81,10 +92,12 @@ const Property = () => {
   const _handleOnSelectChange = (e) => {
     setSelectedOption(e.target.value);
     setIsLoading(true);
+    setPropertyList([]);
     axios({
       method: 'get',
       url: filterPropertyByStatus(1, e.target.value),
       headers: { Authorization: `Bearer ${token}` },
+      ...useCancelToken('canceled-request'),
     })
       .then((response) => {
         const { results } = response.data;
@@ -101,12 +114,10 @@ const Property = () => {
           setIsFullHeight(false);
           setPropertyList(results.properties);
         }
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
       });
   };
 
@@ -120,6 +131,7 @@ const Property = () => {
   const _handleSubmitAdvanceFilter = (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setPropertyList([]);
     setShow(false);
     axios({
       method: 'get',
@@ -152,6 +164,7 @@ const Property = () => {
           setSelectedOption(advanceFilterStatus.status);
           setPropertyList(results.properties);
         }
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
@@ -163,7 +176,7 @@ const Property = () => {
 
   const _handleToDetail = (id, latitude, longitude) => {
     history.push({
-      pathname: `${path.URLPropertyDetail()}`,
+      pathname: `${path.URLPropertyDetail(id)}`,
       state: {
         propertyId: id,
         propertyList,
@@ -171,6 +184,8 @@ const Property = () => {
         latitude,
         longitude,
         isFullHeight,
+        selectedOption,
+        advanceFilterStatus,
       },
     });
   };
@@ -202,7 +217,11 @@ const Property = () => {
   }, [dataFromDetail]);
 
   useEffect(() => {
-    setIsFullHeight(history.location.state?.isFullHeight || false);
+    if (history.location.state?.message) {
+      toast(history.location.state?.message, {
+        autoClose: 3000,
+      });
+    }
     _getDataProperties();
   }, [_getDataProperties, history.location.state]);
 

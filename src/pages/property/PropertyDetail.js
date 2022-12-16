@@ -1,12 +1,28 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, Redirect } from 'react-router-dom';
+import * as path from '../../routes/path';
 
 import PropertyDetailCard from './PropertyDetailCard';
 import Layout from '../../components/templates/Layout';
 
 const PropertyDetail = () => {
   const history = useHistory();
-  const { propertyList, url, isFullHeight } = history.location.state;
+  if (
+    !history.location.state?.propertyList ||
+    history.location.state?.propertyList === undefined
+  ) {
+    return (
+      <Redirect
+        push
+        to={{
+          pathname: path.URLProperty,
+          state: {
+            message: 'Property not found',
+          },
+        }}
+      />
+    );
+  }
 
   return (
     <Layout title="Property Management">
@@ -21,10 +37,13 @@ const PropertyDetail = () => {
             <div className="d-flex gap-3">
               <Link
                 to={{
-                  pathname: `${url}`,
+                  pathname: `${history.location.state?.url}`,
                   state: {
-                    propertyList,
-                    isFullHeight,
+                    propertyList: history.location.state?.propertyList,
+                    isFullHeight: history.location.state?.isFullHeight,
+                    selectedOption: history.location.state?.selectedOption,
+                    advanceFilterStatus:
+                      history.location.state?.advanceFilterStatus,
                   },
                 }}
                 className="fs-9 btn py-2 p-3 btn-brand-celtic text-uppercase"

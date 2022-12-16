@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, Redirect } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
 import { toast } from 'react-toastify';
 import { deleteContactById } from '../../lib/constant';
@@ -14,7 +14,6 @@ import Layout from '../../components/templates/Layout';
 const ContactDetail = () => {
   const history = useHistory();
   const token = localStorage.getItem(LS_AUTH);
-  const { allContacts, contactId, urlParent } = history.location.state;
 
   const _handleDeleteContact = (id) => {
     confirmAlert({
@@ -37,7 +36,7 @@ const ContactDetail = () => {
                   toast(success.msg, {
                     autoClose: 3000,
                   });
-                  history.push(urlParent);
+                  history.push(history.location.state?.urlParent);
                 }
               })
               .catch((error) => {
@@ -54,9 +53,23 @@ const ContactDetail = () => {
     });
   };
 
-  const filteredContactById = allContacts?.filter(
-    (contact) => contact?.id === contactId,
+  const filteredContactById = history.location.state?.allContacts?.filter(
+    (contact) => contact?.id === history.location.state?.contactId,
   )?.[0];
+
+  if (!filteredContactById || filteredContactById === undefined) {
+    return (
+      <Redirect
+        push
+        to={{
+          pathname: path.URLContact,
+          state: {
+            message: 'Contact not found',
+          },
+        }}
+      />
+    );
+  }
 
   return (
     <Layout title="Contact Management">
@@ -69,8 +82,10 @@ const ContactDetail = () => {
             <div className="d-flex gap-3">
               <Link
                 to={{
-                  pathname: urlParent,
-                  state: { allContacts },
+                  pathname: history.location.state?.urlParent,
+                  state: {
+                    allContacts: history.location.state?.allContacts,
+                  },
                 }}
                 className="fs-9 fw-semibold px-3 py-2 btn btn-brand-pastel-green text-white"
               >
@@ -78,8 +93,14 @@ const ContactDetail = () => {
               </Link>
               <Link
                 to={{
-                  pathname: `${path.URLContactEdit(contactId)}`,
-                  state: { allContacts, contactId, urlParent },
+                  pathname: `${path.URLContactEdit(
+                    history.location.state?.contactId,
+                  )}`,
+                  state: {
+                    allContacts: history.location.state?.allContacts,
+                    contactId: history.location.state?.contactId,
+                    urlParent: history.location.state?.urlParent,
+                  },
                 }}
                 className="fs-9 fw-semibold px-3 py-2 btn btn-brand-celtic text-white"
               >
@@ -87,7 +108,9 @@ const ContactDetail = () => {
               </Link>
               <Buttons
                 type="button"
-                onClick={() => _handleDeleteContact(contactId)}
+                onClick={() =>
+                  _handleDeleteContact(history.location.state?.contactId)
+                }
                 className="fs-9 fw-semibold px-3 py-2 btn btn-brand-vivid text-white"
               >
                 Delete

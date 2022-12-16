@@ -15,7 +15,7 @@ const PropertyTable = ({
 }) => {
   return (
     <>
-      {isLoading ? (
+      {isLoading && propertyList?.length < 1 ? (
         <Spinner height={isFullHeight ? 'min-vh-50' : 'min-vh-100'} />
       ) : (
         <div className="row mt-3">

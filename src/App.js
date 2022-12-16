@@ -14,6 +14,7 @@ import ContactDetail from './pages/contact/ContactDetail';
 import ContactAdd from './pages/contact/ContactAdd';
 import ContactEdit from './pages/contact/ContactEdit';
 import PropertyDetail from './pages/property/PropertyDetail';
+import NotFound from './pages/NotFound';
 
 const App = () => {
   return (
@@ -38,6 +39,9 @@ const App = () => {
           component={ContactDetail}
         />
         <ProtectedRoute exact path={path.URLHome} component={Login} />
+        <Route path="*">
+          <NotFound isPageNotFound>Back to Home</NotFound>
+        </Route>
       </Switch>
       <ToastContainer />
     </>

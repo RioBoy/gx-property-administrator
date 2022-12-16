@@ -107,8 +107,13 @@ const Contact = () => {
   }, [dataFromDetail]);
 
   useEffect(() => {
+    if (history.location.state?.message) {
+      toast(history.location.state?.message, {
+        autoClose: 3000,
+      });
+    }
     _getDataContacts();
-  }, [_getDataContacts]);
+  }, [_getDataContacts, history.location.state]);
 
   return (
     <Layout title="Contact Management">
