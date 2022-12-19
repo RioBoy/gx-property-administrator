@@ -29,10 +29,12 @@ class Auth extends Component {
         if (status === 'error') {
           toast(response.data.error.internalMsg, {
             autoClose: 3000,
+            type: 'error',
           });
           toast(response.data.error.msg, {
             delay: 3000,
             autoClose: 5000,
+            type: 'error',
           });
         } else {
           const { access_token } = response.data.results;
@@ -56,6 +58,7 @@ class Auth extends Component {
   };
 
   logout = () => {
+    this.setState({ isLoading: true });
     return axiosReq({
       method: 'post',
       url: logoutUrl,
@@ -70,6 +73,7 @@ class Auth extends Component {
           });
           toast(success.msg, {
             autoClose: 3000,
+            type: 'success',
           });
           this.props.history.push(path.URLLogin);
         }
@@ -78,6 +82,9 @@ class Auth extends Component {
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        this.setState({ isLoading: false });
       });
   };
 

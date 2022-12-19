@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useHistory, Redirect } from 'react-router-dom';
-import { confirmAlert } from 'react-confirm-alert';
 import { toast } from 'react-toastify';
 import { deleteContactById } from '../../lib/constant';
 import { LS_AUTH } from '../../config/localStorage';
@@ -9,49 +8,44 @@ import * as path from '../../routes/path';
 import IdentityFile from '../../assets/images/identityFile.jpg';
 
 import { Buttons } from '../../components/button/Buttons';
+import ModalBox from '../../components/modal/ModalBox';
 import Layout from '../../components/templates/Layout';
 
 const ContactDetail = () => {
   const history = useHistory();
+  const [isLoading, setIsLoading] = useState(false);
+  const [showModalDelete, setShowModalDelete] = useState(false);
   const token = localStorage.getItem(LS_AUTH);
 
   const _handleDeleteContact = (id) => {
-    confirmAlert({
-      title: 'Confirm to delete',
-      message: 'Are you sure to do this.',
-      buttons: [
-        {
-          label: 'Yes',
-          onClick: () => {
-            axios({
-              method: 'post',
-              url: deleteContactById(id),
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            })
-              .then((response) => {
-                const { status, success } = response.data;
-                if (status === 'success') {
-                  toast(success.msg, {
-                    autoClose: 3000,
-                  });
-                  history.push(history.location.state?.urlParent);
-                }
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-          },
-        },
-        {
-          label: 'No',
-          onClick: () => console.log('Batal'),
-        },
-      ],
-      closeOnClickOutside: false,
-    });
+    setIsLoading(true);
+    axios({
+      method: 'post',
+      url: deleteContactById(id),
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        const { status, success } = response.data;
+        if (status === 'success') {
+          toast(success.msg, {
+            autoClose: 3000,
+            type: 'success',
+          });
+          history.push(history.location.state?.urlParent);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
+
+  const _handleShowModalDelete = () => setShowModalDelete(true);
+  const _handleCloseModalDelete = () => setShowModalDelete(false);
 
   const filteredContactById = history.location.state?.allContacts?.filter(
     (contact) => contact?.id === history.location.state?.contactId,
@@ -75,11 +69,13 @@ const ContactDetail = () => {
     <Layout title="Contact Management">
       <main className="contact-detail-content">
         <div className="row gap-3 gap-md-0">
-          <div className="col-12 col-md-6 order-1 order-md-0">
-            <h3 className="fw-semibold text-brand-yankees">Contact Detail</h3>
+          <div className="col-12 col-md-6">
+            <h3 className="fw-semibold text-brand-yankees text-center text-md-start">
+              Contact Detail
+            </h3>
           </div>
           <div className="col-12 col-md-6 d-md-flex align-items-center justify-content-end">
-            <div className="d-flex gap-3">
+            <div className="d-flex justify-content-center gap-3">
               <Link
                 to={{
                   pathname: history.location.state?.urlParent,
@@ -87,7 +83,7 @@ const ContactDetail = () => {
                     allContacts: history.location.state?.allContacts,
                   },
                 }}
-                className="fs-9 fw-semibold px-3 py-2 btn btn-brand-pastel-green text-white"
+                className="fs-9 fw-semibold px-3 py-2 btn btn-brand-pastel-green text-white w-100"
               >
                 Back
               </Link>
@@ -102,19 +98,27 @@ const ContactDetail = () => {
                     urlParent: history.location.state?.urlParent,
                   },
                 }}
-                className="fs-9 fw-semibold px-3 py-2 btn btn-brand-celtic text-white"
+                className="fs-9 fw-semibold px-3 py-2 btn btn-brand-celtic text-white w-100"
               >
                 Edit
               </Link>
               <Buttons
                 type="button"
-                onClick={() =>
-                  _handleDeleteContact(history.location.state?.contactId)
-                }
-                className="fs-9 fw-semibold px-3 py-2 btn btn-brand-vivid text-white"
+                onClick={() => _handleShowModalDelete()}
+                className="fs-9 fw-semibold px-3 py-2 btn btn-brand-vivid text-white w-100"
               >
                 Delete
               </Buttons>
+              <ModalBox
+                show={showModalDelete}
+                _handleCloseModal={() => _handleCloseModalDelete()}
+                _handleActionModal={() =>
+                  _handleDeleteContact(history.location.state?.contactId)
+                }
+                isLoadingInButton={isLoading}
+              >
+                Delete
+              </ModalBox>
             </div>
           </div>
         </div>

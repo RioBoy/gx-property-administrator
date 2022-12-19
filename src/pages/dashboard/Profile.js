@@ -1,15 +1,84 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { adminProfile } from '../../lib/constant';
+import { toast } from 'react-toastify';
+import { adminProfile, adminUpdatePassword } from '../../lib/constant';
 import { LS_AUTH } from '../../config/localStorage';
 import ImageProfile from '../../assets/images/profile.png';
 
 import Layout from '../../components/templates/Layout';
 import Spinner from '../../components/spinner/Spinner';
+import ModalBox from '../../components/modal/ModalBox';
 
 const Profile = () => {
   const [profile, setProfile] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [showModalForm, setShowModalForm] = useState(false);
+  const [isLoading, setIsLoading] = useState('');
+  const [changePassword, setChangePassword] = useState({
+    password: '',
+    confirmPassword: '',
+  });
+  const [isError, setIsError] = useState('');
+  const [isLoadingButton, setIsLoadingButton] = useState(false);
+  const token = localStorage.getItem(LS_AUTH);
+
+  const _handleShowModalForm = () => setShowModalForm(true);
+  const _handleCloseShowModalForm = () => setShowModalForm(false);
+
+  const _handleOnChange = (event) => {
+    setChangePassword((state) => ({
+      ...state,
+      [event.target.name]: event.target.value,
+    }));
+  };
+
+  const _handleSubmitChangePassword = (e) => {
+    e.preventDefault();
+    setIsLoadingButton(true);
+    axios({
+      method: 'post',
+      url: adminUpdatePassword,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        ...changePassword,
+        password: changePassword.password,
+        confirmPassword: changePassword.confirmPassword,
+      },
+    })
+      .then((response) => {
+        const { status, error, success } = response.data;
+        if (status === 'error') {
+          toast(error.msg, {
+            autoClose: 3000,
+            type: 'error',
+          });
+          setIsError((state) => ({
+            ...state,
+            errors: error?.validations || [],
+          }));
+        } else {
+          toast(success.msg, {
+            autoClose: 3000,
+            type: 'success',
+          });
+          if (!isLoadingButton) {
+            setShowModalForm(false);
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setIsLoadingButton(false);
+      });
+  };
+
+  const requiredParam = (name = '') =>
+    isError !== ''
+      ? isError?.errors?.filter((value) => value.param === name)
+      : '';
 
   useEffect(() => {
     const token = localStorage.getItem(LS_AUTH);
@@ -147,9 +216,25 @@ const Profile = () => {
                           </p>
                         </div>
                         <div className="col-6 col-lg-5">
-                          <button className="fw-medium text-brand-united-nations border-0 bg-transparent">
+                          <button
+                            type="button"
+                            onClick={_handleShowModalForm}
+                            className="fw-medium text-brand-united-nations border-0 bg-transparent"
+                          >
                             Change Password
                           </button>
+                          <ModalBox
+                            show={showModalForm}
+                            _handleCloseModal={_handleCloseShowModalForm}
+                            _handleActionModal={_handleSubmitChangePassword}
+                            _handleOnChange={_handleOnChange}
+                            isLoadingInButton={isLoadingButton}
+                            isForm
+                            requiredParam={requiredParam}
+                            formValue={changePassword}
+                          >
+                            Change
+                          </ModalBox>
                         </div>
                       </div>
                     </div>

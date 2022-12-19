@@ -115,6 +115,7 @@ const ContactAdd = () => {
         if (status === 'error') {
           toast(error.msg, {
             autoClose: 3000,
+            type: 'error',
           });
           setIsError((state) => ({
             ...state,
@@ -123,6 +124,7 @@ const ContactAdd = () => {
         } else {
           toast(success.msg, {
             autoClose: 3000,
+            type: 'success',
           });
           history.push(urlParent);
         }

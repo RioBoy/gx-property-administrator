@@ -1,16 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Button } from 'react-bootstrap';
 import { useRouteMatch } from 'react-router-dom';
+import ModalBox from '../../components/modal/ModalBox';
 
 import Spinner from '../../components/spinner/Spinner';
 
 const ContactCard = ({
   isLoading,
+  isLoadingInButton,
   allContacts,
   _handleEditContact,
   _handleDeleteContact,
   _handleToDetail,
 }) => {
+  const [showModalDelete, setShowModalDelete] = useState(false);
+  const [selectedItem, setSelectedItem] = useState([]);
   const { url } = useRouteMatch();
+
+  const _handleShowModalDelete = (contact, e) => {
+    e.stopPropagation();
+    setShowModalDelete(true);
+    setSelectedItem(contact);
+  };
+  const _handleCloseModalDelete = (e) => {
+    e.stopPropagation();
+    setShowModalDelete(false);
+    setSelectedItem([]);
+  };
+
+  useEffect(() => {
+    if (!isLoadingInButton) {
+      setShowModalDelete(false);
+    }
+  }, [isLoadingInButton]);
 
   return (
     <>
@@ -44,18 +66,25 @@ const ContactCard = ({
                   >
                     Edit
                   </button>
-                  <button
-                    type="button"
-                    onClick={(e) => _handleDeleteContact(contact.id, e)}
-                    className="text-brand-united-nations mb-2 bg-transparent border-0"
+                  <Button
+                    onClick={(e) => _handleShowModalDelete(contact, e)}
+                    className="text-brand-united-nations bg-transparent border-0"
                     title="Remove"
                   >
                     Remove
-                  </button>
+                  </Button>
                 </div>
               </div>
             </div>
           ))}
+          <ModalBox
+            show={showModalDelete}
+            _handleCloseModal={(e) => _handleCloseModalDelete(e)}
+            _handleActionModal={() => _handleDeleteContact(selectedItem.id)}
+            isLoadingInButton={isLoadingInButton}
+          >
+            Delete
+          </ModalBox>
         </>
       )}
     </>

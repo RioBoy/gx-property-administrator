@@ -220,6 +220,7 @@ const Property = () => {
     if (history.location.state?.message) {
       toast(history.location.state?.message, {
         autoClose: 3000,
+        type: 'error',
       });
     }
     _getDataProperties();
@@ -268,11 +269,10 @@ const Property = () => {
                       aria-labelledby="contained-modal-title-vcenter"
                       centered
                       show={show}
-                      onHide={_handleClose}
                       className="border-0 modal-advance-filter"
                     >
                       <form onSubmit={_handleSubmitAdvanceFilter}>
-                        <Modal.Header closeButton className="border-bottom-0">
+                        <Modal.Header className="border-bottom-0">
                           <Modal.Title
                             id="contained-modal-title-vcenter"
                             className="h5 fw-semibold text-brand-space-cadet"

@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { IoMenuOutline } from 'react-icons/io5';
 
-import VBMLogo from '../../assets/images/VBM-Logo.svg';
+import GXLogo from '../../assets/images/GX-Logo.png';
+import VBMLogo from '../../assets/images/VBM-Logo.png';
 import Avatar from '../../assets/images/avatar.png';
 import Sidebar from './Sidebar';
 import Topbar from './Topbar';
@@ -15,7 +16,7 @@ const Layout = ({ title, children }) => {
     setMobileWidth(window.innerWidth);
   };
 
-  const isMobile = mobileWidth <= 768;
+  const isMobile = mobileWidth <= 425;
 
   useEffect(() => {
     const _handleClickOutside = (e) => {
@@ -50,7 +51,7 @@ const Layout = ({ title, children }) => {
           isMobile={isMobile}
         />
         <Sidebar
-          logo={VBMLogo}
+          logo={!isMobile ? (toggleMenu ? VBMLogo : GXLogo) : GXLogo}
           toggleMenu={toggleMenu}
           isMobile={isMobile}
           expander={expander}
@@ -65,7 +66,7 @@ const Layout = ({ title, children }) => {
                   position: toggleMenu ? 'fixed' : 'absolute',
                 }
               : {
-                  left: toggleMenu ? '92px' : 'calc(92px + 8rem)',
+                  left: toggleMenu ? '65px' : 'calc(65px + 8rem)',
                   position: 'absolute',
                 }
           }

@@ -46,7 +46,7 @@ const Sidebar = ({ logo, toggleMenu, isMobile, expander }) => {
               width: toggleMenu ? '55%' : '0',
             }
           : {
-              width: toggleMenu ? '92px' : 'calc(92px + 8rem)',
+              width: toggleMenu ? '65px' : 'calc(65px + 8rem)',
             }
       }
     >
@@ -56,7 +56,33 @@ const Sidebar = ({ logo, toggleMenu, isMobile, expander }) => {
           className="sidebar-brand d-flex align-items-center justify-content-center"
         >
           <div className="vbm-logo">
-            <img src={logo} alt="Logo" className="logo-dashboard" />
+            <img
+              src={logo}
+              alt="Logo"
+              className="logo-dashboard"
+              style={
+                !isMobile
+                  ? !toggleMenu
+                    ? {
+                        height: '100%',
+                        width: '90%',
+                        objectFit: 'contain',
+                        objectPosition: 'center',
+                      }
+                    : {
+                        height: '100%',
+                        width: '27px',
+                        objectFit: 'contain',
+                        objectPosition: 'center',
+                      }
+                  : {
+                      height: '100%',
+                      width: '90%',
+                      objectFit: 'contain',
+                      objectPosition: 'center',
+                    }
+              }
+            />
           </div>
         </Link>
         <li className="nav-item">

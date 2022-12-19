@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withAuth } from '../../context/Auth';
 import { Link } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
@@ -10,8 +10,22 @@ import {
 import * as path from '../../routes/path';
 
 import { Buttons } from '../button/Buttons';
+import ModalBox from '../modal/ModalBox';
 
-const Topbar = ({ icon, avatar, title, logout, toggleMenu, isMobile }) => {
+const Topbar = ({
+  icon,
+  avatar,
+  title,
+  logout,
+  toggleMenu,
+  isMobile,
+  isLoading,
+}) => {
+  const [showModalLogout, setShowModalLogout] = useState(false);
+
+  const _handleShowModalLogout = () => setShowModalLogout(true);
+  const _handleCloseModalLogout = () => setShowModalLogout(false);
+
   return (
     <nav
       className="navbar navbar-expand-lg topbar justify-content-between shadow-sm"
@@ -21,7 +35,7 @@ const Topbar = ({ icon, avatar, title, logout, toggleMenu, isMobile }) => {
               left: '0',
             }
           : {
-              left: toggleMenu ? '92px' : 'calc(92px + 8rem)',
+              left: toggleMenu ? '65px' : 'calc(65px + 8rem)',
             }
       }
     >
@@ -72,7 +86,7 @@ const Topbar = ({ icon, avatar, title, logout, toggleMenu, isMobile }) => {
             </Link>
             <Buttons
               type="button"
-              onClick={() => logout()}
+              onClick={() => _handleShowModalLogout()}
               className="fw-medium text-brand-rhythm text-decoration-none d-flex align-items-center border-0 bg-transparent w-100"
             >
               <HiOutlineArrowCircleLeft
@@ -81,6 +95,15 @@ const Topbar = ({ icon, avatar, title, logout, toggleMenu, isMobile }) => {
               />
               Logout
             </Buttons>
+            <ModalBox
+              show={showModalLogout}
+              _handleCloseModal={_handleCloseModalLogout}
+              _handleActionModal={() => logout()}
+              isLoadingInButton={isLoading}
+              isLogout
+            >
+              Logout
+            </ModalBox>
           </Dropdown.Menu>
         </Dropdown>
       </ul>

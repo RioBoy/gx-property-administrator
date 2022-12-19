@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { confirmAlert } from 'react-confirm-alert';
 import { Link } from 'react-router-dom';
 import { getAllContacts, deleteContactById } from '../../lib/constant';
 import { LS_AUTH } from '../../config/localStorage';
@@ -14,6 +13,7 @@ import ContactCard from './ContactCard';
 const Contact = () => {
   const [allContacts, setAllContacts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingInButton, setIsLoadingInButton] = useState(false);
   const history = useHistory();
   const token = localStorage.getItem(LS_AUTH);
 
@@ -29,46 +29,34 @@ const Contact = () => {
     });
   };
 
-  const _handleDeleteContact = (id, e) => {
-    e.stopPropagation();
-    confirmAlert({
-      title: 'Confirm to delete',
-      message: 'Are you sure to do this.',
-      buttons: [
-        {
-          label: 'Yes',
-          onClick: () => {
-            axios({
-              method: 'post',
-              url: deleteContactById(id),
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            })
-              .then((response) => {
-                const { status, success } = response.data;
-                if (status === 'success') {
-                  toast(success.msg, {
-                    autoClose: 3000,
-                  });
-                }
-                const remainingContactResult = allContacts?.filter(
-                  (result) => result.id !== id,
-                );
-                setAllContacts(remainingContactResult);
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-          },
-        },
-        {
-          label: 'No',
-          onClick: () => console.log('Batal'),
-        },
-      ],
-      closeOnClickOutside: false,
-    });
+  const _handleDeleteContact = (id) => {
+    setIsLoadingInButton(true);
+    axios({
+      method: 'post',
+      url: deleteContactById(id),
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        const { status, success } = response.data;
+        if (status === 'success') {
+          toast(success.msg, {
+            autoClose: 3000,
+            type: 'success',
+          });
+        }
+        const remainingContactResult = allContacts?.filter(
+          (result) => result.id !== id,
+        );
+        setAllContacts(remainingContactResult);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setIsLoadingInButton(false);
+      });
   };
 
   const _handleToDetail = (id, urlParent) => {
@@ -110,6 +98,7 @@ const Contact = () => {
     if (history.location.state?.message) {
       toast(history.location.state?.message, {
         autoClose: 3000,
+        type: 'error',
       });
     }
     _getDataContacts();
@@ -144,6 +133,7 @@ const Contact = () => {
           <div className="row">
             <ContactCard
               isLoading={isLoading}
+              isLoadingInButton={isLoadingInButton}
               allContacts={allContacts}
               _handleToDetail={_handleToDetail}
               _handleEditContact={_handleEditContact}

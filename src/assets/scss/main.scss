@@ -139,8 +139,8 @@ $utilities: map-merge(
         null: var(--#{$prefix}border-width) var(--#{$prefix}border-style)
           var(--#{$prefix}border-color),
         0: 0,
-        1: 1px solid #ebebeb,
-        2: 2px solid #ebebeb,
+        1: 1px solid #fbf6f6,
+        2: 1px solid #fbf6f6,
       ),
     ),
     'padding-x': (
@@ -304,8 +304,7 @@ $utilities: map-merge(
 
 // sidebar
 .sidebar {
-  width: 92px;
-  transition: 0.3s;
+  width: 65px;
   min-height: 100vh;
   overflow: hidden;
   position: fixed;
@@ -349,7 +348,7 @@ $utilities: map-merge(
   }
 
   .sidebar-brand {
-    margin: 11px 0 67px 0;
+    margin: 21px 0 50px 0;
   }
 
   .custom-nav-link {
@@ -359,19 +358,12 @@ $utilities: map-merge(
   }
 
   .vbm-logo {
-    svg {
-      width: auto;
-      height: 50px;
-    }
-  }
-
-  .logo-dashboard {
-    height: 50px;
-    width: auto;
+    display: flex;
+    justify-content: center;
   }
 
   &.expander {
-    width: calc(92px + 8rem);
+    width: calc(65px + 8rem);
   }
 
   &.toggled {
@@ -405,7 +397,6 @@ $utilities: map-merge(
   right: 0;
   background-color: white;
   z-index: 2;
-  transition: 0.3s;
 
   .side-nav {
     display: flex;
@@ -836,13 +827,34 @@ main {
   }
 }
 
-// modal advanced filter
+// modal
 .modal {
-  &.modal-advance-filter {
+  &.modal-advance-filter,
+  &.modal-change-password {
     .modal-body {
       input,
       select {
         height: 40px !important;
+      }
+
+      .input-password {
+        position: relative;
+      }
+
+      .eye-icon {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        margin-right: 12px;
+        transform: translate(0, -50%);
+      }
+    }
+  }
+
+  .modal-footer {
+    .btn-delete {
+      &:hover {
+        color: white !important;
       }
     }
   }
@@ -854,33 +866,6 @@ main {
     top: 64px;
     right: 0;
     bottom: 0;
-    transition: 0.3s;
-  }
-}
-
-// react-confirm-alert
-.react-confirm-alert-body {
-  font-family: 'Poppins', sans-serif !important;
-
-  h1 {
-    font-weight: 400;
-    font-size: 2.25rem;
-  }
-
-  .react-confirm-alert-button-group {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-
-    button {
-      background-color: #ff7d00;
-      font-size: 1rem;
-
-      &:hover {
-        background-color: #ff9126;
-        border-color: #ff8a1a;
-      }
-    }
   }
 }
 
@@ -894,6 +879,21 @@ main {
       content: '|';
       padding: 0 10px;
     }
+  }
+}
+
+// react-toastify
+.Toastify__toast-body {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.Toastify__progress-bar-theme--colored {
+  .Toastify__progress-bar--success {
+    background: #0ec837 !important;
+  }
+
+  .Toastify__progress-bar--error {
+    background: #ff1010 !important;
   }
 }
 
@@ -968,6 +968,18 @@ main {
   }
 }
 
+@include media-breakpoint-between(xs, md) {
+  .sidebar {
+    .nav-item {
+      .nav-link {
+        .hidden-span {
+          display: block !important;
+        }
+      }
+    }
+  }
+}
+
 @include media-breakpoint-between(xs, lg) {
   .topbar {
     height: auto !important;
@@ -990,14 +1002,6 @@ main {
   }
 
   .sidebar {
-    .nav-item {
-      .nav-link {
-        .hidden-span {
-          display: block !important;
-        }
-      }
-    }
-
     &:not(.expander) {
       .custom-nav-link {
         column-gap: 0.75rem;
