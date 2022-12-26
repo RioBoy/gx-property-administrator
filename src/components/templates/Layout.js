@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { IoMenuOutline } from 'react-icons/io5';
+import { withAuth } from '../../context/Auth';
 
 import GXLogo from '../../assets/images/GX-Logo.png';
+import GXLogoWhite from '../../assets/images/GX-Logo-white.png';
 import VBMLogo from '../../assets/images/VBM-Logo.png';
 import Avatar from '../../assets/images/avatar.png';
 import Sidebar from './Sidebar';
 import Topbar from './Topbar';
 
-const Layout = ({ title, children }) => {
+const Layout = ({ title, children, isDarkMode }) => {
   const [toggleMenu, setToggleMenu] = useState(false);
   const [mobileWidth, setMobileWidth] = useState(window.innerWidth);
   const expander = useRef(null);
@@ -43,7 +45,11 @@ const Layout = ({ title, children }) => {
           avatar={Avatar}
           icon={
             <IoMenuOutline
-              className="nav-toggle"
+              className={[
+                'nav-toggle',
+                !isDarkMode ? 'text-brand-yankees' : 'text-white',
+              ].join(' ')}
+              size={24}
               onClick={() => setToggleMenu((toggle) => !toggle)}
             />
           }
@@ -51,7 +57,17 @@ const Layout = ({ title, children }) => {
           isMobile={isMobile}
         />
         <Sidebar
-          logo={!isMobile ? (toggleMenu ? VBMLogo : GXLogo) : GXLogo}
+          logo={
+            !isMobile
+              ? toggleMenu
+                ? VBMLogo
+                : !isDarkMode
+                ? GXLogo
+                : GXLogoWhite
+              : !isDarkMode
+              ? GXLogo
+              : GXLogoWhite
+          }
           toggleMenu={toggleMenu}
           isMobile={isMobile}
           expander={expander}
@@ -78,4 +94,4 @@ const Layout = ({ title, children }) => {
   );
 };
 
-export default Layout;
+export default withAuth(Layout);

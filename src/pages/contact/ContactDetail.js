@@ -127,7 +127,7 @@ const ContactDetail = () => {
             <div className="card">
               <div className="row gap-3 gap-md-0">
                 <div className="col-12 col-md-9">
-                  <h4 className="fs-7 fw-semibold mb-0">
+                  <h4 className="fs-7 text-brand-yankees fw-semibold mb-0">
                     {filteredContactById?.name}
                   </h4>
                   <p className="fw-normal text-brand-rhythm mb-0">
@@ -158,7 +158,7 @@ const ContactDetail = () => {
                     >
                       Full Name
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       {filteredContactById?.name}
                     </p>
                   </div>
@@ -169,7 +169,7 @@ const ContactDetail = () => {
                     >
                       Status Salutation
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       {filteredContactById?.salutation}
                     </p>
                   </div>
@@ -180,7 +180,7 @@ const ContactDetail = () => {
                     >
                       Phone Number
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       {filteredContactById?.phoneNumber === null
                         ? '-'
                         : filteredContactById?.phoneNumber}
@@ -193,7 +193,7 @@ const ContactDetail = () => {
                     >
                       Identity Number
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       {filteredContactById?.identityNumber}
                     </p>
                   </div>
@@ -217,7 +217,7 @@ const ContactDetail = () => {
                     >
                       Address
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       Jl. Gunung Sanghyang No. 83, Kerobokan Kaja, Denpasar
                       Barat, Denpasar Kota, Bali
                     </p>
@@ -229,7 +229,7 @@ const ContactDetail = () => {
                     >
                       Created By
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       {filteredContactById?.createdBy === null
                         ? '-'
                         : filteredContactById?.createdBy.name}
@@ -254,7 +254,7 @@ const ContactDetail = () => {
                     >
                       Company Name
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       {filteredContactById?.companyName === null
                         ? '-'
                         : filteredContactById?.companyName}
@@ -267,7 +267,7 @@ const ContactDetail = () => {
                     >
                       Company Tax Number
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       {filteredContactById?.companyNPWP === null
                         ? '-'
                         : filteredContactById?.companyNPWP}
@@ -280,7 +280,7 @@ const ContactDetail = () => {
                     >
                       Company Address
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       {filteredContactById?.companyAddress === null
                         ? '-'
                         : filteredContactById?.companyAddress}
@@ -304,7 +304,7 @@ const ContactDetail = () => {
                     >
                       Owner tax number
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       {filteredContactById?.ownerTaxNumber.display}
                     </p>
                   </div>
@@ -319,7 +319,7 @@ const ContactDetail = () => {
                       filteredContactById?.contactPreferences.map(
                         (contact, i) => (
                           <p
-                            className="fw-normal text-primary-black mb-0"
+                            className="fw-normal text-brand-yankees mb-0"
                             key={i}
                           >
                             {contact.display}
@@ -327,7 +327,7 @@ const ContactDetail = () => {
                         ),
                       )
                     ) : (
-                      <p className="fw-normal text-primary-black">
+                      <p className="fw-normal text-brand-yankees">
                         {filteredContactById?.contactPreferences[0].display}
                       </p>
                     )}
@@ -342,14 +342,14 @@ const ContactDetail = () => {
                     {filteredContactById?.originContacts.length > 1 ? (
                       filteredContactById?.originContacts.map((origin, i) => (
                         <p
-                          className="fw-normal text-primary-black mb-0"
+                          className="fw-normal text-brand-yankees mb-0"
                           key={i}
                         >
                           {origin.display}
                         </p>
                       ))
                     ) : (
-                      <p className="fw-normal text-primary-black">
+                      <p className="fw-normal text-brand-yankees">
                         {filteredContactById?.originContacts[0].display}
                       </p>
                     )}
@@ -361,7 +361,7 @@ const ContactDetail = () => {
                     >
                       Associate To
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       {filteredContactById?.associateTo === null
                         ? '-'
                         : filteredContactById?.associateTo}
@@ -374,7 +374,7 @@ const ContactDetail = () => {
                     >
                       Commission
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       {filteredContactById?.commission}%
                     </p>
                   </div>
@@ -394,7 +394,7 @@ const ContactDetail = () => {
                     >
                       Contact Type
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       {filteredContactById?.type.display}
                     </p>
                   </div>
@@ -405,7 +405,7 @@ const ContactDetail = () => {
                     >
                       Email Address
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       {filteredContactById?.email}
                     </p>
                   </div>
@@ -418,7 +418,7 @@ const ContactDetail = () => {
                         >
                           Current Password
                         </label>
-                        <p className="fw-normal text-primary-black">
+                        <p className="fw-normal text-brand-yankees">
                           •••••••••
                         </p>
                       </div>

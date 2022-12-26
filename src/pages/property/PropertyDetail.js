@@ -29,7 +29,7 @@ const PropertyDetail = () => {
       <main className="detail-property-content">
         <div className="row align-items-center justify-content-between section-1">
           <div className="col-6 col-md-8 order-md-0">
-            <h5 className="fw-medium property-detail-title mb-0">
+            <h5 className="fw-medium text-brand-yankees property-detail-title mb-0">
               Property Detail
             </h5>
           </div>

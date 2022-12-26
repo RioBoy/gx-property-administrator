@@ -235,7 +235,9 @@ const Property = () => {
         ].join(' ')}
       >
         <div className="property-page-content">
-          <h5 className="fs-8 fw-medium p-2">Property List</h5>
+          <h5 className="fs-8 fw-medium text-brand-yankees p-2">
+            Property List
+          </h5>
           <div className="main-content">
             <div className="row mb-3">
               <div className="col-12 col-md-10 col-lg-8 col-xl-4">
@@ -245,7 +247,7 @@ const Property = () => {
                       onChange={_handleOnSelectChange}
                       value={selectedOption}
                       name="filterStatus"
-                      className="fs-9 fw-medium form-select h-100"
+                      className="fs-9 fw-medium form-select h-100 filter-status-dropdown"
                       id="filterStatus"
                     >
                       {statusList.map((status, index) => (
@@ -269,7 +271,7 @@ const Property = () => {
                       aria-labelledby="contained-modal-title-vcenter"
                       centered
                       show={show}
-                      className="border-0 modal-advance-filter"
+                      className="border-0 modal-advance-filter modal-action"
                     >
                       <form onSubmit={_handleSubmitAdvanceFilter}>
                         <Modal.Header className="border-bottom-0">
@@ -285,7 +287,7 @@ const Property = () => {
                             <div className="col-12 col-lg-4 mb-2 mb-lg-0">
                               <label
                                 htmlFor="status"
-                                className="fs-9 fw-medium col-form-label"
+                                className="fs-9 fw-medium text-brand-yankees col-form-label"
                               >
                                 Status
                               </label>
@@ -309,7 +311,7 @@ const Property = () => {
                             <div className="col-12 col-lg-4 mb-2 mb-lg-0">
                               <label
                                 htmlFor="ownershipStatus"
-                                className="fs-9 fw-medium col-form-label"
+                                className="fs-9 fw-medium text-brand-yankees col-form-label"
                               >
                                 Property Owner Type
                               </label>
@@ -334,7 +336,7 @@ const Property = () => {
                             <div className="col-12 col-lg-4 mb-2 mb-lg-0">
                               <label
                                 htmlFor="type"
-                                className="fs-9 fw-medium col-form-label"
+                                className="fs-9 fw-medium text-brand-yankees col-form-label"
                               >
                                 Property Type
                               </label>
@@ -361,7 +363,7 @@ const Property = () => {
                             <div className="col-12 col-lg-4 mb-2 mb-lg-0">
                               <label
                                 htmlFor="number"
-                                className="fs-9 fw-medium col-form-label"
+                                className="fs-9 fw-medium text-brand-yankees col-form-label"
                               >
                                 Property References
                               </label>
@@ -378,7 +380,7 @@ const Property = () => {
                             <div className="col-12 col-lg-4 mb-2 mb-lg-0">
                               <label
                                 htmlFor="contact"
-                                className="fs-9 fw-medium col-form-label"
+                                className="fs-9 fw-medium text-brand-yankees col-form-label"
                               >
                                 Contact
                               </label>
@@ -395,7 +397,7 @@ const Property = () => {
                             <div className="col-12 col-lg-4 mb-2 mb-lg-0">
                               <label
                                 htmlFor="contactType"
-                                className="fs-9 fw-medium col-form-label"
+                                className="fs-9 fw-medium text-brand-yankees col-form-label"
                               >
                                 Contact Type
                               </label>
@@ -422,7 +424,7 @@ const Property = () => {
                             <div className="col-12 col-lg-4">
                               <label
                                 htmlFor="createdBy"
-                                className="fs-9 fw-medium col-form-label"
+                                className="fs-9 fw-medium text-brand-yankees col-form-label"
                               >
                                 Entries By
                               </label>
@@ -441,7 +443,7 @@ const Property = () => {
                         <Modal.Footer className="justify-content-start border-top-0">
                           <Buttons
                             type="button"
-                            className="btn btn-bg-white border text-primary-black fw-medium py-2"
+                            className="btn btn-bg-white border text-brand-yankees fw-medium py-2"
                             onClick={_handleClose}
                           >
                             Cancel

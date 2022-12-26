@@ -5,12 +5,13 @@ import { toast } from 'react-toastify';
 import { addNewContact } from '../../lib/constant';
 import { MdOutlinePhotoSizeSelectActual } from 'react-icons/md';
 import Select from 'react-select';
+import { withAuth } from '../../context/Auth';
 
 import Spinner from '../../components/spinner/Spinner';
 import { Buttons } from '../../components/button/Buttons';
 import Layout from '../../components/templates/Layout';
 
-const ContactAdd = () => {
+const ContactAdd = ({ isDarkMode }) => {
   const history = useHistory();
   const [addContact, setAddContact] = useState({
     name: '',
@@ -198,15 +199,18 @@ const ContactAdd = () => {
               </div>
               <div className="card-body">
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
-                    <label htmlFor="name" className="col-form-label fw-bold">
+                  <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
+                    <label
+                      htmlFor="name"
+                      className="text-brand-yankees col-form-label fw-bold"
+                    >
                       Fullname
                     </label>
-                    <span className="fs-10 fw-normal badge text-bg-brand-anti-flash rounded-2 px-2">
+                    <span className="fs-10 fw-normal text-brand-yankees badge text-bg-brand-anti-flash rounded-2 px-2">
                       Required
                     </span>
                   </div>
-                  <div className="col-9">
+                  <div className="col-12 col-lg-9">
                     <input
                       onChange={_handleOnChange}
                       value={addContact.name}
@@ -227,23 +231,23 @@ const ContactAdd = () => {
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
+                  <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
                     <label
                       htmlFor="salutation"
-                      className="col-form-label fw-bold"
+                      className="text-brand-yankees col-form-label fw-bold"
                     >
                       Status Salutation
                     </label>
-                    <span className="fs-10 fw-normal badge text-bg-brand-anti-flash rounded-2 px-2">
+                    <span className="fs-10 fw-normal text-brand-yankees badge text-bg-brand-anti-flash rounded-2 px-2">
                       Required
                     </span>
                   </div>
-                  <div className="col-9">
+                  <div className="col-12 col-lg-9">
                     <select
                       onChange={_handleOnChange}
                       value={addContact.salutation}
                       name="salutation"
-                      className="form-select text-primary-black"
+                      className="form-select text-brand-yankees"
                       id="salutation"
                     >
                       <option value="">Select Status Salutation</option>
@@ -264,20 +268,23 @@ const ContactAdd = () => {
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
-                    <label htmlFor="type" className="col-form-label fw-bold">
+                  <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
+                    <label
+                      htmlFor="type"
+                      className="text-brand-yankees col-form-label fw-bold"
+                    >
                       Contact Type
                     </label>
-                    <span className="fs-10 fw-normal badge text-bg-brand-anti-flash rounded-2 px-2">
+                    <span className="fs-10 fw-normal text-brand-yankees badge text-bg-brand-anti-flash rounded-2 px-2">
                       Required
                     </span>
                   </div>
-                  <div className="col-9">
+                  <div className="col-12 col-lg-9">
                     <select
                       onChange={_handleOnChange}
                       value={addContact.type}
                       name="type"
-                      className="form-select text-primary-black"
+                      className="form-select text-brand-yankees"
                       id="type"
                     >
                       <option value="">Select Contact Type</option>
@@ -298,17 +305,20 @@ const ContactAdd = () => {
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
-                    <label htmlFor="country" className="col-form-label fw-bold">
+                  <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
+                    <label
+                      htmlFor="country"
+                      className="text-brand-yankees col-form-label fw-bold"
+                    >
                       Country
                     </label>
                   </div>
-                  <div className="col-9">
+                  <div className="col-12 col-lg-9">
                     <select
                       onChange={_handleOnChange}
                       value={addContact.country}
                       name="country"
-                      className="form-select text-primary-black"
+                      className="form-select text-brand-yankees"
                       id="country"
                     >
                       <option value="">Select Country</option>
@@ -321,15 +331,15 @@ const ContactAdd = () => {
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
+                  <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
                     <label
                       htmlFor="residence"
-                      className="col-form-label fw-bold"
+                      className="text-brand-yankees col-form-label fw-bold"
                     >
                       Address
                     </label>
                   </div>
-                  <div className="col-9">
+                  <div className="col-12 col-lg-9">
                     <textarea
                       onChange={_handleOnChange}
                       value={addContact.residence}
@@ -353,18 +363,18 @@ const ContactAdd = () => {
               </div>
               <div className="card-body">
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
+                  <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
                     <label
                       htmlFor="identityNumber"
-                      className="col-form-label fw-bold"
+                      className="text-brand-yankees col-form-label fw-bold"
                     >
                       Identity Number
                     </label>
-                    <span className="fs-10 fw-normal badge text-bg-brand-anti-flash rounded-2 px-2">
+                    <span className="fs-10 fw-normal text-brand-yankees badge text-bg-brand-anti-flash rounded-2 px-2">
                       Required
                     </span>
                   </div>
-                  <div className="col-9">
+                  <div className="col-12 col-lg-9">
                     <input
                       onChange={_handleOnChange}
                       value={addContact.identityNumber}
@@ -382,15 +392,15 @@ const ContactAdd = () => {
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-self-start">
+                  <div className="col-12 col-lg-3 d-flex flex-column flex-md-row gap-2 align-self-start">
                     <label
                       htmlFor="identityPhoto"
-                      className="col-form-label fw-bold"
+                      className="text-brand-yankees col-form-label fw-bold"
                     >
                       Upload Identity Number
                     </label>
                   </div>
-                  <div className="col-9">
+                  <div className="col-12 col-lg-9">
                     <div className="input-group input-file-upload">
                       <input
                         ref={fileRef}
@@ -403,7 +413,12 @@ const ContactAdd = () => {
                         className="d-none"
                       />
                       {file === '' && (
-                        <label htmlFor="identityPhoto">
+                        <label
+                          htmlFor="identityPhoto"
+                          className={
+                            !isDarkMode ? 'text-brand-cadet-blue' : 'text-white'
+                          }
+                        >
                           <MdOutlinePhotoSizeSelectActual size="24" />
                           Upload File (Pdf, Png, Jpg)
                         </label>
@@ -425,18 +440,18 @@ const ContactAdd = () => {
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
+                  <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
                     <label
                       htmlFor="phoneNumber"
-                      className="col-form-label fw-bold"
+                      className="text-brand-yankees col-form-label fw-bold"
                     >
                       Phone Number
                     </label>
-                    <span className="fs-10 fw-normal badge text-bg-brand-anti-flash rounded-2 px-2">
+                    <span className="fs-10 fw-normal text-brand-yankees badge text-bg-brand-anti-flash rounded-2 px-2">
                       Required
                     </span>
                   </div>
-                  <div className="col-9">
+                  <div className="col-12 col-lg-9">
                     <input
                       onChange={_handleOnChange}
                       value={addContact.phoneNumber}
@@ -454,15 +469,18 @@ const ContactAdd = () => {
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
-                    <label htmlFor="email" className="col-form-label fw-bold">
+                  <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
+                    <label
+                      htmlFor="email"
+                      className="text-brand-yankees col-form-label fw-bold"
+                    >
                       Email
                     </label>
-                    <span className="fs-10 fw-normal badge text-bg-brand-anti-flash rounded-2 px-2">
+                    <span className="fs-10 fw-normal text-brand-yankees badge text-bg-brand-anti-flash rounded-2 px-2">
                       Required
                     </span>
                   </div>
-                  <div className="col-9">
+                  <div className="col-12 col-lg-9">
                     <input
                       onChange={_handleOnChange}
                       value={addContact.email}
@@ -480,15 +498,15 @@ const ContactAdd = () => {
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
+                  <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
                     <label
                       htmlFor="contactPreferences"
-                      className="col-form-label fw-bold"
+                      className="text-brand-yankees col-form-label fw-bold"
                     >
                       Contact Preferences
                     </label>
                   </div>
-                  <div className="col-9">
+                  <div className="col-12 col-lg-9">
                     <Select
                       name="contactPreferences"
                       id="contactPreferences"
@@ -501,22 +519,28 @@ const ContactAdd = () => {
                       })}
                       onChange={_handleMultipleValue}
                       isMulti
+                      styles={{
+                        control: (baseStyles, state) => ({
+                          ...baseStyles,
+                          backgroundColor: isDarkMode ? '#23282c' : '#fff',
+                        }),
+                      }}
                     />
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
+                  <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
                     <label
                       htmlFor="originContacts"
-                      className="col-form-label fw-bold"
+                      className="text-brand-yankees col-form-label fw-bold"
                     >
                       Contact Origin
                     </label>
-                    <span className="fs-10 fw-normal badge text-bg-brand-anti-flash rounded-2 px-2">
+                    <span className="fs-10 fw-normal text-brand-yankees badge text-bg-brand-anti-flash rounded-2 px-2">
                       Required
                     </span>
                   </div>
-                  <div className="col-9">
+                  <div className="col-12 col-lg-9">
                     <Select
                       name="originContacts"
                       id="originContacts"
@@ -529,6 +553,12 @@ const ContactAdd = () => {
                       })}
                       onChange={_handleMultipleValue}
                       isMulti
+                      styles={{
+                        control: (baseStyles, state) => ({
+                          ...baseStyles,
+                          backgroundColor: isDarkMode ? '#23282c' : '#fff',
+                        }),
+                      }}
                     />
                     {requiredParam('originContacts').length > 0 &&
                     addContact.originContacts.length === 0 ? (
@@ -541,15 +571,15 @@ const ContactAdd = () => {
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center align-items-md-center">
+                  <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center align-items-md-center">
                     <label
                       htmlFor="ownerTaxNumber"
-                      className="col-form-label fw-bold"
+                      className="text-brand-yankees col-form-label fw-bold"
                     >
                       Owner Tax Number
                     </label>
                   </div>
-                  <div className="col-9">
+                  <div className="col-12 col-lg-9">
                     <div className="d-flex flex-column flex-md-row gap-4 align-items-start align-items-md-center">
                       <div className="form-check">
                         <input
@@ -562,7 +592,7 @@ const ContactAdd = () => {
                           checked={isRadio === 'yes'}
                         />
                         <label
-                          className="form-check-label"
+                          className="text-brand-yankees form-check-label"
                           htmlFor="ownerTaxNumber"
                         >
                           Have NPWP
@@ -579,7 +609,7 @@ const ContactAdd = () => {
                           checked={isRadio === 'no'}
                         />
                         <label
-                          className="form-check-label"
+                          className="text-brand-yankees form-check-label"
                           htmlFor="ownerTaxNumber"
                         >
                           Don't have NPWP
@@ -596,7 +626,7 @@ const ContactAdd = () => {
                           checked={isRadio === 'process'}
                         />
                         <label
-                          className="form-check-label"
+                          className="text-brand-yankees form-check-label"
                           htmlFor="ownerTaxNumber"
                         >
                           Can Be Processed
@@ -608,15 +638,15 @@ const ContactAdd = () => {
                 {isRadio === 'yes' && (
                   <>
                     <div className="row g-3 align-items-center">
-                      <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
+                      <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
                         <label
                           htmlFor="NPWP"
-                          className="col-form-label fw-bold"
+                          className="text-brand-yankees col-form-label fw-bold"
                         >
                           Tax Number
                         </label>
                       </div>
-                      <div className="col-9">
+                      <div className="col-12 col-lg-9">
                         <input
                           onChange={_handleOnChange}
                           value={addContact.NPWP}
@@ -629,15 +659,15 @@ const ContactAdd = () => {
                       </div>
                     </div>
                     <div className="row g-3 align-items-center">
-                      <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
+                      <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
                         <label
                           htmlFor="associateTo"
-                          className="col-form-label fw-bold"
+                          className="text-brand-yankees col-form-label fw-bold"
                         >
                           Associate To
                         </label>
                       </div>
-                      <div className="col-9">
+                      <div className="col-12 col-lg-9">
                         <input
                           onChange={_handleOnChange}
                           value={addContact.associateTo}
@@ -659,15 +689,15 @@ const ContactAdd = () => {
                       </div>
                     </div>
                     <div className="row g-3 align-items-center">
-                      <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
+                      <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
                         <label
                           htmlFor="isCompany"
-                          className="col-form-label fw-bold"
+                          className="text-brand-yankees col-form-label fw-bold"
                         >
                           Company Info
                         </label>
                       </div>
-                      <div className="col-9">
+                      <div className="col-12 col-lg-9">
                         <div className="form-check">
                           <input
                             onChange={_handleIsChecked}
@@ -678,7 +708,7 @@ const ContactAdd = () => {
                             id="isCompany"
                           />
                           <label
-                            className="form-check-label"
+                            className="text-brand-yankees form-check-label"
                             htmlFor="isCompany"
                           >
                             Is Company ?
@@ -689,18 +719,18 @@ const ContactAdd = () => {
                     {isChecked && (
                       <>
                         <div className="row g-3 align-items-center">
-                          <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
+                          <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
                             <label
                               htmlFor="companyName"
-                              className="col-form-label fw-bold"
+                              className="text-brand-yankees col-form-label fw-bold"
                             >
                               Company Name
                             </label>
-                            <span className="fs-10 fw-normal badge text-bg-brand-anti-flash rounded-2 px-2">
+                            <span className="fs-10 fw-normal badge text-brand-yankees badge text-bg-brand-anti-flash rounded-2 px-2">
                               Required
                             </span>
                           </div>
-                          <div className="col-9">
+                          <div className="col-12 col-lg-9">
                             <input
                               onChange={_handleOnChange}
                               value={addContact.companyName}
@@ -713,15 +743,15 @@ const ContactAdd = () => {
                           </div>
                         </div>
                         <div className="row g-3 align-items-center">
-                          <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
+                          <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
                             <label
                               htmlFor="companyNPWP"
-                              className="col-form-label fw-bold"
+                              className="text-brand-yankees col-form-label fw-bold"
                             >
                               Company Tax Number
                             </label>
                           </div>
-                          <div className="col-9">
+                          <div className="col-12 col-lg-9">
                             <input
                               onChange={_handleOnChange}
                               value={addContact.companyNPWP}
@@ -734,18 +764,18 @@ const ContactAdd = () => {
                           </div>
                         </div>
                         <div className="row g-3 align-items-center">
-                          <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
+                          <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
                             <label
                               htmlFor="companyAddress"
-                              className="col-form-label fw-bold"
+                              className="text-brand-yankees col-form-label fw-bold"
                             >
                               Company Address
                             </label>
-                            <span className="fs-10 fw-normal badge text-bg-brand-anti-flash rounded-2 px-2">
+                            <span className="fs-10 fw-normal badge text-brand-yankees badge text-bg-brand-anti-flash rounded-2 px-2">
                               Required
                             </span>
                           </div>
-                          <div className="col-9">
+                          <div className="col-12 col-lg-9">
                             <input
                               onChange={_handleOnChange}
                               value={addContact.companyAddress}
@@ -764,13 +794,18 @@ const ContactAdd = () => {
               </div>
             </div>
           </section>
-          <section className="section-3 shadow-lg">
+          <section
+            className={[
+              'section-3',
+              !isDarkMode ? 'shadow-lg' : 'shadow-dark',
+            ].join(' ')}
+          >
             <div className="row">
               <div className="col d-flex gap-4 justify-content-end align-items-center">
                 {isLoading ? (
                   <Buttons
                     type="button"
-                    className="btn btn-bg-white border text-primary-black fw-medium px-3 py-2"
+                    className="btn btn-bg-white border text-brand-yankees fw-medium px-3 py-2"
                     isDisabled
                     style={
                       isLoading
@@ -789,7 +824,7 @@ const ContactAdd = () => {
                       pathname: urlParent,
                       state: { allContacts },
                     }}
-                    className="btn btn-bg-white border text-primary-black fw-medium px-3 py-2"
+                    className="btn btn-bg-white border text-brand-yankees fw-medium px-3 py-2"
                   >
                     Cancel
                   </Link>
@@ -815,4 +850,4 @@ const ContactAdd = () => {
   );
 };
 
-export default ContactAdd;
+export default withAuth(ContactAdd);

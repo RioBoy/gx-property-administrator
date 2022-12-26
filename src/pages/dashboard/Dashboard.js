@@ -37,7 +37,7 @@ const Dashboard = () => {
           <Spinner height="h-100" />
         ) : (
           <>
-            <h3 className="fw-normal">
+            <h3 className="fw-normal text-brand-yankees">
               Welcome again,{' '}
               <span className="fw-semibold">{profile.nickName}!</span>
             </h3>

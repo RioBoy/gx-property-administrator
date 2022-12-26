@@ -109,7 +109,7 @@ const DetailPropertyCard = () => {
                   <p className="fs-9 fw-normal text-brand-rhythm mt-1 mb-2">
                     ID Property
                   </p>
-                  <p className="fs-9 fw-normal mb-3">
+                  <p className="fs-9 fw-normal text-brand-rhythm mb-3">
                     {propertyDetail.property?.number}
                   </p>
                   <div className="d-flex gap-4">
@@ -117,7 +117,7 @@ const DetailPropertyCard = () => {
                       <p className="fs-9 fw-normal text-brand-rhythm mb-2">
                         Created on
                       </p>
-                      <p className="fs-9 fw-normal mb-0">
+                      <p className="fs-9 fw-normal text-brand-rhythm mb-0">
                         {propertyDetail.property?.createdAt}
                       </p>
                     </div>
@@ -125,13 +125,13 @@ const DetailPropertyCard = () => {
                       <p className="fs-9 fw-normal text-brand-rhythm mb-2">
                         Entried by
                       </p>
-                      <p className="fs-9 fw-normal mb-0">
+                      <p className="fs-9 fw-normal text-brand-yankees mb-0">
                         {propertyDetail.property?.createdBy.name}
                       </p>
                     </div>
                   </div>
                   {propertyDetail.property?.status.name === 'pending' ? (
-                    <span className="fw-normal text-primary-black rounded-2 badge text-bg-brand-crayola px-2">
+                    <span className="fw-normal text-brand-yankees rounded-2 badge text-bg-brand-crayola px-2">
                       {propertyDetail.property?.status.display}
                     </span>
                   ) : propertyDetail.property?.status.name === 'approved' ? (
@@ -180,7 +180,7 @@ const DetailPropertyCard = () => {
                         >
                           Contact
                         </label>
-                        <p className="fw-normal text-primary-black">
+                        <p className="fw-normal text-brand-yankees">
                           {propertyDetail.property?.building?.contacts?.length >
                           0
                             ? 'Nama contact'
@@ -196,7 +196,7 @@ const DetailPropertyCard = () => {
                         >
                           Villa Type
                         </label>
-                        <p className="fw-normal text-primary-black">
+                        <p className="fw-normal text-brand-yankees">
                           {
                             propertyDetail.property?.location.area.types[0].type
                               .display
@@ -214,7 +214,7 @@ const DetailPropertyCard = () => {
                         >
                           Land Size
                         </label>
-                        <p className="fw-normal text-primary-black">
+                        <p className="fw-normal text-brand-yankees">
                           {propertyDetail.property?.building
                             ? propertyDetail.property?.building.landSize
                             : propertyDetail.property?.land.totalLandSize}{' '}
@@ -230,7 +230,7 @@ const DetailPropertyCard = () => {
                         >
                           Villa Total Size
                         </label>
-                        <p className="fw-normal text-primary-black">18 sqm</p>
+                        <p className="fw-normal text-brand-yankees">18 sqm</p>
                       </div>
                     </div>
                   </div>
@@ -243,7 +243,7 @@ const DetailPropertyCard = () => {
                         >
                           Year Build
                         </label>
-                        <p className="fw-normal text-primary-black">2018</p>
+                        <p className="fw-normal text-brand-yankees">2018</p>
                       </div>
                     </div>
                     <div className="col-12 col-md-6">
@@ -254,7 +254,7 @@ const DetailPropertyCard = () => {
                         >
                           Year of Renovation
                         </label>
-                        <p className="fw-normal text-primary-black">2020</p>
+                        <p className="fw-normal text-brand-yankees">2020</p>
                       </div>
                     </div>
                   </div>
@@ -267,7 +267,7 @@ const DetailPropertyCard = () => {
                         >
                           NPWPD
                         </label>
-                        <p className="fw-normal text-primary-black">Yes</p>
+                        <p className="fw-normal text-brand-yankees">Yes</p>
                       </div>
                     </div>
                     <div className="col-12">
@@ -278,7 +278,7 @@ const DetailPropertyCard = () => {
                         >
                           Roof Type
                         </label>
-                        <p className="fw-normal text-primary-black">
+                        <p className="fw-normal text-brand-yankees">
                           Alang - alang
                         </p>
                       </div>
@@ -295,7 +295,7 @@ const DetailPropertyCard = () => {
                             >
                               Does it have IMB?
                             </label>
-                            <p className="fw-normal text-primary-black">Yes</p>
+                            <p className="fw-normal text-brand-yankees">Yes</p>
                           </div>
                         </div>
                         <div className="col-12">
@@ -306,7 +306,7 @@ const DetailPropertyCard = () => {
                             >
                               IMB Type
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               Label
                             </p>
                           </div>
@@ -319,7 +319,7 @@ const DetailPropertyCard = () => {
                             >
                               Valid Until
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               Label
                             </p>
                           </div>
@@ -352,7 +352,7 @@ const DetailPropertyCard = () => {
                             >
                               Location
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               label
                             </p>
                           </div>
@@ -365,7 +365,7 @@ const DetailPropertyCard = () => {
                             >
                               Meeting Point
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               Label
                             </p>
                           </div>
@@ -378,7 +378,7 @@ const DetailPropertyCard = () => {
                             >
                               Area
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               Label
                             </p>
                           </div>
@@ -391,7 +391,7 @@ const DetailPropertyCard = () => {
                             >
                               Notes
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               Label
                             </p>
                           </div>
@@ -420,7 +420,7 @@ const DetailPropertyCard = () => {
                         >
                           Floor
                         </label>
-                        <p className="fw-normal text-primary-black">24 are</p>
+                        <p className="fw-normal text-brand-yankees">24 are</p>
                       </div>
                     </div>
                     <div className="col-12">
@@ -433,7 +433,7 @@ const DetailPropertyCard = () => {
                             >
                               Total Room
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               24 are
                             </p>
                           </div>
@@ -446,7 +446,7 @@ const DetailPropertyCard = () => {
                             >
                               Total Bathroom
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               24 are
                             </p>
                           </div>
@@ -461,7 +461,7 @@ const DetailPropertyCard = () => {
                         >
                           Living Room
                         </label>
-                        <p className="fw-normal text-primary-black">24 are</p>
+                        <p className="fw-normal text-brand-yankees">24 are</p>
                       </div>
                     </div>
                     <div className="col-12">
@@ -472,7 +472,7 @@ const DetailPropertyCard = () => {
                         >
                           Other Room
                         </label>
-                        <p className="fw-normal text-primary-black">
+                        <p className="fw-normal text-brand-yankees">
                           Security Room
                         </p>
                       </div>
@@ -487,7 +487,7 @@ const DetailPropertyCard = () => {
                             >
                               Room Circulation
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               Open but can be closed
                             </p>
                           </div>
@@ -500,7 +500,7 @@ const DetailPropertyCard = () => {
                             >
                               AC
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               With AC
                             </p>
                           </div>
@@ -520,7 +520,7 @@ const DetailPropertyCard = () => {
                             >
                               Building Configuration
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               Complex
                             </p>
                           </div>
@@ -533,7 +533,7 @@ const DetailPropertyCard = () => {
                             >
                               Does it have Pool?
                             </label>
-                            <p className="fw-normal text-primary-black">Yes</p>
+                            <p className="fw-normal text-brand-yankees">Yes</p>
                           </div>
                         </div>
                       </div>
@@ -548,7 +548,7 @@ const DetailPropertyCard = () => {
                             >
                               Other Room in Residence
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               Storage
                             </p>
                           </div>
@@ -561,7 +561,7 @@ const DetailPropertyCard = () => {
                             >
                               Pool Size
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               7 meters x 4 meters
                             </p>
                           </div>
@@ -574,7 +574,7 @@ const DetailPropertyCard = () => {
                             >
                               Pool Type
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               Overflow 1
                             </p>
                           </div>
@@ -591,7 +591,7 @@ const DetailPropertyCard = () => {
                             >
                               Does it have Jacuzzi?
                             </label>
-                            <p className="fw-normal text-primary-black">Yes</p>
+                            <p className="fw-normal text-brand-yankees">Yes</p>
                           </div>
                         </div>
                         <div className="col-12">
@@ -602,7 +602,7 @@ const DetailPropertyCard = () => {
                             >
                               Garden Type
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               Tropycal
                             </p>
                           </div>
@@ -615,7 +615,7 @@ const DetailPropertyCard = () => {
                             >
                               Parking Plot
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               Garage
                             </p>
                           </div>
@@ -632,7 +632,7 @@ const DetailPropertyCard = () => {
                             >
                               Jacuzzi Size
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               1 meters x 1 meters
                             </p>
                           </div>
@@ -645,7 +645,7 @@ const DetailPropertyCard = () => {
                             >
                               Outdoor Amenities
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               Outside Bar
                             </p>
                           </div>
@@ -655,71 +655,74 @@ const DetailPropertyCard = () => {
                   </div>
                 </Tab>
                 <Tab eventKey="profile" title="Facilities" className="px-3">
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Omnis tempore aut fuga voluptates quo maiores illo inventore
-                  sequi ratione aspernatur facilis qui suscipit, exercitationem
-                  deserunt laborum quia ipsum voluptate, quis consectetur illum
-                  tempora veniam itaque obcaecati. Animi, vero adipisci
-                  excepturi similique debitis dignissimos itaque cum repellendus
-                  deleniti atque a doloremque nemo sit, laborum necessitatibus
-                  voluptatem hic optio! Perspiciatis et hic ratione animi
-                  perferendis alias aliquid, illo iusto deleniti veritatis,
-                  consectetur esse voluptates enim. Itaque natus ut corporis ad.
-                  Id, eum. Quos minus eius temporibus vero vitae beatae quia,
-                  consectetur itaque. Laborum provident beatae accusantium
-                  commodi facere blanditiis necessitatibus dolorum, dolore
-                  laudantium ex iusto harum tenetur fuga totam eius quis autem.
-                  Ex quasi voluptatem neque, sint consequatur nisi iure,
-                  molestias quae ullam necessitatibus culpa maiores corporis
-                  modi, quia nemo earum tenetur blanditiis! Qui iusto nobis quod
-                  corrupti possimus ullam laboriosam quos excepturi, quae
-                  doloribus repudiandae a debitis vero, nostrum mollitia impedit
-                  minus? Voluptas eius maxime alias aspernatur velit adipisci
-                  nihil laboriosam maiores? Sint iusto qui accusantium
-                  voluptates perspiciatis facilis cumque hic asperiores quam
-                  assumenda totam itaque minima corporis beatae voluptatem quasi
-                  repudiandae eum, omnis atque repellat praesentium obcaecati?
-                  Odio non, quasi cumque maxime accusantium ea culpa laborum
-                  dolorum, doloribus voluptates vel error similique mollitia
-                  eligendi harum, vitae ipsam dolorem atque. Beatae ipsam,
-                  excepturi accusantium, rem illum consequuntur at quam nam
-                  itaque sunt eveniet voluptate exercitationem iusto aliquid
-                  omnis provident porro corrupti optio facere, quaerat quod.
-                  Rerum illo vitae similique minima iure aliquam saepe repellat
-                  adipisci corrupti sed maiores odit eveniet doloribus quos
-                  ullam possimus dolore debitis sint, doloremque optio et quasi!
-                  Esse nam repellat eos autem aperiam placeat provident adipisci
-                  expedita tempore eius numquam consectetur culpa quisquam ipsa
-                  ullam voluptas, molestiae optio quasi quidem sint
-                  reprehenderit tenetur ratione. Dignissimos ipsum aspernatur et
-                  reprehenderit harum? Dolor provident quidem obcaecati dicta,
-                  dolore sapiente similique mollitia beatae tempora nobis eos
-                  animi commodi doloremque earum sunt optio consequatur eius
-                  laudantium aspernatur dolorem! Deleniti sapiente vel
-                  voluptates obcaecati necessitatibus eius, enim recusandae
-                  facilis aliquam magni ullam praesentium, natus atque molestiae
-                  omnis nostrum temporibus nam architecto ad. Natus, autem
-                  voluptas? Qui iste dolore quibusdam atque tempora error eos
-                  molestias, perferendis ipsa, nulla, similique eum veniam.
-                  Laboriosam, dolorum dolor. Corporis, hic? Impedit quas
-                  accusamus commodi praesentium cumque molestiae blanditiis non
-                  consectetur vitae, neque ab, voluptatibus in inventore quos
-                  animi iste incidunt libero temporibus repellendus perferendis
-                  ea laboriosam qui unde. Iste minus consectetur excepturi
-                  earum. Laboriosam minima amet dolore nemo vitae facere earum
-                  ipsum nihil repudiandae fugit quis adipisci corporis magni
-                  debitis mollitia nobis dicta, voluptas deserunt atque aliquam
-                  esse odio! Commodi obcaecati deserunt at illum explicabo
-                  fugiat doloremque, a ullam. Quis maiores quaerat distinctio,
-                  expedita soluta nobis. Deserunt, error, commodi recusandae
-                  enim ut saepe ab impedit pariatur nulla aperiam molestiae,
-                  voluptatem aut libero. Provident nam, excepturi tempore sunt
-                  quod corrupti suscipit a hic dicta? Ut totam cumque, quia
-                  maiores tempore commodi quisquam, natus dolores, aliquid
-                  voluptates vitae placeat! Ad accusantium esse explicabo
-                  perspiciatis nemo praesentium possimus aliquid officia id
-                  similique beatae animi saepe officiis ex, neque consequuntur
-                  quas.
+                  <p className="text-brand-yankees">
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    Omnis tempore aut fuga voluptates quo maiores illo inventore
+                    sequi ratione aspernatur facilis qui suscipit,
+                    exercitationem deserunt laborum quia ipsum voluptate, quis
+                    consectetur illum tempora veniam itaque obcaecati. Animi,
+                    vero adipisci excepturi similique debitis dignissimos itaque
+                    cum repellendus deleniti atque a doloremque nemo sit,
+                    laborum necessitatibus voluptatem hic optio! Perspiciatis et
+                    hic ratione animi perferendis alias aliquid, illo iusto
+                    deleniti veritatis, consectetur esse voluptates enim. Itaque
+                    natus ut corporis ad. Id, eum. Quos minus eius temporibus
+                    vero vitae beatae quia, consectetur itaque. Laborum
+                    provident beatae accusantium commodi facere blanditiis
+                    necessitatibus dolorum, dolore laudantium ex iusto harum
+                    tenetur fuga totam eius quis autem. Ex quasi voluptatem
+                    neque, sint consequatur nisi iure, molestias quae ullam
+                    necessitatibus culpa maiores corporis modi, quia nemo earum
+                    tenetur blanditiis! Qui iusto nobis quod corrupti possimus
+                    ullam laboriosam quos excepturi, quae doloribus repudiandae
+                    a debitis vero, nostrum mollitia impedit minus? Voluptas
+                    eius maxime alias aspernatur velit adipisci nihil laboriosam
+                    maiores? Sint iusto qui accusantium voluptates perspiciatis
+                    facilis cumque hic asperiores quam assumenda totam itaque
+                    minima corporis beatae voluptatem quasi repudiandae eum,
+                    omnis atque repellat praesentium obcaecati? Odio non, quasi
+                    cumque maxime accusantium ea culpa laborum dolorum,
+                    doloribus voluptates vel error similique mollitia eligendi
+                    harum, vitae ipsam dolorem atque. Beatae ipsam, excepturi
+                    accusantium, rem illum consequuntur at quam nam itaque sunt
+                    eveniet voluptate exercitationem iusto aliquid omnis
+                    provident porro corrupti optio facere, quaerat quod. Rerum
+                    illo vitae similique minima iure aliquam saepe repellat
+                    adipisci corrupti sed maiores odit eveniet doloribus quos
+                    ullam possimus dolore debitis sint, doloremque optio et
+                    quasi! Esse nam repellat eos autem aperiam placeat provident
+                    adipisci expedita tempore eius numquam consectetur culpa
+                    quisquam ipsa ullam voluptas, molestiae optio quasi quidem
+                    sint reprehenderit tenetur ratione. Dignissimos ipsum
+                    aspernatur et reprehenderit harum? Dolor provident quidem
+                    obcaecati dicta, dolore sapiente similique mollitia beatae
+                    tempora nobis eos animi commodi doloremque earum sunt optio
+                    consequatur eius laudantium aspernatur dolorem! Deleniti
+                    sapiente vel voluptates obcaecati necessitatibus eius, enim
+                    recusandae facilis aliquam magni ullam praesentium, natus
+                    atque molestiae omnis nostrum temporibus nam architecto ad.
+                    Natus, autem voluptas? Qui iste dolore quibusdam atque
+                    tempora error eos molestias, perferendis ipsa, nulla,
+                    similique eum veniam. Laboriosam, dolorum dolor. Corporis,
+                    hic? Impedit quas accusamus commodi praesentium cumque
+                    molestiae blanditiis non consectetur vitae, neque ab,
+                    voluptatibus in inventore quos animi iste incidunt libero
+                    temporibus repellendus perferendis ea laboriosam qui unde.
+                    Iste minus consectetur excepturi earum. Laboriosam minima
+                    amet dolore nemo vitae facere earum ipsum nihil repudiandae
+                    fugit quis adipisci corporis magni debitis mollitia nobis
+                    dicta, voluptas deserunt atque aliquam esse odio! Commodi
+                    obcaecati deserunt at illum explicabo fugiat doloremque, a
+                    ullam. Quis maiores quaerat distinctio, expedita soluta
+                    nobis. Deserunt, error, commodi recusandae enim ut saepe ab
+                    impedit pariatur nulla aperiam molestiae, voluptatem aut
+                    libero. Provident nam, excepturi tempore sunt quod corrupti
+                    suscipit a hic dicta? Ut totam cumque, quia maiores tempore
+                    commodi quisquam, natus dolores, aliquid voluptates vitae
+                    placeat! Ad accusantium esse explicabo perspiciatis nemo
+                    praesentium possimus aliquid officia id similique beatae
+                    animi saepe officiis ex, neque consequuntur quas.
+                  </p>
                 </Tab>
               </Tabs>
             </div>
@@ -737,7 +740,7 @@ const DetailPropertyCard = () => {
                       className="rounded-circle"
                     />
                     <div className="user-history">
-                      <p className="fs-9 text-primary-black mb-1">
+                      <p className="fs-9 text-brand-yankees mb-1">
                         <span className="fw-semibold mt-0 ps-0">
                           {propertyHistory.createdBy}
                         </span>{' '}
