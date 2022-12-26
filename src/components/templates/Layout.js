@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { IoMenuOutline } from 'react-icons/io5';
 import { withAuth } from '../../context/Auth';
+import useScrollToTop from '../../config/useScrollToTop';
 
 import GXLogo from '../../assets/images/GX-Logo.png';
 import GXLogoWhite from '../../assets/images/GX-Logo-white.png';
@@ -13,6 +14,7 @@ const Layout = ({ title, children, isDarkMode }) => {
   const [toggleMenu, setToggleMenu] = useState(false);
   const [mobileWidth, setMobileWidth] = useState(window.innerWidth);
   const expander = useRef(null);
+  useScrollToTop();
 
   const _handleMobileWidth = () => {
     setMobileWidth(window.innerWidth);

@@ -2,10 +2,11 @@ import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Select from 'react-select';
 import { addNewContact } from '../../lib/constant';
 import { MdOutlinePhotoSizeSelectActual } from 'react-icons/md';
-import Select from 'react-select';
 import { withAuth } from '../../context/Auth';
+import * as path from '../../routes/path';
 
 import Spinner from '../../components/spinner/Spinner';
 import { Buttons } from '../../components/button/Buttons';
@@ -43,7 +44,6 @@ const ContactAdd = ({ isDarkMode }) => {
   const [isError, setIsError] = useState('');
   const [isRadio, setIsRadio] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { urlParent, allContacts } = history.location.state;
 
   const _handleOnChange = (event) => {
     setAddContact((state) => ({
@@ -127,7 +127,7 @@ const ContactAdd = ({ isDarkMode }) => {
             autoClose: 3000,
             type: 'success',
           });
-          history.push(urlParent);
+          history.push(path.URLContact);
         }
       })
       .catch((error) => {
@@ -821,8 +821,10 @@ const ContactAdd = ({ isDarkMode }) => {
                 ) : (
                   <Link
                     to={{
-                      pathname: urlParent,
-                      state: { allContacts },
+                      pathname: path.URLContact,
+                      state: {
+                        allContacts: history.location.state?.allContacts,
+                      },
                     }}
                     className="btn btn-bg-white border text-brand-yankees fw-medium px-3 py-2"
                   >

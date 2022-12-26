@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
-import { useRouteMatch } from 'react-router-dom';
 import ModalBox from '../../components/modal/ModalBox';
 
 import Spinner from '../../components/spinner/Spinner';
@@ -15,7 +14,6 @@ const ContactCard = ({
 }) => {
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [selectedItem, setSelectedItem] = useState([]);
-  const { url } = useRouteMatch();
 
   const _handleShowModalDelete = (contact, e) => {
     e.stopPropagation();
@@ -44,7 +42,7 @@ const ContactCard = ({
             <div className="col-12 col-md-6 col-lg-4 col-xl-3" key={contact.id}>
               <div
                 className="card w-100 mb-4"
-                onClick={(e) => _handleToDetail(contact.id, url, e)}
+                onClick={(e) => _handleToDetail(contact.id, e)}
               >
                 <div className="card-body">
                   <h5 className="card-title fw-bold text-brand-yankees">
@@ -60,7 +58,7 @@ const ContactCard = ({
                   </p>
                   <button
                     type="button"
-                    onClick={(e) => _handleEditContact(contact.id, url, e)}
+                    onClick={(e) => _handleEditContact(contact.id, e)}
                     className="text-brand-united-nations mb-2 bg-transparent border-0"
                     title="Edit"
                   >

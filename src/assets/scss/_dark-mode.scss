@@ -6,8 +6,7 @@
     'brand-united-nations': #3082aa,
     // pake
     'brand-crayola': #efcf5d,
-    'brand-vivid': #ff7070,
-    // pake
+    'brand-vivid': #ff1010,
     'brand-terra-cotta': #de5263,
     'brand-pastel-green': #0ec837,
     'brand-mountain-meadow': #2db986,
@@ -156,7 +155,11 @@
     }
   }
 
+  .form-select {
+    background-image: url(../images/icon-dropdown-white.svg) !important;
+  }
+
   .transition {
-    transition: 0.3s !important;
+    transition: background 500ms ease, color 500ms ease;
   }
 }

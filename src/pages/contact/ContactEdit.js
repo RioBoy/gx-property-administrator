@@ -7,6 +7,7 @@ import { MdOutlinePhotoSizeSelectActual } from 'react-icons/md';
 import { withAuth } from '../../context/Auth';
 import { updateContactById } from '../../lib/constant';
 import { LS_AUTH } from '../../config/localStorage';
+import * as path from '../../routes/path';
 import ImagePlaceholderDefault from '../../assets/images/image-placeholder-default.jpg';
 
 import { Buttons } from '../../components/button/Buttons';
@@ -47,7 +48,6 @@ const ContactEdit = ({ isDarkMode }) => {
   const [isError, setIsError] = useState('');
   const [isRadio, setIsRadio] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { urlParent } = history.location.state;
 
   const _handleOnChange = (event) => {
     setUpdateContact((state) => ({
@@ -136,7 +136,7 @@ const ContactEdit = ({ isDarkMode }) => {
             autoClose: 3000,
             type: 'success',
           });
-          history.push(urlParent);
+          history.push(path.URLContact);
           setUpdateContact([]);
         }
       })
@@ -892,7 +892,7 @@ const ContactEdit = ({ isDarkMode }) => {
                 ) : (
                   <Link
                     to={{
-                      pathname: urlParent,
+                      pathname: path.URLContact,
                       state: { allContacts },
                     }}
                     className="btn btn-bg-white border text-brand-yankees fw-medium px-3 py-2"

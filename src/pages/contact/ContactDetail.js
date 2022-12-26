@@ -33,7 +33,7 @@ const ContactDetail = () => {
             autoClose: 3000,
             type: 'success',
           });
-          history.push(history.location.state?.urlParent);
+          history.push(path.URLContact);
         }
       })
       .catch((error) => {
@@ -78,7 +78,7 @@ const ContactDetail = () => {
             <div className="d-flex justify-content-center gap-3">
               <Link
                 to={{
-                  pathname: history.location.state?.urlParent,
+                  pathname: path.URLContact,
                   state: {
                     allContacts: history.location.state?.allContacts,
                   },
@@ -95,7 +95,6 @@ const ContactDetail = () => {
                   state: {
                     allContacts: history.location.state?.allContacts,
                     contactId: history.location.state?.contactId,
-                    urlParent: history.location.state?.urlParent,
                   },
                 }}
                 className="fs-9 fw-semibold px-3 py-2 btn btn-brand-celtic text-white w-100"

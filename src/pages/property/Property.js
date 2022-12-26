@@ -247,7 +247,7 @@ const Property = () => {
                       onChange={_handleOnSelectChange}
                       value={selectedOption}
                       name="filterStatus"
-                      className="fs-9 fw-medium form-select h-100 filter-status-dropdown"
+                      className="fs-9 fw-medium form-select filter-status-dropdown"
                       id="filterStatus"
                     >
                       {statusList.map((status, index) => (

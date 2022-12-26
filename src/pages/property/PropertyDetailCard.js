@@ -1,9 +1,4 @@
-import React, {
-  useEffect,
-  useLayoutEffect,
-  useState,
-  useCallback,
-} from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { LS_AUTH } from '../../config/localStorage';
@@ -24,14 +19,6 @@ const DetailPropertyCard = () => {
   const history = useHistory();
   const id = history.location.state.propertyId;
   const token = localStorage.getItem(LS_AUTH);
-
-  useLayoutEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth',
-    });
-  }, [history.location.key]);
 
   const getPropertDetailData = useCallback(() => {
     setIsLoading(true);
@@ -171,7 +158,9 @@ const DetailPropertyCard = () => {
               >
                 <Tab eventKey="home" title="Main Info" className="px-3">
                   <div className="row">
-                    <h5 className="fw-semibold mb-3">General Info</h5>
+                    <h5 className="fw-semibold text-brand-yankees mb-3">
+                      General Info
+                    </h5>
                     <div className="col-12">
                       <div className="mb-3">
                         <label
@@ -341,7 +330,9 @@ const DetailPropertyCard = () => {
                     </div>
                   </div>
                   <div className="row mb-5">
-                    <h5 className="fw-semibold mb-3">Location</h5>
+                    <h5 className="fw-semibold text-brand-yankees mb-3">
+                      Location
+                    </h5>
                     <div className="col-12 col-md-6">
                       <div className="row">
                         <div className="col-12">
@@ -411,7 +402,9 @@ const DetailPropertyCard = () => {
                     </div>
                   </div>
                   <div className="row mb-5">
-                    <h5 className="fw-semibold mb-3">Room</h5>
+                    <h5 className="fw-semibold text-brand-yankees mb-3">
+                      Room
+                    </h5>
                     <div className="col-12">
                       <div className="mb-3">
                         <label
@@ -509,7 +502,9 @@ const DetailPropertyCard = () => {
                     </div>
                   </div>
                   <div className="row">
-                    <h5 className="fw-semibold mb-3">Amenities</h5>
+                    <h5 className="fw-semibold text-brand-yankees mb-3">
+                      Amenities
+                    </h5>
                     <div className="col-12 col-md-6">
                       <div className="row">
                         <div className="col-12">

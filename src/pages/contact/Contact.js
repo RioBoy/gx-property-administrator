@@ -17,14 +17,13 @@ const Contact = () => {
   const history = useHistory();
   const token = localStorage.getItem(LS_AUTH);
 
-  const _handleEditContact = (id, urlParent, e) => {
+  const _handleEditContact = (id, e) => {
     e.stopPropagation();
     history.push({
       pathname: `${path.URLContactEdit(id)}`,
       state: {
         allContacts,
         contactId: id,
-        urlParent,
       },
     });
   };
@@ -59,13 +58,12 @@ const Contact = () => {
       });
   };
 
-  const _handleToDetail = (id, urlParent) => {
+  const _handleToDetail = (id) => {
     history.push({
       pathname: `${path.URLContactDetail(id)}`,
       state: {
         allContacts,
         contactId: id,
-        urlParent,
       },
     });
   };
@@ -124,7 +122,6 @@ const Contact = () => {
                   pathname: `${path.URLContactAdd}`,
                   state: {
                     allContacts,
-                    urlParent: path.URLContact,
                   },
                 }}
               >

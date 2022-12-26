@@ -107,7 +107,11 @@ class Auth extends Component {
       'data-theme',
       !isDarkMode ? 'dark' : 'light',
     );
-    document.documentElement.classList.toggle('transition');
+
+    document.body.classList.add('transition');
+    setTimeout(() => {
+      document.body.classList.remove('transition');
+    }, 1000);
   };
 
   componentDidMount() {
