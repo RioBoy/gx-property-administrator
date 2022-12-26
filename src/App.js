@@ -14,8 +14,9 @@ import ContactAdd from './pages/contact/ContactAdd';
 import ContactEdit from './pages/contact/ContactEdit';
 import PropertyDetail from './pages/property/PropertyDetail';
 import NotFound from './pages/NotFound';
+import { withAuth } from './context/Auth';
 
-const App = () => {
+const App = ({ isDarkMode }) => {
   return (
     <>
       <Switch>
@@ -42,9 +43,9 @@ const App = () => {
           <NotFound isPageNotFound>Back to Home</NotFound>
         </Route>
       </Switch>
-      <ToastContainer />
+      <ToastContainer theme={!isDarkMode ? 'light' : 'dark'} />
     </>
   );
 };
 
-export default App;
+export default withAuth(App);

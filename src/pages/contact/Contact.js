@@ -110,7 +110,9 @@ const Contact = () => {
         <div className="contact-list-content">
           <div className="row justify-content-between align-items-center gap-3 gap-md-0">
             <div className="col-12 col-md-6 col-lg-8 col-xl-10">
-              <h5 className="fw-semibold">Manage Contact Management</h5>
+              <h5 className="fw-semibold text-brand-yankees">
+                Manage Contact Management
+              </h5>
               <p className="fs-9 fw-normal text-brand-rhythm mb-0">
                 Manage all contact management here
               </p>

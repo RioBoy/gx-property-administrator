@@ -130,7 +130,9 @@ const Profile = () => {
               <div className="row user-info-detail">
                 <div className="col-12 col-lg-6 mt-3">
                   <div className="card border-0 bg-white p-3 rounded-2">
-                    <h5 className="fs-8 fw-medium mb-4">Personal Data</h5>
+                    <h5 className="fs-8 text-brand-yankees fw-medium mb-4">
+                      Personal Data
+                    </h5>
                     <div className="mb-3">
                       <label
                         htmlFor="fullname"
@@ -138,7 +140,7 @@ const Profile = () => {
                       >
                         Full Name
                       </label>
-                      <p className="fw-normal text-primary-black mb-0">
+                      <p className="fw-normal text-brand-yankees mb-0">
                         {profile.name}
                       </p>
                     </div>
@@ -149,7 +151,7 @@ const Profile = () => {
                       >
                         Phone Number
                       </label>
-                      <p className="fw-normal text-primary-black mb-0">
+                      <p className="fw-normal text-brand-yankees mb-0">
                         {profile.mobileNo}
                       </p>
                     </div>
@@ -160,7 +162,7 @@ const Profile = () => {
                       >
                         Birth of Date
                       </label>
-                      <p className="fw-normal text-primary-black mb-0">
+                      <p className="fw-normal text-brand-yankees mb-0">
                         {profile.birthDate}
                       </p>
                     </div>
@@ -171,7 +173,7 @@ const Profile = () => {
                       >
                         Gender
                       </label>
-                      <p className="fw-normal text-primary-black mb-0">
+                      <p className="fw-normal text-brand-yankees mb-0">
                         {profile.gender}
                       </p>
                     </div>
@@ -182,7 +184,7 @@ const Profile = () => {
                       >
                         Address
                       </label>
-                      <p className="fw-normal text-primary-black mb-0">
+                      <p className="fw-normal text-brand-yankees mb-0">
                         {profile.address}
                       </p>
                     </div>
@@ -190,7 +192,9 @@ const Profile = () => {
                 </div>
                 <div className="col-12 col-lg-6 mt-3">
                   <div className="card border-0 bg-white p-3 rounded-2">
-                    <h5 className="fs-8 fw-medium mb-4">Manage My Account</h5>
+                    <h5 className="fs-8 text-brand-yankees fw-medium mb-4">
+                      Manage My Account
+                    </h5>
                     <div className="mb-3">
                       <label
                         htmlFor="email"
@@ -198,7 +202,7 @@ const Profile = () => {
                       >
                         Email Address
                       </label>
-                      <p className="fw-normal text-primary-black mb-0">
+                      <p className="fw-normal text-brand-yankees mb-0">
                         {profile.email}
                       </p>
                     </div>
@@ -211,7 +215,7 @@ const Profile = () => {
                           >
                             Current Password
                           </label>
-                          <p className="fw-normal text-primary-black mb-0">
+                          <p className="fw-normal text-brand-yankees mb-0">
                             •••••••••
                           </p>
                         </div>

@@ -6,6 +6,7 @@ import {
   HiOutlineMoon,
   HiOutlineArrowCircleLeft,
   HiOutlineUser,
+  HiOutlineSun,
 } from 'react-icons/hi';
 import * as path from '../../routes/path';
 
@@ -20,6 +21,8 @@ const Topbar = ({
   toggleMenu,
   isMobile,
   isLoading,
+  isDarkMode,
+  _handleChangeTheme,
 }) => {
   const [showModalLogout, setShowModalLogout] = useState(false);
 
@@ -28,7 +31,10 @@ const Topbar = ({
 
   return (
     <nav
-      className="navbar navbar-expand-lg topbar justify-content-between shadow-sm"
+      className={[
+        'navbar navbar-expand-lg topbar justify-content-between',
+        !isDarkMode ? 'shadow-sm' : 'shadow-dark',
+      ].join(' ')}
       style={
         isMobile
           ? {
@@ -42,7 +48,12 @@ const Topbar = ({
       <ul className="navbar-nav side-nav">
         <li className="nav-item">{icon}</li>
         <li className="nav-item">
-          <h5 className="fw-normal navbar-brand text-primary-black mb-0">
+          <h5
+            className={[
+              'fw-normal navbar-brand mb-0',
+              !isDarkMode ? 'text-brand-yankees' : 'text-white',
+            ].join(' ')}
+          >
             {title}
           </h5>
         </li>
@@ -74,16 +85,24 @@ const Topbar = ({
               />
               Profile
             </Link>
-            <Link
-              to="/darkmode"
-              className="fw-medium text-brand-rhythm text-decoration-none d-flex align-items-center"
+            <Buttons
+              type="button"
+              onClick={() => _handleChangeTheme()}
+              className="fw-medium text-brand-rhythm text-decoration-none d-flex align-items-center border-0 bg-transparent w-100"
             >
-              <HiOutlineMoon
-                size={isMobile ? 35 : 44}
-                className="text-brand-rhythm"
-              />
-              Dark Mode
-            </Link>
+              {!isDarkMode ? (
+                <HiOutlineMoon
+                  size={isMobile ? 35 : 44}
+                  className="text-brand-rhythm"
+                />
+              ) : (
+                <HiOutlineSun
+                  size={isMobile ? 35 : 44}
+                  className="text-brand-rhythm"
+                />
+              )}
+              {!isDarkMode ? 'Dark Mode' : 'Light Mode'}
+            </Buttons>
             <Buttons
               type="button"
               onClick={() => _handleShowModalLogout()}

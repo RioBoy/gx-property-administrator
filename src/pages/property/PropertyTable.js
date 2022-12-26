@@ -36,7 +36,7 @@ const PropertyTable = ({
                 {isEmptyFilter ? (
                   <tr style={{ pointerEvents: 'none' }}>
                     <td colSpan={7}>
-                      <p className="text-center fs-7 tet-primary-black fw-medium my-4">
+                      <p className="text-center fs-7 text-brand-yankees fw-medium my-4">
                         Data not found
                       </p>
                     </td>
@@ -53,7 +53,7 @@ const PropertyTable = ({
                         )
                       }
                     >
-                      <td>#{property.number}</td>
+                      <td className="text-brand-yankees">#{property.number}</td>
                       <td>
                         {property.photos.length > 0 ? (
                           <img src={ImagePlaceholder} alt="Property" />
@@ -62,7 +62,7 @@ const PropertyTable = ({
                         )}
                       </td>
                       <td>
-                        <p className="mb-0 fs-9 fw-normal">
+                        <p className="mb-0 fs-9 text-brand-yankees fw-normal">
                           {property.land ? property.land.name : 'Ini Vie Villa'}
                         </p>
                         <p className="fs-10 text-brand-rhythm mt-2 mb-0 fw-normal">
@@ -76,12 +76,12 @@ const PropertyTable = ({
                         </p>
                       </td>
                       <td>
-                        <p className="fs-9 mb-0 fw-normal">
+                        <p className="fs-9 mb-0 text-brand-yankees fw-normal">
                           {property.createdAt}
                         </p>
                       </td>
                       <td>
-                        <p className="mb-0 fs-9 fw-normal">
+                        <p className="mb-0 fs-9 text-brand-yankees fw-normal">
                           {property.createdBy.name}
                         </p>
                         <p className="fs-10 text-brand-rhythm mt-2 mb-0 fw-normal">
@@ -90,7 +90,7 @@ const PropertyTable = ({
                       </td>
                       <td>
                         {property.status.name === 'pending' ? (
-                          <span className="fs-10 fw-normal text-primary-black rounded-2 badge text-bg-brand-crayola px-2">
+                          <span className="fs-10 fw-normal text-brand-yankees rounded-2 badge text-bg-brand-crayola px-2">
                             {property.status.display}
                           </span>
                         ) : property.status.name === 'approved' ? (
@@ -105,7 +105,7 @@ const PropertyTable = ({
                         <p className="fs-10 text-brand-rhythm mt-2 mb-0 fw-normal">
                           Progress
                         </p>
-                        <p className="mb-0 fs-9 fw-normal">
+                        <p className="mb-0 fs-9 text-brand-yankees fw-normal">
                           {property.progress}%
                         </p>
                       </td>

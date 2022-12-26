@@ -3,7 +3,7 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { loginUrl, logoutUrl } from '../lib/constant';
-import { LS_AUTH } from '../config/localStorage';
+import { LS_AUTH, LS_THEME } from '../config/localStorage';
 import * as path from '../routes/path';
 
 const axiosReq = axios.create();
@@ -14,6 +14,11 @@ class Auth extends Component {
     token: localStorage.getItem(LS_AUTH) || '',
     isLoading: false,
     isLoggedIn: localStorage.getItem(LS_AUTH) === null ? false : true,
+    isDarkMode:
+      localStorage.getItem(LS_THEME) === null ||
+      localStorage.getItem(LS_THEME) === 'false'
+        ? false
+        : true,
   };
 
   login = (credentials) => {
@@ -68,9 +73,15 @@ class Auth extends Component {
         const { success, status } = response.data;
         if (status === 'success') {
           localStorage.removeItem(LS_AUTH);
+          localStorage.removeItem(LS_THEME);
           this.setState({
             isLoggedIn: false,
+            isDarkMode: false,
           });
+          document.documentElement.setAttribute(
+            'data-theme',
+            localStorage.getItem(LS_THEME) === 'true' ? 'dark' : 'light',
+          );
           toast(success.msg, {
             autoClose: 3000,
             type: 'success',
@@ -88,12 +99,31 @@ class Auth extends Component {
       });
   };
 
+  _handleChangeTheme = () => {
+    const { isDarkMode } = this.state;
+    this.setState({ isDarkMode: !isDarkMode });
+    localStorage.setItem(LS_THEME, !isDarkMode);
+    document.documentElement.setAttribute(
+      'data-theme',
+      !isDarkMode ? 'dark' : 'light',
+    );
+    document.documentElement.classList.toggle('transition');
+  };
+
+  componentDidMount() {
+    document.documentElement.setAttribute(
+      'data-theme',
+      localStorage.getItem(LS_THEME) === 'true' ? 'dark' : 'light',
+    );
+  }
+
   render() {
     return (
       <AuthContext.Provider
         value={{
           login: this.login,
           logout: this.logout,
+          _handleChangeTheme: this._handleChangeTheme,
           ...this.state,
         }}
       >

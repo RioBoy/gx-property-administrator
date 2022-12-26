@@ -47,7 +47,7 @@ const LoginForm = (props) => {
       </div>
       <div className="row">
         <div className="col">
-          <h2 className="fw-semibold welcome-title text-primary-black">
+          <h2 className="fw-semibold welcome-title text-brand-yankees">
             <span>Welcome to</span>
             <span className="text-brand-amber text-uppercase">
               Property

@@ -47,7 +47,7 @@ const ContactCard = ({
                 onClick={(e) => _handleToDetail(contact.id, url, e)}
               >
                 <div className="card-body">
-                  <h5 className="card-title fw-bold text-primary-black">
+                  <h5 className="card-title fw-bold text-brand-yankees">
                     {contact.name}
                   </h5>
                   <h6 className="fs-9 text-brand-rhythm card-subtitle mb-2 fw-medium">

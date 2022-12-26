@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { FaRegUserCircle } from 'react-icons/fa';
 import { FiHome } from 'react-icons/fi';
+import { withAuth } from '../../context/Auth';
 import { TbLayoutDashboard } from 'react-icons/tb';
 import * as path from '../../routes/path';
 
-const Sidebar = ({ logo, toggleMenu, isMobile, expander }) => {
+const Sidebar = ({ logo, toggleMenu, isMobile, expander, isDarkMode }) => {
   useEffect(() => {
     if (expander.current) {
       expander.current.classList.toggle('expander');
@@ -37,16 +38,24 @@ const Sidebar = ({ logo, toggleMenu, isMobile, expander }) => {
 
   return (
     <div
-      className="sidebar border-end-1"
+      className="sidebar"
       id="navbar"
       ref={expander}
       style={
         isMobile
           ? {
               width: toggleMenu ? '55%' : '0',
+              borderRight: !toggleMenu
+                ? '0'
+                : !isDarkMode
+                ? '1px solid #fbf6f6'
+                : '1px solid #383a3c',
             }
           : {
               width: toggleMenu ? '65px' : 'calc(65px + 8rem)',
+              borderRight: !isDarkMode
+                ? '1px solid #fbf6f6'
+                : '1px solid #383a3c',
             }
       }
     >
@@ -65,7 +74,8 @@ const Sidebar = ({ logo, toggleMenu, isMobile, expander }) => {
                   ? !toggleMenu
                     ? {
                         height: '100%',
-                        width: '90%',
+                        width: '100%',
+                        padding: '0 1.3rem',
                         objectFit: 'contain',
                         objectPosition: 'center',
                       }
@@ -77,7 +87,8 @@ const Sidebar = ({ logo, toggleMenu, isMobile, expander }) => {
                       }
                   : {
                       height: '100%',
-                      width: '90%',
+                      width: '100%',
+                      padding: '0 1.3rem',
                       objectFit: 'contain',
                       objectPosition: 'center',
                     }
@@ -88,7 +99,7 @@ const Sidebar = ({ logo, toggleMenu, isMobile, expander }) => {
         <li className="nav-item">
           <NavLink
             to={path.URLDashboard}
-            className="nav-link custom-nav-link"
+            className="nav-link custom-nav-link text-brand-cadet-blue"
             activeClassName="active"
             title="Dashboard"
           >
@@ -99,7 +110,7 @@ const Sidebar = ({ logo, toggleMenu, isMobile, expander }) => {
         <li className="nav-item">
           <NavLink
             to={path.URLProperty}
-            className="nav-link custom-nav-link"
+            className="nav-link custom-nav-link text-brand-cadet-blue"
             activeClassName="active"
             title="Property"
           >
@@ -110,7 +121,7 @@ const Sidebar = ({ logo, toggleMenu, isMobile, expander }) => {
         <li className="nav-item">
           <NavLink
             to={path.URLContact}
-            className="nav-link custom-nav-link"
+            className="nav-link custom-nav-link text-brand-cadet-blue"
             activeClassName="active"
             title="Contact"
           >
@@ -123,4 +134,4 @@ const Sidebar = ({ logo, toggleMenu, isMobile, expander }) => {
   );
 };
 
-export default Sidebar;
+export default withAuth(Sidebar);
