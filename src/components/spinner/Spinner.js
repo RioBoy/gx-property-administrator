@@ -20,7 +20,7 @@ const Spinner = ({ height, isInButton, children }) => {
         height,
       ].join(' ')}
     >
-      <div className="spinner-border text-primary-orange" role="status">
+      <div className="spinner-border text-brand-amber" role="status">
         <span className="visually-hidden">Loading...</span>
       </div>
     </div>

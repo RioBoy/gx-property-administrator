@@ -1,96 +1,123 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { Link, useHistory } from 'react-router-dom';
-import { confirmAlert } from 'react-confirm-alert';
+import { Link, useHistory, Redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { deleteContactById } from '../../lib/constant';
 import { LS_AUTH } from '../../config/localStorage';
+import * as path from '../../routes/path';
 import IdentityFile from '../../assets/images/identityFile.jpg';
 
 import { Buttons } from '../../components/button/Buttons';
+import ModalBox from '../../components/modal/ModalBox';
 import Layout from '../../components/templates/Layout';
 
-const DetailContact = () => {
+const ContactDetail = () => {
   const history = useHistory();
+  const [isLoading, setIsLoading] = useState(false);
+  const [showModalDelete, setShowModalDelete] = useState(false);
   const token = localStorage.getItem(LS_AUTH);
-  const { allContacts, contactId, urlParent } = history.location.state;
 
   const _handleDeleteContact = (id) => {
-    confirmAlert({
-      title: 'Confirm to delete',
-      message: 'Are you sure to do this.',
-      buttons: [
-        {
-          label: 'Yes',
-          onClick: () => {
-            axios({
-              method: 'post',
-              url: deleteContactById(id),
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            })
-              .then((response) => {
-                const { status, success } = response.data;
-                if (status === 'success') {
-                  toast(success.msg, {
-                    autoClose: 3000,
-                  });
-                  history.push(urlParent);
-                }
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-          },
-        },
-        {
-          label: 'No',
-          onClick: () => console.log('Batal'),
-        },
-      ],
-      closeOnClickOutside: false,
-    });
+    setIsLoading(true);
+    axios({
+      method: 'post',
+      url: deleteContactById(id),
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        const { status, success } = response.data;
+        if (status === 'success') {
+          toast(success.msg, {
+            autoClose: 3000,
+            type: 'success',
+          });
+          history.push(path.URLContact);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
-  const filteredContactById = allContacts?.filter(
-    (contact) => contact?.id === contactId,
+  const _handleShowModalDelete = () => setShowModalDelete(true);
+  const _handleCloseModalDelete = () => setShowModalDelete(false);
+
+  const filteredContactById = history.location.state?.allContacts?.filter(
+    (contact) => contact?.id === history.location.state?.contactId,
   )?.[0];
+
+  if (!filteredContactById || filteredContactById === undefined) {
+    return (
+      <Redirect
+        push
+        to={{
+          pathname: path.URLContact,
+          state: {
+            message: 'Contact not found',
+          },
+        }}
+      />
+    );
+  }
 
   return (
     <Layout title="Contact Management">
       <main className="contact-detail-content">
         <div className="row gap-3 gap-md-0">
-          <div className="col-12 col-md-6 order-1 order-md-0">
-            <h3 className="fw-semibold text-black-primary">Contact Detail</h3>
+          <div className="col-12 col-md-6">
+            <h3 className="fw-semibold text-brand-yankees text-center text-md-start">
+              Contact Detail
+            </h3>
           </div>
           <div className="col-12 col-md-6 d-md-flex align-items-center justify-content-end">
-            <div className="d-flex gap-3">
+            <div className="d-flex justify-content-center gap-3">
               <Link
                 to={{
-                  pathname: urlParent,
-                  state: { allContacts },
+                  pathname: path.URLContact,
+                  state: {
+                    allContacts: history.location.state?.allContacts,
+                  },
                 }}
-                className="fs-9 fw-semibold px-3 py-2 btn btn-secondary-green text-white"
+                className="fs-9 fw-semibold px-3 py-2 btn btn-brand-pastel-green text-white w-100"
               >
                 Back
               </Link>
               <Link
                 to={{
-                  pathname: `${urlParent}/edit/${contactId}`,
-                  state: { allContacts, contactId, urlParent },
+                  pathname: `${path.URLContactEdit(
+                    history.location.state?.contactId,
+                  )}`,
+                  state: {
+                    allContacts: history.location.state?.allContacts,
+                    contactId: history.location.state?.contactId,
+                  },
                 }}
-                className="fs-9 fw-semibold px-3 py-2 btn btn-primary-blue text-white"
+                className="fs-9 fw-semibold px-3 py-2 btn btn-brand-celtic text-white w-100"
               >
                 Edit
               </Link>
               <Buttons
                 type="button"
-                onClick={() => _handleDeleteContact(contactId)}
-                className="fs-9 fw-semibold px-3 py-2 btn btn-secondary-red text-white"
+                onClick={() => _handleShowModalDelete()}
+                className="fs-9 fw-semibold px-3 py-2 btn btn-brand-vivid text-white w-100"
               >
                 Delete
               </Buttons>
+              <ModalBox
+                show={showModalDelete}
+                _handleCloseModal={() => _handleCloseModalDelete()}
+                _handleActionModal={() =>
+                  _handleDeleteContact(history.location.state?.contactId)
+                }
+                isLoadingInButton={isLoading}
+              >
+                Delete
+              </ModalBox>
             </div>
           </div>
         </div>
@@ -99,15 +126,15 @@ const DetailContact = () => {
             <div className="card">
               <div className="row gap-3 gap-md-0">
                 <div className="col-12 col-md-9">
-                  <h4 className="fs-7 fw-semibold mb-0">
+                  <h4 className="fs-7 text-brand-yankees fw-semibold mb-0">
                     {filteredContactById?.name}
                   </h4>
-                  <p className="fw-normal text-secondary-gray mb-0">
+                  <p className="fw-normal text-brand-rhythm mb-0">
                     {filteredContactById?.email}
                   </p>
                 </div>
                 <div className="col-12 col-md-3 d-md-flex align-items-center justify-content-center">
-                  <span className="badge text-bg-third-green fs-10 fw-semibold text-white py-2 px-5 rounded-3">
+                  <span className="badge text-bg-brand-malachite fs-10 fw-semibold text-white py-2 px-5 rounded-3">
                     {filteredContactById?.type.display}
                   </span>
                 </div>
@@ -120,39 +147,39 @@ const DetailContact = () => {
             <div className="row">
               <div className="col">
                 <div className="card border-0 bg-white rounded-2 p-3 mb-0">
-                  <h5 className="fs-8 font-medium text-secondary-black mb-4">
+                  <h5 className="fs-8 font-medium text-brand-space-cadet mb-4">
                     Personal Data
                   </h5>
                   <div className="mb-3">
                     <label
                       htmlFor="fullname"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Full Name
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       {filteredContactById?.name}
                     </p>
                   </div>
                   <div className="mb-3">
                     <label
                       htmlFor="statuSalutation"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Status Salutation
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       {filteredContactById?.salutation}
                     </p>
                   </div>
                   <div className="mb-3">
                     <label
                       htmlFor="phoneNumber"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Phone Number
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       {filteredContactById?.phoneNumber === null
                         ? '-'
                         : filteredContactById?.phoneNumber}
@@ -161,18 +188,18 @@ const DetailContact = () => {
                   <div className="mb-3">
                     <label
                       htmlFor="identityNumber"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Identity Number
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       {filteredContactById?.identityNumber}
                     </p>
                   </div>
                   <div className="mb-3">
                     <label
                       htmlFor="identityNumberFile"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Identity Number File
                     </label>
@@ -185,11 +212,11 @@ const DetailContact = () => {
                   <div className="mb-3">
                     <label
                       htmlFor="address"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Address
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       Jl. Gunung Sanghyang No. 83, Kerobokan Kaja, Denpasar
                       Barat, Denpasar Kota, Bali
                     </p>
@@ -197,11 +224,11 @@ const DetailContact = () => {
                   <div className="mb-3">
                     <label
                       htmlFor="createdBy"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Created By
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       {filteredContactById?.createdBy === null
                         ? '-'
                         : filteredContactById?.createdBy.name}
@@ -216,17 +243,17 @@ const DetailContact = () => {
             <div className="row">
               <div className="col contact-company-detail">
                 <div className="card border-0 bg-white rounded-2 p-3 mb-0">
-                  <h5 className="fs-8 font-medium text-secondary-black mb-4">
+                  <h5 className="fs-8 font-medium text-brand-space-cadet mb-4">
                     Company Data
                   </h5>
                   <div className="mb-3">
                     <label
                       htmlFor="companyName"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Company Name
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       {filteredContactById?.companyName === null
                         ? '-'
                         : filteredContactById?.companyName}
@@ -235,11 +262,11 @@ const DetailContact = () => {
                   <div className="mb-3">
                     <label
                       htmlFor="companyName"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Company Tax Number
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       {filteredContactById?.companyNPWP === null
                         ? '-'
                         : filteredContactById?.companyNPWP}
@@ -248,11 +275,11 @@ const DetailContact = () => {
                   <div className="mb-3">
                     <label
                       htmlFor="companyName"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Company Address
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       {filteredContactById?.companyAddress === null
                         ? '-'
                         : filteredContactById?.companyAddress}
@@ -266,24 +293,24 @@ const DetailContact = () => {
             <div className="row other-data">
               <div className="col">
                 <div className="card border-0 bg-white rounded-2 p-3 mb-0">
-                  <h5 className="fs-8 font-medium text-secondary-black mb-4">
+                  <h5 className="fs-8 font-medium text-brand-space-cadet mb-4">
                     Other Data
                   </h5>
                   <div className="mb-3">
                     <label
                       htmlFor="taxNumber"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Owner tax number
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       {filteredContactById?.ownerTaxNumber.display}
                     </p>
                   </div>
                   <div className="mb-3">
                     <label
                       htmlFor="contactPreferences"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Contact Preferences
                     </label>
@@ -291,7 +318,7 @@ const DetailContact = () => {
                       filteredContactById?.contactPreferences.map(
                         (contact, i) => (
                           <p
-                            className="fw-normal text-primary-black mb-0"
+                            className="fw-normal text-brand-yankees mb-0"
                             key={i}
                           >
                             {contact.display}
@@ -299,7 +326,7 @@ const DetailContact = () => {
                         ),
                       )
                     ) : (
-                      <p className="fw-normal text-primary-black">
+                      <p className="fw-normal text-brand-yankees">
                         {filteredContactById?.contactPreferences[0].display}
                       </p>
                     )}
@@ -307,21 +334,21 @@ const DetailContact = () => {
                   <div className="mb-3">
                     <label
                       htmlFor="originContact"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Origin Contacts
                     </label>
                     {filteredContactById?.originContacts.length > 1 ? (
                       filteredContactById?.originContacts.map((origin, i) => (
                         <p
-                          className="fw-normal text-primary-black mb-0"
+                          className="fw-normal text-brand-yankees mb-0"
                           key={i}
                         >
                           {origin.display}
                         </p>
                       ))
                     ) : (
-                      <p className="fw-normal text-primary-black">
+                      <p className="fw-normal text-brand-yankees">
                         {filteredContactById?.originContacts[0].display}
                       </p>
                     )}
@@ -329,11 +356,11 @@ const DetailContact = () => {
                   <div className="mb-3">
                     <label
                       htmlFor="associateTo"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Associate To
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       {filteredContactById?.associateTo === null
                         ? '-'
                         : filteredContactById?.associateTo}
@@ -342,11 +369,11 @@ const DetailContact = () => {
                   <div className="mb-3">
                     <label
                       htmlFor="email"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Commission
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       {filteredContactById?.commission}%
                     </p>
                   </div>
@@ -356,28 +383,28 @@ const DetailContact = () => {
             <div className="row mt-4 contact-account">
               <div className="col">
                 <div className="card border-0 bg-white rounded-2 p-3 mb-0">
-                  <h5 className="fs-8 font-medium text-secondary-black mb-4">
+                  <h5 className="fs-8 font-medium text-brand-space-cadet mb-4">
                     Contact Account
                   </h5>
                   <div className="mb-3">
                     <label
                       htmlFor="contactType"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Contact Type
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       {filteredContactById?.type.display}
                     </p>
                   </div>
                   <div className="mb-3">
                     <label
                       htmlFor="email"
-                      className="fs-9 fw-normal text-secondary-gray mb-2"
+                      className="fs-9 fw-normal text-brand-rhythm mb-2"
                     >
                       Email Address
                     </label>
-                    <p className="fw-normal text-primary-black">
+                    <p className="fw-normal text-brand-yankees">
                       {filteredContactById?.email}
                     </p>
                   </div>
@@ -386,16 +413,16 @@ const DetailContact = () => {
                       <div className="col-6 col-lg-7">
                         <label
                           htmlFor="password"
-                          className="fs-9 fw-normal text-secondary-gray mb-2"
+                          className="fs-9 fw-normal text-brand-rhythm mb-2"
                         >
                           Current Password
                         </label>
-                        <p className="fw-normal text-primary-black">
+                        <p className="fw-normal text-brand-yankees">
                           •••••••••
                         </p>
                       </div>
                       <div className="col-6 col-lg-5 d-flex justify-content-end">
-                        <button className="fw-medium text-primary-blue border-0 bg-transparent">
+                        <button className="fw-medium text-brand-united-nations border-0 bg-transparent">
                           Change Password
                         </button>
                       </div>
@@ -411,4 +438,4 @@ const DetailContact = () => {
   );
 };
 
-export default DetailContact;
+export default ContactDetail;

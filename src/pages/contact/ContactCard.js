@@ -1,16 +1,36 @@
-import React from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Button } from 'react-bootstrap';
+import ModalBox from '../../components/modal/ModalBox';
 
 import Spinner from '../../components/spinner/Spinner';
 
 const ContactCard = ({
   isLoading,
+  isLoadingInButton,
   allContacts,
   _handleEditContact,
   _handleDeleteContact,
   _handleToDetail,
 }) => {
-  const { url } = useRouteMatch();
+  const [showModalDelete, setShowModalDelete] = useState(false);
+  const [selectedItem, setSelectedItem] = useState([]);
+
+  const _handleShowModalDelete = (contact, e) => {
+    e.stopPropagation();
+    setShowModalDelete(true);
+    setSelectedItem(contact);
+  };
+  const _handleCloseModalDelete = (e) => {
+    e.stopPropagation();
+    setShowModalDelete(false);
+    setSelectedItem([]);
+  };
+
+  useEffect(() => {
+    if (!isLoadingInButton) {
+      setShowModalDelete(false);
+    }
+  }, [isLoadingInButton]);
 
   return (
     <>
@@ -22,40 +42,47 @@ const ContactCard = ({
             <div className="col-12 col-md-6 col-lg-4 col-xl-3" key={contact.id}>
               <div
                 className="card w-100 mb-4"
-                onClick={(e) => _handleToDetail(contact.id, url, e)}
+                onClick={(e) => _handleToDetail(contact.id, e)}
               >
                 <div className="card-body">
-                  <h5 className="card-title fw-bold text-primary-black">
+                  <h5 className="card-title fw-bold text-brand-yankees">
                     {contact.name}
                   </h5>
-                  <h6 className="fs-9 text-secondary-gray card-subtitle mb-2 fw-medium">
+                  <h6 className="fs-9 text-brand-rhythm card-subtitle mb-2 fw-medium">
                     {contact.phoneNumber === null
                       ? 'Belum memiliki no handphone'
                       : contact.phoneNumber}
                   </h6>
-                  <p className="fs-9 text-secondary-gray card-text fw-medium mb-4">
+                  <p className="fs-9 text-brand-rhythm card-text fw-medium mb-4">
                     {contact.email}
                   </p>
                   <button
                     type="button"
-                    onClick={(e) => _handleEditContact(contact.id, url, e)}
-                    className="text-primary-blue mb-2 bg-transparent border-0"
+                    onClick={(e) => _handleEditContact(contact.id, e)}
+                    className="text-brand-united-nations mb-2 bg-transparent border-0"
                     title="Edit"
                   >
                     Edit
                   </button>
-                  <button
-                    type="button"
-                    onClick={(e) => _handleDeleteContact(contact.id, e)}
-                    className="text-primary-blue mb-2 bg-transparent border-0"
+                  <Button
+                    onClick={(e) => _handleShowModalDelete(contact, e)}
+                    className="text-brand-united-nations bg-transparent border-0"
                     title="Remove"
                   >
                     Remove
-                  </button>
+                  </Button>
                 </div>
               </div>
             </div>
           ))}
+          <ModalBox
+            show={showModalDelete}
+            _handleCloseModal={(e) => _handleCloseModalDelete(e)}
+            _handleActionModal={() => _handleDeleteContact(selectedItem.id)}
+            isLoadingInButton={isLoadingInButton}
+          >
+            Delete
+          </ModalBox>
         </>
       )}
     </>

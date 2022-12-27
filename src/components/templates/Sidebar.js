@@ -1,18 +1,18 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { FaRegUserCircle } from 'react-icons/fa';
 import { FiHome } from 'react-icons/fi';
+import { withAuth } from '../../context/Auth';
 import { TbLayoutDashboard } from 'react-icons/tb';
+import * as path from '../../routes/path';
 
-const Sidebar = ({ logo, toggleMenu, isMobile }) => {
-  const expander = useRef(null);
-
+const Sidebar = ({ logo, toggleMenu, isMobile, expander, isDarkMode }) => {
   useEffect(() => {
     if (expander.current) {
       expander.current.classList.toggle('expander');
     }
     document.body.id = 'body-pd';
-  }, [toggleMenu]);
+  }, [toggleMenu, expander]);
 
   const span = document?.querySelectorAll('.nav-link span');
   document.body.id = 'body-pd';
@@ -44,68 +44,89 @@ const Sidebar = ({ logo, toggleMenu, isMobile }) => {
       style={
         isMobile
           ? {
-              width: toggleMenu ? '92px' : '0',
+              width: toggleMenu ? '55%' : '0',
+              borderRight: !toggleMenu
+                ? '0'
+                : !isDarkMode
+                ? '1px solid #fbf6f6'
+                : '1px solid #383a3c',
             }
           : {
-              width: toggleMenu ? '92px' : 'calc(92px + 8rem)',
+              width: toggleMenu ? '65px' : 'calc(65px + 8rem)',
+              borderRight: !isDarkMode
+                ? '1px solid #fbf6f6'
+                : '1px solid #383a3c',
             }
       }
     >
       <ul className="navbar-nav">
         <Link
-          to="/dashboard"
+          to={path.URLDashboard}
           className="sidebar-brand d-flex align-items-center justify-content-center"
         >
           <div className="vbm-logo">
-            <img src={logo} alt="Logo" className="logo-dashboard" />
+            <img
+              src={logo}
+              alt="Logo"
+              className="logo-dashboard"
+              style={
+                !isMobile
+                  ? !toggleMenu
+                    ? {
+                        height: '100%',
+                        width: '100%',
+                        padding: '0 1.3rem',
+                        objectFit: 'contain',
+                        objectPosition: 'center',
+                      }
+                    : {
+                        height: '100%',
+                        width: '27px',
+                        objectFit: 'contain',
+                        objectPosition: 'center',
+                      }
+                  : {
+                      height: '100%',
+                      width: '100%',
+                      padding: '0 1.3rem',
+                      objectFit: 'contain',
+                      objectPosition: 'center',
+                    }
+              }
+            />
           </div>
         </Link>
         <li className="nav-item">
           <NavLink
-            to="/dashboard"
-            className="nav-link custom-nav-link"
+            to={path.URLDashboard}
+            className="nav-link custom-nav-link text-brand-cadet-blue"
             activeClassName="active"
             title="Dashboard"
           >
             <TbLayoutDashboard />
-            <span
-              className="fs-9 fw-normal"
-              style={{ display: isMobile ? 'none' : 'block' }}
-            >
-              Dasboard
-            </span>
+            <span className="fs-9 fw-normal">Dasboard</span>
           </NavLink>
         </li>
         <li className="nav-item">
           <NavLink
-            to="/property"
-            className="nav-link custom-nav-link"
+            to={path.URLProperty}
+            className="nav-link custom-nav-link text-brand-cadet-blue"
             activeClassName="active"
             title="Property"
           >
             <FiHome />
-            <span
-              className="fs-9 fw-normal"
-              style={{ display: isMobile ? 'none' : 'block' }}
-            >
-              Property
-            </span>
+            <span className="fs-9 fw-normal">Property</span>
           </NavLink>
         </li>
         <li className="nav-item">
           <NavLink
-            to="/contact"
-            className="nav-link custom-nav-link"
+            to={path.URLContact}
+            className="nav-link custom-nav-link text-brand-cadet-blue"
             activeClassName="active"
             title="Contact"
           >
             <FaRegUserCircle />
-            <span
-              className="fs-9 fw-normal"
-              style={{ display: isMobile ? 'none' : 'block' }}
-            >
-              Contact
-            </span>
+            <span className="fs-9 fw-normal">Contact</span>
           </NavLink>
         </li>
       </ul>
@@ -113,4 +134,4 @@ const Sidebar = ({ logo, toggleMenu, isMobile }) => {
   );
 };
 
-export default Sidebar;
+export default withAuth(Sidebar);

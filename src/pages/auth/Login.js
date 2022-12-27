@@ -1,11 +1,12 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { withAuth } from '../../context/Auth';
-import FormLogin from './FormLogin';
+import LoginForm from './LoginForm';
+import * as path from '../../routes/path';
 
 const Login = (props) => {
   if (props.isLoggedIn) {
-    return <Redirect push to="/dashboard" />;
+    return <Redirect push to={path.URLDashboard} />;
   }
 
   return (
@@ -17,13 +18,13 @@ const Login = (props) => {
             <h3 className="fs-1 fw-normal text-white">
               "Without hard work, nothing grows but weeds."
             </h3>
-            <h6 className="fw-semibold text-primary-gray">
+            <h6 className="fw-semibold text-brand-anti-flash">
               Gordon B. Hinckley
             </h6>
           </div>
         </div>
       </div>
-      <FormLogin />
+      <LoginForm />
     </div>
   );
 };

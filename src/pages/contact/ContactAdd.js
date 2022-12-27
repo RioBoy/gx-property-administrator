@@ -1,22 +1,21 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
-import Select from 'react-select';
 import { toast } from 'react-toastify';
+import Select from 'react-select';
+import { addNewContact } from '../../lib/constant';
 import { MdOutlinePhotoSizeSelectActual } from 'react-icons/md';
-import { updateContactById } from '../../lib/constant';
-import { LS_AUTH } from '../../config/localStorage';
-import ImagePlaceholderDefault from '../../assets/images/image-placeholder-default.jpg';
+import { withAuth } from '../../context/Auth';
+import * as path from '../../routes/path';
 
-import { Buttons } from '../../components/button/Buttons';
 import Spinner from '../../components/spinner/Spinner';
+import { Buttons } from '../../components/button/Buttons';
 import Layout from '../../components/templates/Layout';
 
-const EditContact = () => {
+const ContactAdd = ({ isDarkMode }) => {
   const history = useHistory();
-  const [updateContact, setUpdateContact] = useState({
+  const [addContact, setAddContact] = useState({
     name: '',
-    parentId: 1, // default
     salutation: '',
     email: '',
     password: '', // empty
@@ -32,7 +31,7 @@ const EditContact = () => {
     identityPhoto: '',
     originContacts: [],
     associateTo: '',
-    commission: 15,
+    commission: 15, // default
     companyName: '',
     companyNPWP: '',
     companyAddress: '',
@@ -41,15 +40,13 @@ const EditContact = () => {
   const fileRef = useRef(null);
   const [file, setFile] = useState('');
   const [filePreview, setFilePreview] = useState(null);
-  const [filePreviewUpdate, setFilePreviewUpdate] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
   const [isError, setIsError] = useState('');
   const [isRadio, setIsRadio] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { urlParent } = history.location.state;
 
   const _handleOnChange = (event) => {
-    setUpdateContact((state) => ({
+    setAddContact((state) => ({
       ...state,
       [event.target.name]: event.target.value,
     }));
@@ -62,7 +59,7 @@ const EditContact = () => {
   };
 
   const _handleMultipleValue = (value, action) => {
-    setUpdateContact((state) => ({
+    setAddContact((state) => ({
       ...state,
       [action.name]: value,
     }));
@@ -70,7 +67,7 @@ const EditContact = () => {
 
   const _handleIsChecked = () => {
     if (isChecked || isRadio === 'yes') {
-      setUpdateContact((state) => ({
+      setAddContact((state) => ({
         ...state,
         companyName: '',
         companyNPWP: '',
@@ -81,8 +78,8 @@ const EditContact = () => {
   };
 
   const _handleRadioChange = (event) => {
-    if (isRadio !== 'yes' || updateContact.ownerTaxNumber !== 'yes') {
-      setUpdateContact((state) => ({
+    if (isRadio !== 'yes' || addContact.ownerTaxNumber !== 'yes') {
+      setAddContact((state) => ({
         ...state,
         NPWP: '',
         associateTo: '',
@@ -95,35 +92,31 @@ const EditContact = () => {
     setIsRadio(event.target.value);
   };
 
-  const _handleSubmitUpdateContact = (e) => {
+  const _handleSubmitContact = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const token = localStorage.getItem(LS_AUTH);
-    const updatePayload = {
-      ...updateContact,
-      identityPhoto: file,
-      originContacts: updateContact.originContacts.map(
-        (origin) => origin.value,
-      ),
-      contactPreferences: updateContact.contactPreferences.map(
-        (preferences) => preferences.value,
-      ),
-      ownerTaxNumber: isRadio,
-    };
     axios({
       method: 'post',
-      url: updateContactById(history.location.state.contactId),
+      url: addNewContact,
       headers: {
-        Authorization: `Bearer ${token}`,
         'Content-Type': 'multipart/form-data',
       },
-      data: updatePayload,
+      data: {
+        ...addContact,
+        identityPhoto: file,
+        originContacts: addContact.originContacts.map((origin) => origin.value),
+        contactPreferences: addContact.contactPreferences.map(
+          (preferences) => preferences.value,
+        ),
+        ownerTaxNumber: isRadio,
+      },
     })
       .then((response) => {
         const { status, error, success } = response.data;
         if (status === 'error') {
           toast(error.msg, {
             autoClose: 3000,
+            type: 'error',
           });
           setIsError((state) => ({
             ...state,
@@ -132,9 +125,9 @@ const EditContact = () => {
         } else {
           toast(success.msg, {
             autoClose: 3000,
+            type: 'success',
           });
-          history.push(urlParent);
-          setUpdateContact([]);
+          history.push(path.URLContact);
         }
       })
       .catch((error) => {
@@ -144,60 +137,6 @@ const EditContact = () => {
         setIsLoading(false);
       });
   };
-
-  const { allContacts, contactId } = history.location.state;
-
-  const filteredUpdateContactById = allContacts?.filter(
-    (contact) => contact?.id === contactId,
-  )?.[0];
-
-  useEffect(() => {
-    if (
-      filteredUpdateContactById.companyName !== '' &&
-      filteredUpdateContactById.companyName !== null
-    ) {
-      setIsChecked(true);
-    }
-    setUpdateContact((state) => ({
-      ...state,
-      name: filteredUpdateContactById.name,
-      // parentId
-      salutation: filteredUpdateContactById.salutation,
-      email: filteredUpdateContactById.email,
-      // password
-      type: filteredUpdateContactById.type.display,
-      // language
-      country: filteredUpdateContactById.country.code,
-      residence: filteredUpdateContactById.residence,
-      phoneNumber: filteredUpdateContactById.phoneNumber,
-      contactPreferences: filteredUpdateContactById.contactPreferences.map(
-        (preferences) => {
-          return {
-            value: preferences.name,
-            label: preferences.display,
-          };
-        },
-      ),
-      // ownerTaxNumber
-      NPWP: filteredUpdateContactById.NPWP,
-      identityNumber: filteredUpdateContactById.identityNumber,
-      // identityPhoto
-      originContacts: filteredUpdateContactById.originContacts.map((origin) => {
-        return {
-          value: origin.name,
-          label: origin.display,
-        };
-      }),
-      associateTo: filteredUpdateContactById.commission,
-      commission: filteredUpdateContactById.commission,
-      companyName: filteredUpdateContactById.companyName,
-      companyNPWP: filteredUpdateContactById.companyNPWP,
-      companyAddress: filteredUpdateContactById.companyAddress,
-      other: filteredUpdateContactById.other,
-    }));
-    setFilePreviewUpdate(filteredUpdateContactById.identityPhoto);
-    setIsRadio(filteredUpdateContactById.ownerTaxNumber.name);
-  }, [filteredUpdateContactById]);
 
   const objectData = (id, value) => {
     return {
@@ -250,28 +189,31 @@ const EditContact = () => {
   return (
     <Layout title="Contact Management">
       <main className="h-auto add-contact-content">
-        <form onSubmit={_handleSubmitUpdateContact} method="post">
+        <form onSubmit={_handleSubmitContact} method="post">
           <section className="section-1">
             <div className="card bg-white border-0 rounded-2">
               <div className="card-header bg-white border-0 mb-2 py-3 px-3">
-                <h5 className="fs-8 fw-medium text-secondary-black mb-0">
+                <h5 className="fs-8 fw-medium text-brand-space-cadet mb-0">
                   Contact Account Information
                 </h5>
               </div>
               <div className="card-body">
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
-                    <label htmlFor="name" className="col-form-label fw-bold">
+                  <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
+                    <label
+                      htmlFor="name"
+                      className="text-brand-yankees col-form-label fw-bold"
+                    >
                       Fullname
                     </label>
-                    <span className="fs-10 fw-normal badge text-bg-primary-gray rounded-2 px-2">
+                    <span className="fs-10 fw-normal text-brand-yankees badge text-bg-brand-anti-flash rounded-2 px-2">
                       Required
                     </span>
                   </div>
-                  <div className="col-9">
+                  <div className="col-12 col-lg-9">
                     <input
-                      value={updateContact.name}
                       onChange={_handleOnChange}
+                      value={addContact.name}
                       name="name"
                       type="text"
                       id="name"
@@ -279,8 +221,8 @@ const EditContact = () => {
                       placeholder="Type fullname here"
                     />
                     {requiredParam('name').length > 0 &&
-                    updateContact.name === '' ? (
-                      <span className="fs-9 text-secondary-red d-block mt-2">
+                    addContact.name === '' ? (
+                      <span className="fs-9 text-brand-vivid d-block mt-2">
                         {requiredParam('name')[0]?.message}
                       </span>
                     ) : (
@@ -289,23 +231,23 @@ const EditContact = () => {
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
+                  <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
                     <label
                       htmlFor="salutation"
-                      className="col-form-label fw-bold"
+                      className="text-brand-yankees col-form-label fw-bold"
                     >
                       Status Salutation
                     </label>
-                    <span className="fs-10 fw-normal badge text-bg-primary-gray rounded-2 px-2">
+                    <span className="fs-10 fw-normal text-brand-yankees badge text-bg-brand-anti-flash rounded-2 px-2">
                       Required
                     </span>
                   </div>
-                  <div className="col-9">
+                  <div className="col-12 col-lg-9">
                     <select
                       onChange={_handleOnChange}
-                      value={updateContact.salutation}
+                      value={addContact.salutation}
                       name="salutation"
-                      className="form-select text-primary-black"
+                      className="form-select text-brand-yankees"
                       id="salutation"
                     >
                       <option value="">Select Status Salutation</option>
@@ -316,8 +258,8 @@ const EditContact = () => {
                       ))}
                     </select>
                     {requiredParam('salutation').length > 0 &&
-                    updateContact.salutation === '' ? (
-                      <span className="fs-9 text-secondary-red d-block mt-2">
+                    addContact.salutation === '' ? (
+                      <span className="fs-9 text-brand-vivid d-block mt-2">
                         {requiredParam('salutation')[0]?.message}
                       </span>
                     ) : (
@@ -326,20 +268,23 @@ const EditContact = () => {
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
-                    <label htmlFor="type" className="col-form-label fw-bold">
+                  <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
+                    <label
+                      htmlFor="type"
+                      className="text-brand-yankees col-form-label fw-bold"
+                    >
                       Contact Type
                     </label>
-                    <span className="fs-10 fw-normal badge text-bg-primary-gray rounded-2 px-2">
+                    <span className="fs-10 fw-normal text-brand-yankees badge text-bg-brand-anti-flash rounded-2 px-2">
                       Required
                     </span>
                   </div>
-                  <div className="col-9">
+                  <div className="col-12 col-lg-9">
                     <select
                       onChange={_handleOnChange}
-                      value={updateContact.type}
+                      value={addContact.type}
                       name="type"
-                      className="form-select text-primary-black"
+                      className="form-select text-brand-yankees"
                       id="type"
                     >
                       <option value="">Select Contact Type</option>
@@ -350,8 +295,8 @@ const EditContact = () => {
                       ))}
                     </select>
                     {requiredParam('type').length > 0 &&
-                    updateContact.type === '' ? (
-                      <span className="fs-9 text-secondary-red d-block mt-2">
+                    addContact.type === '' ? (
+                      <span className="fs-9 text-brand-vivid d-block mt-2">
                         {requiredParam('type')[0]?.message}
                       </span>
                     ) : (
@@ -360,17 +305,20 @@ const EditContact = () => {
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
-                    <label htmlFor="country" className="col-form-label fw-bold">
+                  <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
+                    <label
+                      htmlFor="country"
+                      className="text-brand-yankees col-form-label fw-bold"
+                    >
                       Country
                     </label>
                   </div>
-                  <div className="col-9">
+                  <div className="col-12 col-lg-9">
                     <select
                       onChange={_handleOnChange}
-                      value={updateContact.country}
+                      value={addContact.country}
                       name="country"
-                      className="form-select text-primary-black"
+                      className="form-select text-brand-yankees"
                       id="country"
                     >
                       <option value="">Select Country</option>
@@ -383,18 +331,18 @@ const EditContact = () => {
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
+                  <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
                     <label
                       htmlFor="residence"
-                      className="col-form-label fw-bold"
+                      className="text-brand-yankees col-form-label fw-bold"
                     >
                       Address
                     </label>
                   </div>
-                  <div className="col-9">
+                  <div className="col-12 col-lg-9">
                     <textarea
                       onChange={_handleOnChange}
-                      value={updateContact.residence}
+                      value={addContact.residence}
                       name="residence"
                       className="form-control"
                       id="residence"
@@ -409,27 +357,27 @@ const EditContact = () => {
           <section className="section-2">
             <div className="card bg-white border-0 rounded-2">
               <div className="card-header bg-white border-0 mb-2 py-3 px-3">
-                <h5 className="fs-8 fw-medium text-secondary-black mb-0">
+                <h5 className="fs-8 fw-medium text-brand-space-cadet mb-0">
                   Contact Information
                 </h5>
               </div>
               <div className="card-body">
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
+                  <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
                     <label
                       htmlFor="identityNumber"
-                      className="col-form-label fw-bold"
+                      className="text-brand-yankees col-form-label fw-bold"
                     >
                       Identity Number
                     </label>
-                    <span className="fs-10 fw-normal badge text-bg-primary-gray rounded-2 px-2">
+                    <span className="fs-10 fw-normal text-brand-yankees badge text-bg-brand-anti-flash rounded-2 px-2">
                       Required
                     </span>
                   </div>
-                  <div className="col-9">
+                  <div className="col-12 col-lg-9">
                     <input
                       onChange={_handleOnChange}
-                      value={updateContact.identityNumber}
+                      value={addContact.identityNumber}
                       name="identityNumber"
                       type="text"
                       id="identityNumber"
@@ -437,35 +385,40 @@ const EditContact = () => {
                       placeholder="e.g 5288252258888852"
                     />
                     {requiredParam('identityNumber').length > 0 && (
-                      <span className="fs-9 text-secondary-red d-block mt-2">
+                      <span className="fs-9 text-brand-vivid d-block mt-2">
                         {requiredParam('identityNumber')[0]?.message}
                       </span>
                     )}
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
+                  <div className="col-12 col-lg-3 d-flex flex-column flex-md-row gap-2 align-self-start">
                     <label
                       htmlFor="identityPhoto"
-                      className="col-form-label fw-bold"
+                      className="text-brand-yankees col-form-label fw-bold"
                     >
                       Upload Identity Number
                     </label>
                   </div>
-                  <div className="col-9">
+                  <div className="col-12 col-lg-9">
                     <div className="input-group input-file-upload">
                       <input
                         ref={fileRef}
                         accept="image/*"
                         onChange={(e) => _handleImageUpload(e)}
-                        value={updateContact.identityPhoto}
+                        value={addContact.identityPhoto}
                         name="identityPhoto"
                         type="file"
                         id="identityPhoto"
                         className="d-none"
                       />
                       {file === '' && (
-                        <label htmlFor="identityPhoto">
+                        <label
+                          htmlFor="identityPhoto"
+                          className={
+                            !isDarkMode ? 'text-brand-cadet-blue' : 'text-white'
+                          }
+                        >
                           <MdOutlinePhotoSizeSelectActual size="24" />
                           Upload File (Pdf, Png, Jpg)
                         </label>
@@ -477,37 +430,31 @@ const EditContact = () => {
                         className="form-control rounded-2 text-start text-start"
                       />
                     </div>
-                    {filePreview ? (
+                    {filePreview && (
                       <img
                         src={filePreview}
                         alt="Preview"
-                        className="mt-2 image-preview"
-                      />
-                    ) : (
-                      <img
-                        src={filePreviewUpdate ? ImagePlaceholderDefault : ''}
-                        alt={filePreviewUpdate ? 'Preview' : ''}
                         className="mt-2 image-preview"
                       />
                     )}
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
+                  <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
                     <label
                       htmlFor="phoneNumber"
-                      className="col-form-label fw-bold"
+                      className="text-brand-yankees col-form-label fw-bold"
                     >
                       Phone Number
                     </label>
-                    <span className="fs-10 fw-normal badge text-bg-primary-gray rounded-2 px-2">
+                    <span className="fs-10 fw-normal text-brand-yankees badge text-bg-brand-anti-flash rounded-2 px-2">
                       Required
                     </span>
                   </div>
-                  <div className="col-9">
+                  <div className="col-12 col-lg-9">
                     <input
                       onChange={_handleOnChange}
-                      value={updateContact.phoneNumber || ''}
+                      value={addContact.phoneNumber}
                       name="phoneNumber"
                       type="text"
                       id="phoneNumber"
@@ -515,25 +462,28 @@ const EditContact = () => {
                       placeholder="e.g 082255569999"
                     />
                     {requiredParam('phoneNumber').length > 0 && (
-                      <span className="fs-9 text-secondary-red d-block mt-2">
+                      <span className="fs-9 text-brand-vivid d-block mt-2">
                         {requiredParam('phoneNumber')[0]?.message}
                       </span>
                     )}
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
-                    <label htmlFor="email" className="col-form-label fw-bold">
+                  <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
+                    <label
+                      htmlFor="email"
+                      className="text-brand-yankees col-form-label fw-bold"
+                    >
                       Email
                     </label>
-                    <span className="fs-10 fw-normal badge text-bg-primary-gray rounded-2 px-2">
+                    <span className="fs-10 fw-normal text-brand-yankees badge text-bg-brand-anti-flash rounded-2 px-2">
                       Required
                     </span>
                   </div>
-                  <div className="col-9">
+                  <div className="col-12 col-lg-9">
                     <input
                       onChange={_handleOnChange}
-                      value={updateContact.email}
+                      value={addContact.email}
                       name="email"
                       type="text"
                       id="email"
@@ -541,66 +491,78 @@ const EditContact = () => {
                       placeholder="e.g john@example.com"
                     />
                     {requiredParam('email').length > 0 && (
-                      <span className="fs-9 text-secondary-red d-block mt-2">
+                      <span className="fs-9 text-brand-vivid d-block mt-2">
                         {requiredParam('email')[0]?.message}
                       </span>
                     )}
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
+                  <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
                     <label
                       htmlFor="contactPreferences"
-                      className="col-form-label fw-bold"
+                      className="text-brand-yankees col-form-label fw-bold"
                     >
                       Contact Preferences
                     </label>
                   </div>
-                  <div className="col-9">
+                  <div className="col-12 col-lg-9">
                     <Select
                       name="contactPreferences"
                       id="contactPreferences"
-                      value={updateContact.contactPreferences}
-                      onChange={_handleMultipleValue}
+                      value={addContact.contactPreferences}
                       options={contactPreferences.map((preferences) => {
                         return {
                           value: preferences.value,
                           label: preferences.label,
                         };
                       })}
+                      onChange={_handleMultipleValue}
                       isMulti
+                      styles={{
+                        control: (baseStyles, state) => ({
+                          ...baseStyles,
+                          backgroundColor: isDarkMode ? '#23282c' : '#fff',
+                        }),
+                      }}
                     />
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
+                  <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
                     <label
                       htmlFor="originContacts"
-                      className="col-form-label fw-bold"
+                      className="text-brand-yankees col-form-label fw-bold"
                     >
                       Contact Origin
                     </label>
-                    <span className="fs-10 fw-normal badge text-bg-primary-gray rounded-2 px-2">
+                    <span className="fs-10 fw-normal text-brand-yankees badge text-bg-brand-anti-flash rounded-2 px-2">
                       Required
                     </span>
                   </div>
-                  <div className="col-9">
+                  <div className="col-12 col-lg-9">
                     <Select
                       name="originContacts"
                       id="originContacts"
-                      value={updateContact.originContacts}
-                      onChange={_handleMultipleValue}
+                      value={addContact.originContacts}
                       options={originContacts.map((origin) => {
                         return {
                           value: origin.value,
                           label: origin.label,
                         };
                       })}
+                      onChange={_handleMultipleValue}
                       isMulti
+                      styles={{
+                        control: (baseStyles, state) => ({
+                          ...baseStyles,
+                          backgroundColor: isDarkMode ? '#23282c' : '#fff',
+                        }),
+                      }}
                     />
                     {requiredParam('originContacts').length > 0 &&
-                    updateContact.originContacts.length === 0 ? (
-                      <span className="fs-9 text-secondary-red d-block mt-2">
+                    addContact.originContacts.length === 0 ? (
+                      <span className="fs-9 text-brand-vivid d-block mt-2">
                         {requiredParam('originContacts')[0]?.message}
                       </span>
                     ) : (
@@ -609,15 +571,15 @@ const EditContact = () => {
                   </div>
                 </div>
                 <div className="row g-3 align-items-center">
-                  <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
+                  <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center align-items-md-center">
                     <label
                       htmlFor="ownerTaxNumber"
-                      className="col-form-label fw-bold"
+                      className="text-brand-yankees col-form-label fw-bold"
                     >
                       Owner Tax Number
                     </label>
                   </div>
-                  <div className="col-9">
+                  <div className="col-12 col-lg-9">
                     <div className="d-flex flex-column flex-md-row gap-4 align-items-start align-items-md-center">
                       <div className="form-check">
                         <input
@@ -630,7 +592,7 @@ const EditContact = () => {
                           checked={isRadio === 'yes'}
                         />
                         <label
-                          className="form-check-label"
+                          className="text-brand-yankees form-check-label"
                           htmlFor="ownerTaxNumber"
                         >
                           Have NPWP
@@ -647,7 +609,7 @@ const EditContact = () => {
                           checked={isRadio === 'no'}
                         />
                         <label
-                          className="form-check-label"
+                          className="text-brand-yankees form-check-label"
                           htmlFor="ownerTaxNumber"
                         >
                           Don't have NPWP
@@ -664,7 +626,7 @@ const EditContact = () => {
                           checked={isRadio === 'process'}
                         />
                         <label
-                          className="form-check-label"
+                          className="text-brand-yankees form-check-label"
                           htmlFor="ownerTaxNumber"
                         >
                           Can Be Processed
@@ -676,18 +638,18 @@ const EditContact = () => {
                 {isRadio === 'yes' && (
                   <>
                     <div className="row g-3 align-items-center">
-                      <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
+                      <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
                         <label
                           htmlFor="NPWP"
-                          className="col-form-label fw-bold"
+                          className="text-brand-yankees col-form-label fw-bold"
                         >
                           Tax Number
                         </label>
                       </div>
-                      <div className="col-9">
+                      <div className="col-12 col-lg-9">
                         <input
                           onChange={_handleOnChange}
-                          value={updateContact.NPWP}
+                          value={addContact.NPWP}
                           name="NPWP"
                           type="text"
                           id="NPWP"
@@ -697,18 +659,18 @@ const EditContact = () => {
                       </div>
                     </div>
                     <div className="row g-3 align-items-center">
-                      <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
+                      <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
                         <label
                           htmlFor="associateTo"
-                          className="col-form-label fw-bold"
+                          className="text-brand-yankees col-form-label fw-bold"
                         >
                           Associate To
                         </label>
                       </div>
-                      <div className="col-9">
+                      <div className="col-12 col-lg-9">
                         <input
                           onChange={_handleOnChange}
-                          value={updateContact.associateTo}
+                          value={addContact.associateTo}
                           name="associateTo"
                           type="number"
                           id="associateTo"
@@ -716,9 +678,9 @@ const EditContact = () => {
                           placeholder="Search Contact"
                         />
                         {(requiredParam('associateTo').length > 0 &&
-                          updateContact.associateTo === '') ||
-                        updateContact.associateTo === null ? (
-                          <span className="fs-9 text-secondary-red d-block mt-2">
+                          addContact.associateTo === '') ||
+                        addContact.associateTo === null ? (
+                          <span className="fs-9 text-brand-vivid d-block mt-2">
                             {requiredParam('associateTo')[0]?.message}
                           </span>
                         ) : (
@@ -727,27 +689,26 @@ const EditContact = () => {
                       </div>
                     </div>
                     <div className="row g-3 align-items-center">
-                      <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
+                      <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
                         <label
                           htmlFor="isCompany"
-                          className="col-form-label fw-bold"
+                          className="text-brand-yankees col-form-label fw-bold"
                         >
                           Company Info
                         </label>
                       </div>
-                      <div className="col-9">
+                      <div className="col-12 col-lg-9">
                         <div className="form-check">
                           <input
                             onChange={_handleIsChecked}
                             value={isChecked}
-                            checked={isChecked}
                             name="isCompany"
                             className="form-check-input"
                             type="checkbox"
                             id="isCompany"
                           />
                           <label
-                            className="form-check-label"
+                            className="text-brand-yankees form-check-label"
                             htmlFor="isCompany"
                           >
                             Is Company ?
@@ -758,21 +719,21 @@ const EditContact = () => {
                     {isChecked && (
                       <>
                         <div className="row g-3 align-items-center">
-                          <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
+                          <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
                             <label
                               htmlFor="companyName"
-                              className="col-form-label fw-bold"
+                              className="text-brand-yankees col-form-label fw-bold"
                             >
                               Company Name
                             </label>
-                            <span className="fs-10 fw-normal badge text-bg-primary-gray rounded-2 px-2">
+                            <span className="fs-10 fw-normal badge text-brand-yankees badge text-bg-brand-anti-flash rounded-2 px-2">
                               Required
                             </span>
                           </div>
-                          <div className="col-9">
+                          <div className="col-12 col-lg-9">
                             <input
                               onChange={_handleOnChange}
-                              value={updateContact.companyName}
+                              value={addContact.companyName}
                               name="companyName"
                               type="text"
                               id="companyName"
@@ -782,18 +743,18 @@ const EditContact = () => {
                           </div>
                         </div>
                         <div className="row g-3 align-items-center">
-                          <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
+                          <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
                             <label
                               htmlFor="companyNPWP"
-                              className="col-form-label fw-bold"
+                              className="text-brand-yankees col-form-label fw-bold"
                             >
                               Company Tax Number
                             </label>
                           </div>
-                          <div className="col-9">
+                          <div className="col-12 col-lg-9">
                             <input
                               onChange={_handleOnChange}
-                              value={updateContact.companyNPWP}
+                              value={addContact.companyNPWP}
                               name="companyNPWP"
                               type="text"
                               id="companyNPWP"
@@ -803,21 +764,21 @@ const EditContact = () => {
                           </div>
                         </div>
                         <div className="row g-3 align-items-center">
-                          <div className="col-3 d-flex flex-column flex-md-row gap-2 align-items-center">
+                          <div className="col-12 col-lg-3 d-flex flex-row gap-2 align-items-center">
                             <label
                               htmlFor="companyAddress"
-                              className="col-form-label fw-bold"
+                              className="text-brand-yankees col-form-label fw-bold"
                             >
                               Company Address
                             </label>
-                            <span className="fs-10 fw-normal badge text-bg-primary-gray rounded-2 px-2">
+                            <span className="fs-10 fw-normal badge text-brand-yankees badge text-bg-brand-anti-flash rounded-2 px-2">
                               Required
                             </span>
                           </div>
-                          <div className="col-9">
+                          <div className="col-12 col-lg-9">
                             <input
                               onChange={_handleOnChange}
-                              value={updateContact.companyAddress}
+                              value={addContact.companyAddress}
                               name="companyAddress"
                               type="text"
                               id="companyAddress"
@@ -833,18 +794,43 @@ const EditContact = () => {
               </div>
             </div>
           </section>
-          <section className="section-3 shadow-lg">
+          <section
+            className={[
+              'section-3',
+              !isDarkMode ? 'shadow-lg' : 'shadow-dark',
+            ].join(' ')}
+          >
             <div className="row">
               <div className="col d-flex gap-4 justify-content-end align-items-center">
-                <Link
-                  to={{
-                    pathname: urlParent,
-                    state: { allContacts },
-                  }}
-                  className="btn btn-bg-white border text-primary-black fw-medium px-3 py-2"
-                >
-                  Cancel
-                </Link>
+                {isLoading ? (
+                  <Buttons
+                    type="button"
+                    className="btn btn-bg-white border text-brand-yankees fw-medium px-3 py-2"
+                    isDisabled
+                    style={
+                      isLoading
+                        ? {
+                            cursor: 'not-allowed',
+                            pointerEvents: 'all',
+                          }
+                        : {}
+                    }
+                  >
+                    Cancel
+                  </Buttons>
+                ) : (
+                  <Link
+                    to={{
+                      pathname: path.URLContact,
+                      state: {
+                        allContacts: history.location.state?.allContacts,
+                      },
+                    }}
+                    className="btn btn-bg-white border text-brand-yankees fw-medium px-3 py-2"
+                  >
+                    Cancel
+                  </Link>
+                )}
                 <Buttons
                   type="submit"
                   isPrimary
@@ -866,4 +852,4 @@ const EditContact = () => {
   );
 };
 
-export default EditContact;
+export default withAuth(ContactAdd);
