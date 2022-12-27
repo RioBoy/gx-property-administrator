@@ -1,9 +1,4 @@
-import React, {
-  useEffect,
-  useLayoutEffect,
-  useState,
-  useCallback,
-} from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { LS_AUTH } from '../../config/localStorage';
@@ -15,7 +10,7 @@ import DetailPropertyImage from '../../assets/images/detail-property.jpg';
 import ImagePlaceholderDefault from '../../assets/images/image-placeholder-default.jpg';
 
 import Spinner from '../../components/spinner/Spinner';
-import DetailPropertyPreviewMap from './DetailPropertyPreviewMap';
+import PropertyDetailPreviewMap from './PropertyDetailPreviewMap';
 
 const DetailPropertyCard = () => {
   const [propertyDetail, setPropertyDetail] = useState([]);
@@ -24,14 +19,6 @@ const DetailPropertyCard = () => {
   const history = useHistory();
   const id = history.location.state.propertyId;
   const token = localStorage.getItem(LS_AUTH);
-
-  useLayoutEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth',
-    });
-  }, [history.location.key]);
 
   const getPropertDetailData = useCallback(() => {
     setIsLoading(true);
@@ -97,45 +84,45 @@ const DetailPropertyCard = () => {
             <div className="col-12 col-lg-8">
               <div className="row gap-3 gap-md-0 justify-content-between">
                 <div className="col">
-                  <h5 className="fw-semibold text-secondary-black mb-2">
+                  <h5 className="fw-semibold text-brand-space-cadet mb-2">
                     {propertyDetail.property?.building
                       ? propertyDetail.property?.building.name
                       : propertyDetail.property?.land.name}
                   </h5>
-                  <p className="fw-normal text-dark-blue mb-2">
+                  <p className="fw-normal text-brand-independence mb-2">
                     {propertyDetail.property?.ownershipStatus.display} •{' '}
                     {propertyDetail.property?.type.display}
                   </p>
-                  <p className="fs-9 fw-normal text-secondary-gray mt-1 mb-2">
+                  <p className="fs-9 fw-normal text-brand-rhythm mt-1 mb-2">
                     ID Property
                   </p>
-                  <p className="fs-9 fw-normal mb-3">
+                  <p className="fs-9 fw-normal text-brand-rhythm mb-3">
                     {propertyDetail.property?.number}
                   </p>
                   <div className="d-flex gap-4">
                     <div className="created-on me-1">
-                      <p className="fs-9 fw-normal text-secondary-gray mb-2">
+                      <p className="fs-9 fw-normal text-brand-rhythm mb-2">
                         Created on
                       </p>
-                      <p className="fs-9 fw-normal mb-0">
+                      <p className="fs-9 fw-normal text-brand-rhythm mb-0">
                         {propertyDetail.property?.createdAt}
                       </p>
                     </div>
                     <div className="entried-by">
-                      <p className="fs-9 fw-normal text-secondary-gray mb-2">
+                      <p className="fs-9 fw-normal text-brand-rhythm mb-2">
                         Entried by
                       </p>
-                      <p className="fs-9 fw-normal mb-0">
+                      <p className="fs-9 fw-normal text-brand-yankees mb-0">
                         {propertyDetail.property?.createdBy.name}
                       </p>
                     </div>
                   </div>
                   {propertyDetail.property?.status.name === 'pending' ? (
-                    <span className="fw-normal text-primary-black rounded-2 badge text-bg-primary-yellow px-2">
+                    <span className="fw-normal text-brand-yankees rounded-2 badge text-bg-brand-crayola px-2">
                       {propertyDetail.property?.status.display}
                     </span>
                   ) : propertyDetail.property?.status.name === 'approved' ? (
-                    <span className="fw-normal text-white rounded-2 badge text-bg-primary-green px-2">
+                    <span className="fw-normal text-white rounded-2 badge text-bg-brand-mountain-meadow px-2">
                       {propertyDetail.property?.status.display}
                     </span>
                   ) : (
@@ -145,7 +132,7 @@ const DetailPropertyCard = () => {
                   )}
                 </div>
                 <div className="col d-flex justify-content-start justify-content-md-end">
-                  <h4 className="fs-7 fw-semibold text-primary-orange">
+                  <h4 className="fs-7 fw-semibold text-brand-amber">
                     IDR{' '}
                     {propertyDetail.property?.priceManagement.IDR
                       .finalEstimation.publicPrice
@@ -163,24 +150,26 @@ const DetailPropertyCard = () => {
             </div>
           </div>
           <div className="row section-3 gap-3 gap-xl-0">
-            <div className="col-12 col-lg-7 col-xl-8 card">
+            <div className="col-12 col-lg-7 col-xl-8 card px-0">
               <Tabs
                 defaultActiveKey="home"
                 id="uncontrolled-tab-example"
                 className="mb-3"
               >
-                <Tab eventKey="home" title="Main Info">
+                <Tab eventKey="home" title="Main Info" className="px-3">
                   <div className="row">
-                    <h5 className="fw-semibold mb-3">General Info</h5>
+                    <h5 className="fw-semibold text-brand-yankees mb-3">
+                      General Info
+                    </h5>
                     <div className="col-12">
                       <div className="mb-3">
                         <label
                           htmlFor="contactName"
-                          className="fs-9 fw-normal text-secondary-gray mb-1"
+                          className="fs-9 fw-normal text-brand-rhythm mb-1"
                         >
                           Contact
                         </label>
-                        <p className="fw-normal text-primary-black">
+                        <p className="fw-normal text-brand-yankees">
                           {propertyDetail.property?.building?.contacts?.length >
                           0
                             ? 'Nama contact'
@@ -192,11 +181,11 @@ const DetailPropertyCard = () => {
                       <div className="mb-3">
                         <label
                           htmlFor="villaType"
-                          className="fs-9 fw-normal text-secondary-gray mb-1"
+                          className="fs-9 fw-normal text-brand-rhythm mb-1"
                         >
                           Villa Type
                         </label>
-                        <p className="fw-normal text-primary-black">
+                        <p className="fw-normal text-brand-yankees">
                           {
                             propertyDetail.property?.location.area.types[0].type
                               .display
@@ -210,11 +199,11 @@ const DetailPropertyCard = () => {
                       <div className="mb-3">
                         <label
                           htmlFor="landSize"
-                          className="fs-9 fw-normal text-secondary-gray mb-1"
+                          className="fs-9 fw-normal text-brand-rhythm mb-1"
                         >
                           Land Size
                         </label>
-                        <p className="fw-normal text-primary-black">
+                        <p className="fw-normal text-brand-yankees">
                           {propertyDetail.property?.building
                             ? propertyDetail.property?.building.landSize
                             : propertyDetail.property?.land.totalLandSize}{' '}
@@ -226,11 +215,11 @@ const DetailPropertyCard = () => {
                       <div className="mb-3">
                         <label
                           htmlFor="fullname"
-                          className="fs-9 fw-normal text-secondary-gray mb-1"
+                          className="fs-9 fw-normal text-brand-rhythm mb-1"
                         >
                           Villa Total Size
                         </label>
-                        <p className="fw-normal text-primary-black">18 sqm</p>
+                        <p className="fw-normal text-brand-yankees">18 sqm</p>
                       </div>
                     </div>
                   </div>
@@ -239,22 +228,22 @@ const DetailPropertyCard = () => {
                       <div className="mb-3">
                         <label
                           htmlFor="fullname"
-                          className="fs-9 fw-normal text-secondary-gray mb-1"
+                          className="fs-9 fw-normal text-brand-rhythm mb-1"
                         >
                           Year Build
                         </label>
-                        <p className="fw-normal text-primary-black">2018</p>
+                        <p className="fw-normal text-brand-yankees">2018</p>
                       </div>
                     </div>
                     <div className="col-12 col-md-6">
                       <div className="mb-3">
                         <label
                           htmlFor="fullname"
-                          className="fs-9 fw-normal text-secondary-gray mb-1"
+                          className="fs-9 fw-normal text-brand-rhythm mb-1"
                         >
                           Year of Renovation
                         </label>
-                        <p className="fw-normal text-primary-black">2020</p>
+                        <p className="fw-normal text-brand-yankees">2020</p>
                       </div>
                     </div>
                   </div>
@@ -263,22 +252,22 @@ const DetailPropertyCard = () => {
                       <div className="mb-3">
                         <label
                           htmlFor="fullname"
-                          className="fs-9 fw-normal text-secondary-gray mb-1"
+                          className="fs-9 fw-normal text-brand-rhythm mb-1"
                         >
                           NPWPD
                         </label>
-                        <p className="fw-normal text-primary-black">Yes</p>
+                        <p className="fw-normal text-brand-yankees">Yes</p>
                       </div>
                     </div>
                     <div className="col-12">
                       <div className="mb-3">
                         <label
                           htmlFor="fullname"
-                          className="fs-9 fw-normal text-secondary-gray mb-1"
+                          className="fs-9 fw-normal text-brand-rhythm mb-1"
                         >
                           Roof Type
                         </label>
-                        <p className="fw-normal text-primary-black">
+                        <p className="fw-normal text-brand-yankees">
                           Alang - alang
                         </p>
                       </div>
@@ -291,22 +280,22 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Does it have IMB?
                             </label>
-                            <p className="fw-normal text-primary-black">Yes</p>
+                            <p className="fw-normal text-brand-yankees">Yes</p>
                           </div>
                         </div>
                         <div className="col-12">
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               IMB Type
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               Label
                             </p>
                           </div>
@@ -315,11 +304,11 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Valid Until
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               Label
                             </p>
                           </div>
@@ -329,7 +318,7 @@ const DetailPropertyCard = () => {
                     <div className="col-12 col-md-6">
                       <label
                         htmlFor="fullname"
-                        className="fs-9 fw-normal text-secondary-gray mb-1"
+                        className="fs-9 fw-normal text-brand-rhythm mb-1"
                       >
                         IMB Image
                       </label>
@@ -341,18 +330,20 @@ const DetailPropertyCard = () => {
                     </div>
                   </div>
                   <div className="row mb-5">
-                    <h5 className="fw-semibold mb-3">Location</h5>
+                    <h5 className="fw-semibold text-brand-yankees mb-3">
+                      Location
+                    </h5>
                     <div className="col-12 col-md-6">
                       <div className="row">
                         <div className="col-12">
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Location
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               label
                             </p>
                           </div>
@@ -361,11 +352,11 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Meeting Point
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               Label
                             </p>
                           </div>
@@ -374,11 +365,11 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Area
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               Label
                             </p>
                           </div>
@@ -387,11 +378,11 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Notes
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               Label
                             </p>
                           </div>
@@ -401,26 +392,28 @@ const DetailPropertyCard = () => {
                     <div className="col-12 col-md-6 position-relative">
                       <label
                         htmlFor="fullname"
-                        className="fs-9 fw-normal text-secondary-gray mb-1"
+                        className="fs-9 fw-normal text-brand-rhythm mb-1"
                       >
                         Preview Map
                       </label>
-                      <DetailPropertyPreviewMap
+                      <PropertyDetailPreviewMap
                         location={history.location.state}
                       />
                     </div>
                   </div>
                   <div className="row mb-5">
-                    <h5 className="fw-semibold mb-3">Room</h5>
+                    <h5 className="fw-semibold text-brand-yankees mb-3">
+                      Room
+                    </h5>
                     <div className="col-12">
                       <div className="mb-3">
                         <label
                           htmlFor="fullname"
-                          className="fs-9 fw-normal text-secondary-gray mb-1"
+                          className="fs-9 fw-normal text-brand-rhythm mb-1"
                         >
                           Floor
                         </label>
-                        <p className="fw-normal text-primary-black">24 are</p>
+                        <p className="fw-normal text-brand-yankees">24 are</p>
                       </div>
                     </div>
                     <div className="col-12">
@@ -429,11 +422,11 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Total Room
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               24 are
                             </p>
                           </div>
@@ -442,11 +435,11 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Total Bathroom
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               24 are
                             </p>
                           </div>
@@ -457,22 +450,22 @@ const DetailPropertyCard = () => {
                       <div className="mb-3">
                         <label
                           htmlFor="fullname"
-                          className="fs-9 fw-normal text-secondary-gray mb-1"
+                          className="fs-9 fw-normal text-brand-rhythm mb-1"
                         >
                           Living Room
                         </label>
-                        <p className="fw-normal text-primary-black">24 are</p>
+                        <p className="fw-normal text-brand-yankees">24 are</p>
                       </div>
                     </div>
                     <div className="col-12">
                       <div className="mb-3">
                         <label
                           htmlFor="fullname"
-                          className="fs-9 fw-normal text-secondary-gray mb-1"
+                          className="fs-9 fw-normal text-brand-rhythm mb-1"
                         >
                           Other Room
                         </label>
-                        <p className="fw-normal text-primary-black">
+                        <p className="fw-normal text-brand-yankees">
                           Security Room
                         </p>
                       </div>
@@ -483,11 +476,11 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Room Circulation
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               Open but can be closed
                             </p>
                           </div>
@@ -496,11 +489,11 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               AC
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               With AC
                             </p>
                           </div>
@@ -509,18 +502,20 @@ const DetailPropertyCard = () => {
                     </div>
                   </div>
                   <div className="row">
-                    <h5 className="fw-semibold mb-3">Amenities</h5>
+                    <h5 className="fw-semibold text-brand-yankees mb-3">
+                      Amenities
+                    </h5>
                     <div className="col-12 col-md-6">
                       <div className="row">
                         <div className="col-12">
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Building Configuration
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               Complex
                             </p>
                           </div>
@@ -529,11 +524,11 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Does it have Pool?
                             </label>
-                            <p className="fw-normal text-primary-black">Yes</p>
+                            <p className="fw-normal text-brand-yankees">Yes</p>
                           </div>
                         </div>
                       </div>
@@ -544,11 +539,11 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Other Room in Residence
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               Storage
                             </p>
                           </div>
@@ -557,11 +552,11 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Pool Size
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               7 meters x 4 meters
                             </p>
                           </div>
@@ -570,11 +565,11 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Pool Type
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               Overflow 1
                             </p>
                           </div>
@@ -587,22 +582,22 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Does it have Jacuzzi?
                             </label>
-                            <p className="fw-normal text-primary-black">Yes</p>
+                            <p className="fw-normal text-brand-yankees">Yes</p>
                           </div>
                         </div>
                         <div className="col-12">
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Garden Type
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               Tropycal
                             </p>
                           </div>
@@ -611,11 +606,11 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Parking Plot
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               Garage
                             </p>
                           </div>
@@ -628,11 +623,11 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Jacuzzi Size
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               1 meters x 1 meters
                             </p>
                           </div>
@@ -641,11 +636,11 @@ const DetailPropertyCard = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="fullname"
-                              className="fs-9 fw-normal text-secondary-gray mb-1"
+                              className="fs-9 fw-normal text-brand-rhythm mb-1"
                             >
                               Outdoor Amenities
                             </label>
-                            <p className="fw-normal text-primary-black">
+                            <p className="fw-normal text-brand-yankees">
                               Outside Bar
                             </p>
                           </div>
@@ -654,72 +649,75 @@ const DetailPropertyCard = () => {
                     </div>
                   </div>
                 </Tab>
-                <Tab eventKey="profile" title="Facilities">
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Omnis tempore aut fuga voluptates quo maiores illo inventore
-                  sequi ratione aspernatur facilis qui suscipit, exercitationem
-                  deserunt laborum quia ipsum voluptate, quis consectetur illum
-                  tempora veniam itaque obcaecati. Animi, vero adipisci
-                  excepturi similique debitis dignissimos itaque cum repellendus
-                  deleniti atque a doloremque nemo sit, laborum necessitatibus
-                  voluptatem hic optio! Perspiciatis et hic ratione animi
-                  perferendis alias aliquid, illo iusto deleniti veritatis,
-                  consectetur esse voluptates enim. Itaque natus ut corporis ad.
-                  Id, eum. Quos minus eius temporibus vero vitae beatae quia,
-                  consectetur itaque. Laborum provident beatae accusantium
-                  commodi facere blanditiis necessitatibus dolorum, dolore
-                  laudantium ex iusto harum tenetur fuga totam eius quis autem.
-                  Ex quasi voluptatem neque, sint consequatur nisi iure,
-                  molestias quae ullam necessitatibus culpa maiores corporis
-                  modi, quia nemo earum tenetur blanditiis! Qui iusto nobis quod
-                  corrupti possimus ullam laboriosam quos excepturi, quae
-                  doloribus repudiandae a debitis vero, nostrum mollitia impedit
-                  minus? Voluptas eius maxime alias aspernatur velit adipisci
-                  nihil laboriosam maiores? Sint iusto qui accusantium
-                  voluptates perspiciatis facilis cumque hic asperiores quam
-                  assumenda totam itaque minima corporis beatae voluptatem quasi
-                  repudiandae eum, omnis atque repellat praesentium obcaecati?
-                  Odio non, quasi cumque maxime accusantium ea culpa laborum
-                  dolorum, doloribus voluptates vel error similique mollitia
-                  eligendi harum, vitae ipsam dolorem atque. Beatae ipsam,
-                  excepturi accusantium, rem illum consequuntur at quam nam
-                  itaque sunt eveniet voluptate exercitationem iusto aliquid
-                  omnis provident porro corrupti optio facere, quaerat quod.
-                  Rerum illo vitae similique minima iure aliquam saepe repellat
-                  adipisci corrupti sed maiores odit eveniet doloribus quos
-                  ullam possimus dolore debitis sint, doloremque optio et quasi!
-                  Esse nam repellat eos autem aperiam placeat provident adipisci
-                  expedita tempore eius numquam consectetur culpa quisquam ipsa
-                  ullam voluptas, molestiae optio quasi quidem sint
-                  reprehenderit tenetur ratione. Dignissimos ipsum aspernatur et
-                  reprehenderit harum? Dolor provident quidem obcaecati dicta,
-                  dolore sapiente similique mollitia beatae tempora nobis eos
-                  animi commodi doloremque earum sunt optio consequatur eius
-                  laudantium aspernatur dolorem! Deleniti sapiente vel
-                  voluptates obcaecati necessitatibus eius, enim recusandae
-                  facilis aliquam magni ullam praesentium, natus atque molestiae
-                  omnis nostrum temporibus nam architecto ad. Natus, autem
-                  voluptas? Qui iste dolore quibusdam atque tempora error eos
-                  molestias, perferendis ipsa, nulla, similique eum veniam.
-                  Laboriosam, dolorum dolor. Corporis, hic? Impedit quas
-                  accusamus commodi praesentium cumque molestiae blanditiis non
-                  consectetur vitae, neque ab, voluptatibus in inventore quos
-                  animi iste incidunt libero temporibus repellendus perferendis
-                  ea laboriosam qui unde. Iste minus consectetur excepturi
-                  earum. Laboriosam minima amet dolore nemo vitae facere earum
-                  ipsum nihil repudiandae fugit quis adipisci corporis magni
-                  debitis mollitia nobis dicta, voluptas deserunt atque aliquam
-                  esse odio! Commodi obcaecati deserunt at illum explicabo
-                  fugiat doloremque, a ullam. Quis maiores quaerat distinctio,
-                  expedita soluta nobis. Deserunt, error, commodi recusandae
-                  enim ut saepe ab impedit pariatur nulla aperiam molestiae,
-                  voluptatem aut libero. Provident nam, excepturi tempore sunt
-                  quod corrupti suscipit a hic dicta? Ut totam cumque, quia
-                  maiores tempore commodi quisquam, natus dolores, aliquid
-                  voluptates vitae placeat! Ad accusantium esse explicabo
-                  perspiciatis nemo praesentium possimus aliquid officia id
-                  similique beatae animi saepe officiis ex, neque consequuntur
-                  quas.
+                <Tab eventKey="profile" title="Facilities" className="px-3">
+                  <p className="text-brand-yankees">
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    Omnis tempore aut fuga voluptates quo maiores illo inventore
+                    sequi ratione aspernatur facilis qui suscipit,
+                    exercitationem deserunt laborum quia ipsum voluptate, quis
+                    consectetur illum tempora veniam itaque obcaecati. Animi,
+                    vero adipisci excepturi similique debitis dignissimos itaque
+                    cum repellendus deleniti atque a doloremque nemo sit,
+                    laborum necessitatibus voluptatem hic optio! Perspiciatis et
+                    hic ratione animi perferendis alias aliquid, illo iusto
+                    deleniti veritatis, consectetur esse voluptates enim. Itaque
+                    natus ut corporis ad. Id, eum. Quos minus eius temporibus
+                    vero vitae beatae quia, consectetur itaque. Laborum
+                    provident beatae accusantium commodi facere blanditiis
+                    necessitatibus dolorum, dolore laudantium ex iusto harum
+                    tenetur fuga totam eius quis autem. Ex quasi voluptatem
+                    neque, sint consequatur nisi iure, molestias quae ullam
+                    necessitatibus culpa maiores corporis modi, quia nemo earum
+                    tenetur blanditiis! Qui iusto nobis quod corrupti possimus
+                    ullam laboriosam quos excepturi, quae doloribus repudiandae
+                    a debitis vero, nostrum mollitia impedit minus? Voluptas
+                    eius maxime alias aspernatur velit adipisci nihil laboriosam
+                    maiores? Sint iusto qui accusantium voluptates perspiciatis
+                    facilis cumque hic asperiores quam assumenda totam itaque
+                    minima corporis beatae voluptatem quasi repudiandae eum,
+                    omnis atque repellat praesentium obcaecati? Odio non, quasi
+                    cumque maxime accusantium ea culpa laborum dolorum,
+                    doloribus voluptates vel error similique mollitia eligendi
+                    harum, vitae ipsam dolorem atque. Beatae ipsam, excepturi
+                    accusantium, rem illum consequuntur at quam nam itaque sunt
+                    eveniet voluptate exercitationem iusto aliquid omnis
+                    provident porro corrupti optio facere, quaerat quod. Rerum
+                    illo vitae similique minima iure aliquam saepe repellat
+                    adipisci corrupti sed maiores odit eveniet doloribus quos
+                    ullam possimus dolore debitis sint, doloremque optio et
+                    quasi! Esse nam repellat eos autem aperiam placeat provident
+                    adipisci expedita tempore eius numquam consectetur culpa
+                    quisquam ipsa ullam voluptas, molestiae optio quasi quidem
+                    sint reprehenderit tenetur ratione. Dignissimos ipsum
+                    aspernatur et reprehenderit harum? Dolor provident quidem
+                    obcaecati dicta, dolore sapiente similique mollitia beatae
+                    tempora nobis eos animi commodi doloremque earum sunt optio
+                    consequatur eius laudantium aspernatur dolorem! Deleniti
+                    sapiente vel voluptates obcaecati necessitatibus eius, enim
+                    recusandae facilis aliquam magni ullam praesentium, natus
+                    atque molestiae omnis nostrum temporibus nam architecto ad.
+                    Natus, autem voluptas? Qui iste dolore quibusdam atque
+                    tempora error eos molestias, perferendis ipsa, nulla,
+                    similique eum veniam. Laboriosam, dolorum dolor. Corporis,
+                    hic? Impedit quas accusamus commodi praesentium cumque
+                    molestiae blanditiis non consectetur vitae, neque ab,
+                    voluptatibus in inventore quos animi iste incidunt libero
+                    temporibus repellendus perferendis ea laboriosam qui unde.
+                    Iste minus consectetur excepturi earum. Laboriosam minima
+                    amet dolore nemo vitae facere earum ipsum nihil repudiandae
+                    fugit quis adipisci corporis magni debitis mollitia nobis
+                    dicta, voluptas deserunt atque aliquam esse odio! Commodi
+                    obcaecati deserunt at illum explicabo fugiat doloremque, a
+                    ullam. Quis maiores quaerat distinctio, expedita soluta
+                    nobis. Deserunt, error, commodi recusandae enim ut saepe ab
+                    impedit pariatur nulla aperiam molestiae, voluptatem aut
+                    libero. Provident nam, excepturi tempore sunt quod corrupti
+                    suscipit a hic dicta? Ut totam cumque, quia maiores tempore
+                    commodi quisquam, natus dolores, aliquid voluptates vitae
+                    placeat! Ad accusantium esse explicabo perspiciatis nemo
+                    praesentium possimus aliquid officia id similique beatae
+                    animi saepe officiis ex, neque consequuntur quas.
+                  </p>
                 </Tab>
               </Tabs>
             </div>
@@ -737,7 +735,7 @@ const DetailPropertyCard = () => {
                       className="rounded-circle"
                     />
                     <div className="user-history">
-                      <p className="fs-9 text-primary-black mb-1">
+                      <p className="fs-9 text-brand-yankees mb-1">
                         <span className="fw-semibold mt-0 ps-0">
                           {propertyHistory.createdBy}
                         </span>{' '}
@@ -747,7 +745,7 @@ const DetailPropertyCard = () => {
                         </span>{' '}
                         with customer
                       </p>
-                      <p className="fs-10 text-third-gray">
+                      <p className="fs-10 text-brand-cadet-blue">
                         {propertyHistory.createdAt}
                       </p>
                     </div>

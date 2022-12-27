@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withAuth } from '../../context/Auth';
 import { Link } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
@@ -6,28 +6,54 @@ import {
   HiOutlineMoon,
   HiOutlineArrowCircleLeft,
   HiOutlineUser,
+  HiOutlineSun,
 } from 'react-icons/hi';
+import * as path from '../../routes/path';
 
 import { Buttons } from '../button/Buttons';
+import ModalBox from '../modal/ModalBox';
 
-const Topbar = ({ icon, avatar, title, logout, toggleMenu, isMobile }) => {
+const Topbar = ({
+  icon,
+  avatar,
+  title,
+  logout,
+  toggleMenu,
+  isMobile,
+  isLoading,
+  isDarkMode,
+  _handleChangeTheme,
+}) => {
+  const [showModalLogout, setShowModalLogout] = useState(false);
+
+  const _handleShowModalLogout = () => setShowModalLogout(true);
+  const _handleCloseModalLogout = () => setShowModalLogout(false);
+
   return (
     <nav
-      className="navbar navbar-expand-lg topbar justify-content-between shadow-sm border-start-2"
+      className={[
+        'navbar navbar-expand-lg topbar justify-content-between',
+        !isDarkMode ? 'shadow-sm' : 'shadow-dark',
+      ].join(' ')}
       style={
         isMobile
           ? {
-              left: toggleMenu ? '92px' : '0',
+              left: '0',
             }
           : {
-              left: toggleMenu ? '92px' : 'calc(92px + 8rem)',
+              left: toggleMenu ? '65px' : 'calc(65px + 8rem)',
             }
       }
     >
       <ul className="navbar-nav side-nav">
         <li className="nav-item">{icon}</li>
-        <li className="nav-item d-none d-md-block">
-          <h5 className="fw-normal navbar-brand text-primary-black mb-0">
+        <li className="nav-item">
+          <h5
+            className={[
+              'fw-normal navbar-brand mb-0',
+              !isDarkMode ? 'text-brand-yankees' : 'text-white',
+            ].join(' ')}
+          >
             {title}
           </h5>
         </li>
@@ -46,34 +72,57 @@ const Topbar = ({ icon, avatar, title, logout, toggleMenu, isMobile }) => {
             />
           </Dropdown.Toggle>
           <Dropdown.Menu className="shadow border-0">
-            <h6 className="dropdown-header fs-10 fw-semibold text-third-gray text-uppercase mb-2">
+            <h6 className="dropdown-header fs-10 fw-semibold text-brand-cadet-blue text-uppercase mb-2">
               Version 1.0.0
             </h6>
             <Link
-              to="/profile"
-              className="fw-medium text-secondary-gray text-decoration-none d-flex align-items-center"
+              to={path.URLProfile}
+              className="fw-medium text-brand-rhythm text-decoration-none d-flex align-items-center"
             >
-              <HiOutlineUser size={44} className="text-secondary-gray" />
+              <HiOutlineUser
+                size={isMobile ? 35 : 44}
+                className="text-brand-rhythm"
+              />
               Profile
-            </Link>
-            <Link
-              to="/darkmode"
-              className="fw-medium text-secondary-gray text-decoration-none d-flex align-items-center"
-            >
-              <HiOutlineMoon size={44} className="text-secondary-gray" />
-              Dark Mode
             </Link>
             <Buttons
               type="button"
-              onClick={() => logout()}
-              className="fw-medium text-secondary-gray text-decoration-none d-flex align-items-center border-0 bg-transparent w-100"
+              onClick={() => _handleChangeTheme()}
+              className="fw-medium text-brand-rhythm text-decoration-none d-flex align-items-center border-0 bg-transparent w-100"
+            >
+              {!isDarkMode ? (
+                <HiOutlineMoon
+                  size={isMobile ? 35 : 44}
+                  className="text-brand-rhythm"
+                />
+              ) : (
+                <HiOutlineSun
+                  size={isMobile ? 35 : 44}
+                  className="text-brand-rhythm"
+                />
+              )}
+              {!isDarkMode ? 'Dark Mode' : 'Light Mode'}
+            </Buttons>
+            <Buttons
+              type="button"
+              onClick={() => _handleShowModalLogout()}
+              className="fw-medium text-brand-rhythm text-decoration-none d-flex align-items-center border-0 bg-transparent w-100"
             >
               <HiOutlineArrowCircleLeft
-                size={44}
-                className="text-secondary-gray p-2"
+                size={isMobile ? 35 : 44}
+                className="text-brand-rhythm p-2"
               />
               Logout
             </Buttons>
+            <ModalBox
+              show={showModalLogout}
+              _handleCloseModal={_handleCloseModalLogout}
+              _handleActionModal={() => logout()}
+              isLoadingInButton={isLoading}
+              isLogout
+            >
+              Logout
+            </ModalBox>
           </Dropdown.Menu>
         </Dropdown>
       </ul>
