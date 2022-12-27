@@ -1,3 +1,19 @@
+// form input
+input {
+  &.form-control {
+    height: 40px !important;
+
+    &:focus {
+      border-color: #acadc1 !important;
+      box-shadow: none !important;
+    }
+  }
+}
+
+select {
+  height: 40px !important;
+}
+
 // login
 .container-login {
   display: grid;

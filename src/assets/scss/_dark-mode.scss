@@ -45,6 +45,21 @@
   @import './layout';
   @import './responsive';
 
+  input {
+    &.form-control {
+      height: 40px !important;
+
+      &:focus {
+        border-color: #acadc1 !important;
+        box-shadow: none !important;
+      }
+    }
+  }
+
+  select {
+    height: 40px !important;
+  }
+
   .topbar,
   .sidebar,
   .card,

@@ -523,6 +523,46 @@ const ContactAdd = ({ isDarkMode }) => {
                         control: (baseStyles, state) => ({
                           ...baseStyles,
                           backgroundColor: isDarkMode ? '#23282c' : '#fff',
+                          height: '40px',
+                          borderColor: state.isFocused ? '#ced4da' : '#ced4da',
+                          boxShadow: state.isFocused ? null : null,
+                          ':hover': {
+                            borderColor: '#ced4da',
+                          },
+                        }),
+                        valueContainer: (baseStyles, state) => ({
+                          ...baseStyles,
+                          height: '40px',
+                          boxShadow: state.isFocused ? null : null,
+                        }),
+                        indicatorSeparator: (state) => ({
+                          display: 'none',
+                        }),
+                        menu: (baseStyles, state) => ({
+                          ...baseStyles,
+                          backgroundColor: isDarkMode ? '#23282c' : '#fff',
+                          color: isDarkMode ? '#fff' : '#23282c',
+                          boxShadow: isDarkMode
+                            ? '0px 7px 29px 0px rgba(0, 0, 0, 0.3)'
+                            : '2px 4px 9px rgba(24, 37, 92, 0.15)',
+                          borderRadius: '8px',
+                        }),
+                        option: (baseStyles, state) => ({
+                          ...baseStyles,
+                          backgroundColor: state.isFocused
+                            ? isDarkMode
+                              ? '#fff'
+                              : '#2684ff'
+                            : null,
+                          color: state.isFocused
+                            ? isDarkMode
+                              ? '#23282c'
+                              : '#fff'
+                            : null,
+                          ':hover': {
+                            backgroundColor: isDarkMode ? '#fff' : '#2684ff',
+                            color: isDarkMode ? '#23282c' : '#fff',
+                          },
                         }),
                       }}
                     />
@@ -557,6 +597,46 @@ const ContactAdd = ({ isDarkMode }) => {
                         control: (baseStyles, state) => ({
                           ...baseStyles,
                           backgroundColor: isDarkMode ? '#23282c' : '#fff',
+                          height: '40px',
+                          borderColor: state.isFocused ? '#ced4da' : '#ced4da',
+                          boxShadow: state.isFocused ? null : null,
+                          ':hover': {
+                            borderColor: '#ced4da',
+                          },
+                        }),
+                        valueContainer: (baseStyles, state) => ({
+                          ...baseStyles,
+                          height: '40px',
+                          boxShadow: state.isFocused ? null : null,
+                        }),
+                        indicatorSeparator: (state) => ({
+                          display: 'none',
+                        }),
+                        menu: (baseStyles, state) => ({
+                          ...baseStyles,
+                          backgroundColor: isDarkMode ? '#23282c' : '#fff',
+                          color: isDarkMode ? '#fff' : '#23282c',
+                          boxShadow: isDarkMode
+                            ? '0px 7px 29px 0px rgba(0, 0, 0, 0.3)'
+                            : '2px 4px 9px rgba(24, 37, 92, 0.15)',
+                          borderRadius: '8px',
+                        }),
+                        option: (baseStyles, state) => ({
+                          ...baseStyles,
+                          backgroundColor: state.isFocused
+                            ? isDarkMode
+                              ? '#fff'
+                              : '#2684ff'
+                            : null,
+                          color: state.isFocused
+                            ? isDarkMode
+                              ? '#23282c'
+                              : '#fff'
+                            : null,
+                          ':hover': {
+                            backgroundColor: isDarkMode ? '#fff' : '#2684ff',
+                            color: isDarkMode ? '#23282c' : '#fff',
+                          },
                         }),
                       }}
                     />
